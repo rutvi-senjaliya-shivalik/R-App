@@ -62,13 +62,6 @@ const Setting = (props: any) => {
 
             {/* Menu Items */}
             <View style={[SettingStyles.section, { marginTop: 16 }]}>
-              {/* <TouchableOpacity
-                style={SettingStyles.menuItem}
-                onPress={() => { props.navigation.navigate('Profile') }}>
-                <Text style={SettingStyles.menuText}>Your profile</Text>
-                <Image source={IMAGES.BACK} style={SettingStyles.chevron} />
-              </TouchableOpacity> */}
-
               <TouchableOpacity
                 style={SettingStyles.menuItem}
                 onPress={() => { props.navigation.navigate('PersonalDetails') }}>
@@ -82,15 +75,6 @@ const Setting = (props: any) => {
                 style={SettingStyles.menuItem}
                 onPress={() => { props.navigation.navigate('ProfessionalDetails') }}>
                 <Text style={SettingStyles.menuText}>Professional Details</Text>
-                <Image source={IMAGES.BACK} style={SettingStyles.chevron} />
-              </TouchableOpacity>
-
-            </View>
-            <View style={[SettingStyles.section, { marginTop: 0 }]}>
-              <TouchableOpacity
-                style={SettingStyles.menuItem}
-                onPress={() => { props.navigation.navigate('PropertyDetails') }}>
-                <Text style={SettingStyles.menuText}>Property Details</Text>
                 <Image source={IMAGES.BACK} style={SettingStyles.chevron} />
               </TouchableOpacity>
             </View>
