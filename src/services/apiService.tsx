@@ -36,9 +36,12 @@ export async function MakeApiRequest({
 }: ApiRequestProps): Promise<AxiosResponse<any>> {
 
   const token = await PrefManager.getValue(STRING.TOKEN);
+
+  console.log('token::', token);
+
   const headers = {
    'Content-Type': apiHeaders['Content-Type'] || 'application/json',
-      Authorization: token && token ? token: undefined,
+      ...(token ? { Authorization: token } : {}),
     ...apiHeaders,
   };
 

@@ -10,6 +10,7 @@ import { userDetailAction } from '../../store/actions/auth/userDetailAction';
 import { selectUserDetailData } from '../../store/selectors/auth';
 import { Camera } from 'react-native-vision-camera';
 import Geolocation from 'react-native-geolocation-service';
+import { Screens } from '../../types';
 
 const Home = (props: any) => {
   const dispatch = useDispatch() as any;
@@ -149,6 +150,10 @@ const Home = (props: any) => {
       label: 'Territory',
       image: Images.TERRITORY,
     },
+    {
+      label: 'Society',
+      image: Images.TERRITORY,
+    },
   ];
 
   const renderItem = ({ item }: any) => {
@@ -178,8 +183,9 @@ const Home = (props: any) => {
           else if (item.label === 'Desk') {
             props.navigation.navigate('Desk');
           }
-
-          else {
+          else if (item.label === 'Society') {
+            props.navigation.navigate(Screens.societyService);
+          } else {
             Alert.alert(
               'Coming Soon',
               'We’ll be introducing this feature soon.',

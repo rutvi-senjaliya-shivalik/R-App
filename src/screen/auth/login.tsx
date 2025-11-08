@@ -109,7 +109,7 @@ const Login = ({ navigation }: any) => {
       // Original API flow for other numbers
       const payload = {
         countryCode: countryCode,
-        phoneNumber: mobileNumber,
+        mobileNumber: mobileNumber,
       };
 
       const response = await dispatch(loginAction(payload));
@@ -118,7 +118,7 @@ const Login = ({ navigation }: any) => {
         console.log('Login Success', response.data);
         // Navigate to OTP screen with phone number
         navigation.navigate('OtpScreen', {
-          phoneNumber: mobileNumber,
+          mobileNumber: mobileNumber,
           countryCode: countryCode,
         });
       } else {

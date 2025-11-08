@@ -10,6 +10,7 @@ PODS:
   - hermes-engine (0.80.0):
     - hermes-engine/Pre-built (= 0.80.0)
   - hermes-engine/Pre-built (0.80.0)
+  - InputMask (6.1.0)
   - RCT-Folly (2024.11.18.00):
     - boost
     - DoubleConversion
@@ -1889,9 +1890,9 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - react-native-maps (1.26.1):
-    - react-native-maps/Maps (= 1.26.1)
-  - react-native-maps/Generated (1.26.1):
+  - react-native-maps (1.25.0):
+    - react-native-maps/Maps (= 1.25.0)
+  - react-native-maps/Generated (1.25.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -1920,7 +1921,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - react-native-maps/Maps (1.26.1):
+  - react-native-maps/Maps (1.25.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -2040,6 +2041,10 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
+  - react-native-text-input-mask (3.2.0):
+    - InputMask (~> 6.1.0)
+    - React-Core
+    - React-RCTText
   - react-native-version-check (3.5.0):
     - React-Core
   - react-native-webview (13.15.0):
@@ -2973,6 +2978,7 @@ DEPENDENCIES:
   - "react-native-image-resizer (from `../node_modules/@bam.tech/react-native-image-resizer`)"
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-text-input-mask (from `../node_modules/react-native-text-input-mask`)
   - react-native-version-check (from `../node_modules/react-native-version-check`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
@@ -3023,6 +3029,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - InputMask
     - React-Codegen
     - Sentry
     - SocketRocket
@@ -3136,6 +3143,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-text-input-mask:
+    :path: "../node_modules/react-native-text-input-mask"
   react-native-version-check:
     :path: "../node_modules/react-native-version-check"
   react-native-webview:
@@ -3238,6 +3247,7 @@ SPEC CHECKSUMS:
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
   glog: 5683914934d5b6e4240e497e0f4a3b42d1854183
   hermes-engine: 7068e976238b29e97b3bafd09a994542af7d5c0b
+  InputMask: 71d291dc54d2deaeac6512afb6ec2304228c0bb7
   RCT-Folly: 59ec0ac1f2f39672a0c6e6cecdd39383b764646f
   RCTDeprecation: ff787f6c860a1b97dd1bc27264b61d23ad1994da
   RCTRequired: 664eb8399ed8a83e26ab65af7c2ad390f7e61696
@@ -3282,8 +3292,9 @@ SPEC CHECKSUMS:
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-get-random-values: 21325b2244dfa6b58878f51f9aa42821e7ba3d06
   react-native-image-resizer: b258ba421735d992ae8b1b5679d99d68147f6726
-  react-native-maps: f442a289950526f06f45a562d377aec920e45667
+  react-native-maps: 7bf43c38a75e8789dbc78446f1a6e2b6bac9dd5f
   react-native-safe-area-context: 339885703b6dd1be2bce42d9c0b0350c21180032
+  react-native-text-input-mask: a273f7823ac4cb7189ea96873fd7b4a48b8aaaaa
   react-native-version-check: 54a471d70dadf0f72fc142e70f16e4bf473a91a5
   react-native-webview: a63f97de8196a7efd2691de9928c71ee604aa659
   React-NativeModulesApple: f10596688a03af66804cfbe61792be24a7888da8
@@ -3324,7 +3335,7 @@ SPEC CHECKSUMS:
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNGestureHandler: 502fd35c8e1d326562536ff256e61e38d703eafb
   RNImageCropPicker: 36d402fc475d75e1208f8b81ba294c84ac7f09eb
-  RNPermissions: d139a73fb2755b57a34678df07c33e6d7b5e9969
+  RNPermissions: dc649308c963bfadff2ff133fdae2c8139f343cb
   RNScreens: 45e1adbc3b4bab2900bf9bb9decfcfb59d0eed8c
   RNSentry: c07b9ba590eb60a5c81450ab7b36918d952d6d78
   RNSVG: 432ca012e24410cab11449afef353ce20573a59f
@@ -3334,6 +3345,6 @@ SPEC CHECKSUMS:
   VisionCamera: 2230ecfd78a1f6cddd8be0fe4e6589f21a6385e1
   Yoga: 0c4b7d2aacc910a1f702694fa86be830386f4ceb
 
-PODFILE CHECKSUM: 003f018361b1b36251d1aadd677f0f36f1b63484
+PODFILE CHECKSUM: c385805e86d9acc02891fc55db47af8a1c0cf71f
 
 COCOAPODS: 1.16.2

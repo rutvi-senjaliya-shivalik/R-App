@@ -17,3 +17,7 @@ export { default as InfoField } from './infoField';
 export { default as CustomSwitch } from './switch';
 export { default as ImagePickerBottomSheet } from './ImagePickerBottomSheet';
 export { default as ProgressBar } from './ProgressBar';
+export { default as BottomSheet } from './BottomSheet';
+export { Icon } from './Icon';
+export { TextInput } from './TextInput';
+export { List } from './List';

@@ -7,7 +7,7 @@ const CustomStyles = StyleSheet.create({
   },
   container: {
     backgroundColor: COLORS.BLACK,
-    paddingVertical: 10,
+    paddingVertical: 16,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 100,

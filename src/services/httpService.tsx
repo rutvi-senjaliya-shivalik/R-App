@@ -1,10 +1,16 @@
-let API_URL = "";
+let API_URL = "https://realos-api.devpress.net/";
+//"https://sectile-marla-retrospectively.ngrok-free.dev/";
 
 export const GOOGLE_PLACES_API = '';
 
 // AUTH FLOW
+export const LOGIN_API = API_URL + 'user/api/v1/users/register';
+export const OTP_VERIFY = API_URL + 'user/api/v1/users/verify-otp';
+export const RESEND_OTP_API = API_URL + 'user/api/v1/users/resend-otp';
+export const UPDATE_PROFILE = API_URL + 'user/api/v1/users/profile';
+export const GET_PROFILE = API_URL + 'user/api/v1/users/profile';
+
 export const LOGIN = API_URL + 'users/send-phone-otp';
-export const OTP_VERIFY = API_URL + 'users/verify-phone-otp';
 export const RESEND_OTP = API_URL + 'users/resend-otp';
 export const IMAGE = API_URL + 'common/upload-file-auth';
 export const PROFILE = API_URL + 'users/registrations';

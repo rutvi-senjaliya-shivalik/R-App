@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
+import { View, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import { ProfileStyles } from './styles';
 import {
   Container,
@@ -13,15 +7,14 @@ import {
   InputField,
   ImagePickerModal,
   FullScreenImageModal,
+  DropDowns,
 } from '../../components/common';
 import { IMAGES } from '../../constants';
 import ImagePicker from 'react-native-image-crop-picker';
 import { useDispatch } from 'react-redux';
 import { profileAction } from '../../store/actions/auth/profileAction';
 import { commonImageAction } from '../../store/actions/commonImage/imageAction';
-import {
-  getImageNameFromUri,
-} from '../../utils/helper';
+import { getImageNameFromUri } from '../../utils/helper';
 
 const Profile = ({ route, navigation }: any) => {
   const dispatch = useDispatch() as any;
@@ -34,11 +27,13 @@ const Profile = ({ route, navigation }: any) => {
     useState(false);
   const [isImageModalVisible, setIsImageModalVisible] = useState(false);
   const [isProfileSubmitting, setIsProfileSubmitting] = useState(false);
+  const [identitySelection, setIdentitySelection] = useState<string>('');
 
   // Error states for each field (validation errors only)
   const [firstNameError, setFirstNameError] = useState('');
   const [lastNameError, setLastNameError] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [identityError, setIdentityError] = useState('');
 
   // API functions
   const profileApiCall = (req: any) => dispatch(profileAction(req));
@@ -49,6 +44,7 @@ const Profile = ({ route, navigation }: any) => {
     setFirstNameError('');
     setLastNameError('');
     setEmailError('');
+    setIdentityError('');
   };
 
   // Function to validate individual fields
@@ -79,6 +75,10 @@ const Profile = ({ route, navigation }: any) => {
   const handleEmailChange = (text: string) => {
     setEmail(text);
     if (emailError) setEmailError('');
+  };
+  const handleIdentityChange = (value: string) => {
+    setIdentitySelection(value);
+    if (identityError) setIdentityError('');
   };
 
   const handleImagePicker = () => {
@@ -149,14 +149,16 @@ const Profile = ({ route, navigation }: any) => {
     const firstNameValidation = validateField('First Name', firstName);
     const lastNameValidation = validateField('Last Name', lastName);
     const emailValidation = validateField('Email', email);
+    const identityValidation = !identitySelection ? 'Please select identity' : '';
 
     // Set field-specific errors
     setFirstNameError(firstNameValidation);
     setLastNameError(lastNameValidation);
     setEmailError(emailValidation);
+    setIdentityError(identityValidation);
 
     // Check if there are any validation errors
-    if (firstNameValidation || lastNameValidation || emailValidation) {
+    if (firstNameValidation || lastNameValidation || emailValidation || identityValidation) {
       return;
     }
 
@@ -210,7 +212,8 @@ const Profile = ({ route, navigation }: any) => {
       firstName: firstName.trim(),
       lastName: lastName.trim(),
       email: email.trim(),
-      profileImage: imageFileName || undefined,
+      role: identitySelection,
+      // profileImage: imageFileName || undefined,
     };
 
     console.log('Submitting profile with payload:', profilePayload);
@@ -221,15 +224,14 @@ const Profile = ({ route, navigation }: any) => {
     if (profileResponse.status === 200) {
       console.log('Profile submission successful');
       const userData = profileResponse.data.result;
-
       // First check if identitySelection is empty
-      if (!userData.identitySelection || userData.identitySelection === '') {
+      if (!userData?.identitySelection || userData?.identitySelection === '') {
         // Identity not selected - navigate to WhoAmI screen
         console.log('🆔 Identity not selected - moving to WhoAmI screen');
-        navigation.navigate('WhoAmI', { userData });
+        // navigation.navigate('WhoAmI', { userData });
       } else {
         // Identity is selected - check territory submission status
-        if (userData.isTerritorySubmit) {
+        if (userData?.isTerritorySubmit) {
           // Both profile and territory are completed - login successful
           console.log('✅ Profile and Territory both completed - logging in');
           // Navigate to main app or show success
@@ -239,7 +241,7 @@ const Profile = ({ route, navigation }: any) => {
         } else {
           // Profile submitted but territory not submitted - move to territory step
           console.log('📍 Profile submitted - moving to territory setup');
-          navigation.navigate('Territory', { userData });
+          // navigation.navigate('Territory', { userData });
         }
       }
     } else {
@@ -347,6 +349,22 @@ const Profile = ({ route, navigation }: any) => {
               error={emailError}
             />
           </View>
+          <View style={{ marginTop: 16 }}>
+            <DropDowns
+              data={[
+                { label: 'Owner', value: 'owner' },
+                { label: 'Tenant', value: 'tenant' },
+              ]}
+              value={identitySelection}
+              placeholder="Select identity"
+              onChange={handleIdentityChange}
+              error={identityError}
+            />
+            {!!identityError && (
+              <Text style={{ color: 'red', marginTop: 6 }}>{identityError}</Text>
+            )}
+          </View>
+
         </View>
 
         <View style={{ marginTop: '20%', alignSelf: 'center' }}>
