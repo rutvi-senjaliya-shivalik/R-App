@@ -264,46 +264,182 @@ const HomeStyles = StyleSheet.create({
 
   // Quick Actions - Premium Grid
   actionsSection: {
-    paddingHorizontal: SPACING.XL,
+    paddingHorizontal: SPACING.LG,
     marginBottom: SPACING.XXL,
   },
 
   actionsRow: {
     justifyContent: 'space-between',
-    marginBottom: SPACING.MD,
+    marginBottom: SPACING.XXL,
+  },
+
+  actionWrapper: {
+    width: '23%',
+    alignItems: 'center',
   },
 
   actionCard: {
-    width: '22%',
+    width: '100%',
     aspectRatio: 1,
     backgroundColor: COLORS.WHITE,
     borderWidth: 1,
     borderColor: COLORS.BORDER_GREY,
-    borderRadius: BORDER_RADIUS.MD,
-    padding: SPACING.SM,
+    borderRadius: BORDER_RADIUS.LG,
     alignItems: 'center',
     justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 2,
+    marginBottom: SPACING.SM,
   },
 
   actionIconContainer: {
-    width: 44,
-    height: 44,
-    borderRadius: BORDER_RADIUS.MD,
+    width: '100%',
+    height: '100%',
+    borderRadius: BORDER_RADIUS.LG,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: SPACING.XS,
   },
 
   actionIconEmoji: {
-    fontSize: 24,
+    fontSize: 32,
   },
 
   actionLabel: {
-    fontSize: FS.FS10,
+    fontSize: FS.FS11,
     fontFamily: FF[600],
     color: COLORS.BLACK,
     textAlign: 'center',
+    lineHeight: LH.LH14,
+  },
+
+  // SOS Floating Button
+  sosButton: {
+    position: 'absolute',
+    bottom: 90,
+    right: 20,
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: '#EF4444',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+    zIndex: 999,
+  },
+
+  sosButtonText: {
+    fontSize: 24,
+  },
+
+  sosButtonLabel: {
+    fontSize: FS.FS10,
+    fontFamily: FF[700],
+    color: COLORS.WHITE,
+    marginTop: 2,
     lineHeight: LH.LH12,
+  },
+
+  // SOS Modal
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'flex-end',
+  },
+
+  modalContent: {
+    backgroundColor: COLORS.WHITE,
+    borderTopLeftRadius: BORDER_RADIUS.XL,
+    borderTopRightRadius: BORDER_RADIUS.XL,
+    paddingTop: SPACING.XL,
+    paddingHorizontal: SPACING.XL,
+    paddingBottom: SPACING.XXXL,
+    maxHeight: '80%',
+  },
+
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: SPACING.XL,
+    paddingBottom: SPACING.LG,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.BORDER_GREY,
+  },
+
+  modalTitle: {
+    fontSize: FS.FS20,
+    fontFamily: FF[700],
+    color: COLORS.BLACK,
+    lineHeight: LH.LH24,
+  },
+
+  modalClose: {
+    fontSize: FS.FS24,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH28,
+  },
+
+  emergencyCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.WHITE,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.LG,
+    marginBottom: SPACING.MD,
+  },
+
+  emergencyIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: BORDER_RADIUS.MD,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: SPACING.LG,
+  },
+
+  emergencyEmoji: {
+    fontSize: 24,
+  },
+
+  emergencyInfo: {
+    flex: 1,
+  },
+
+  emergencyName: {
+    fontSize: FS.FS15,
+    fontFamily: FF[600],
+    color: COLORS.BLACK,
+    marginBottom: 4,
+    lineHeight: LH.LH20,
+  },
+
+  emergencyNumber: {
+    fontSize: FS.FS14,
+    fontFamily: FF[500],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH18,
+  },
+
+  callButton: {
+    width: 40,
+    height: 40,
+    borderRadius: BORDER_RADIUS.MD,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  callButtonText: {
+    fontSize: 20,
   },
 });
 

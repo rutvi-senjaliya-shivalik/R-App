@@ -1,6 +1,6 @@
 /**
  * Environment Configuration
- * 
+ *
  * Manages API URLs and configuration for different environments
  * - Development: Local backend servers
  * - Production: Deployed backend servers
@@ -29,13 +29,13 @@ const DEV_CONFIG: ApiConfig = {
     ios: 'http://localhost:5000/api',
     default: 'http://localhost:5000/api',
   }) as string,
-  
+
   USER_API_URL: Platform.select({
     android: 'http://10.0.2.2:3000/api',
     ios: 'http://localhost:3000/api',
     default: 'http://localhost:3000/api',
   }) as string,
-  
+
   TIMEOUT: 30000, // 30 seconds for development
   ENABLE_LOGGING: true,
 };
@@ -66,12 +66,8 @@ export const IS_DEV = __DEV__;
 export const CURRENT_ENV = getCurrentEnvironment();
 
 // Export individual values for convenience
-export const {
-  SOCIETY_API_URL,
-  USER_API_URL,
-  TIMEOUT,
-  ENABLE_LOGGING,
-} = ENV_CONFIG;
+export const { SOCIETY_API_URL, USER_API_URL, TIMEOUT, ENABLE_LOGGING } =
+  ENV_CONFIG;
 
 // Logging helper
 export const logApiConfig = () => {

@@ -337,7 +337,7 @@ const ComplaintManagement: React.FC<ComplaintManagementProps> = ({ navigation })
             }
             contentContainerStyle={
               (activeTab === 'open' && openComplaints.length === 0) ||
-              (activeTab === 'resolved' && resolvedComplaints.length === 0)
+                (activeTab === 'resolved' && resolvedComplaints.length === 0)
                 ? complaintStyles.listContentEmpty
                 : undefined
             }

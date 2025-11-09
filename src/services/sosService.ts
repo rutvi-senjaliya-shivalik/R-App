@@ -13,16 +13,13 @@ const initializeAlarm = () => {
   if (!alarmSound) {
     Sound.setCategory('Playback');
     // Load alarm sound from app bundle
-    alarmSound = new Sound(
-      require('../assets/music/alarm.mp3'),
-      error => {
-        if (error) {
-          console.error('Failed to load alarm sound', error);
-          return;
-        }
-        console.log('✅ Alarm sound loaded successfully');
-      },
-    );
+    alarmSound = new Sound(require('../assets/music/alarm.mp3'), error => {
+      if (error) {
+        console.error('Failed to load alarm sound', error);
+        return;
+      }
+      console.log('✅ Alarm sound loaded successfully');
+    });
   }
 };
 
