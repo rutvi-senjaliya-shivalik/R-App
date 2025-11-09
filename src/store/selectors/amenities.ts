@@ -8,3 +8,9 @@ export const selectAmenityBookingData = (state: RootState) => ({
   bookingData: state.amenityBooking?.bookingData,
   error: state.amenityBooking?.error,
 });
+
+export const selectRecentBookingsData = (state: RootState) => ({
+  loading: state.recentBookings?.loading,
+  bookingsData: state.recentBookings?.bookingsData,
+  error: state.recentBookings?.error,
+});

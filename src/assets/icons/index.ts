@@ -22,4 +22,10 @@ export const defaultIcon = {
   ['fire-flame-ic']: require('./resources/fire-flame-ic.svg').default,
   ['police-shield-ic']: require('./resources/police-shield-ic.svg').default,
   ['arrow-right-ic']: require('./resources/arrow-right-ic.svg').default,
+  ['parking']: require('./resources/parking.svg').default,
+  ['lost-found']: require('./resources/lost-found.svg').default,
+  ['notice']: require('./resources/notice.svg').default,
+  ['complain']: require('./resources/complain.svg').default,
+  ['myunit']: require('./resources/myunit.svg').default,
+  ['amenities']: require('./resources/amenities.svg').default,
 };

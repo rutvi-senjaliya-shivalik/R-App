@@ -126,5 +126,5 @@ export const CREATE_COMPLAINT_API = API_URL + 'user/api/v1/complaints';
 // Amenities
 export const GET_AMENITIES_LIST_API = API_URL + 'user/api/v1/amenities';
 export const CREATE_AMENITY_BOOKING_API = API_URL + 'user/api/v1/amenity-payments';
-
+export const GET_RECENT_BOOKINGS_API = API_URL + 'user/api/v1/amenity-payments';
 

@@ -29,7 +29,7 @@ export const createAmenityBooking = (payload: CreateAmenityBookingPayload) => {
 
       console.log('Create Amenity Booking Response:', response);
       dispatch(createAmenityBookingSuccess(response?.data?.result));
-      return response;
+      return response?.data;
     } catch (error: any) {
       console.log('Create Amenity Booking Error:', error);
       dispatch(createAmenityBookingFailure(error));

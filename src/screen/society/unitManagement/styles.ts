@@ -43,16 +43,16 @@ export const unitManagementStyles = StyleSheet.create({
     flex: 1,
   },
   optionTitle: {
-    fontSize: FS.FS16,
+    fontSize: FS.FS18,
     fontFamily: FF[600],
     color: COLORS.BLACK_TEXT,
     lineHeight: LH.LH24,
   },
   optionDescription: {
-    fontSize: FS.FS12,
+    fontSize: FS.FS16,
     fontFamily: FF[400],
     color: COLORS.GREY_TEXT,
-    lineHeight: LH.LH18,
+    lineHeight: LH.LH20,
     marginTop: 2,
   },
   toggleContainer: {

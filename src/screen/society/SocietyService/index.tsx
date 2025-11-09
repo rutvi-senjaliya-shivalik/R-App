@@ -11,7 +11,8 @@ import { useSelector } from 'react-redux';
 import { Container, HeaderComponent } from '../../../components/common';
 import { societyServiceStyles } from './styles';
 import { Icon } from '../../../components/common/Icon';
-import { IMAGES } from '../../../constants';
+import { COLORS, IMAGES } from '../../../constants';
+import LinearGradient from 'react-native-linear-gradient';
 
 type ServiceItem = {
   key: string;
@@ -35,8 +36,8 @@ const SocietyService = ({ navigation }: any) => {
       { key: 'amenities', label: 'Amenities', icon: 'amenities-ic' },
       // { key: 'report', label: 'Report', icon: 'report-ic' },
       {
-        key: 'unitManagement',
-        label: 'Unit Management',
+        key: 'myUnit',
+        label: 'My Unit',
         icon: 'unit-management-ic',
       },
       { key: 'complaints', label: 'Complaints', icon: 'complaints-ic' },
@@ -78,7 +79,7 @@ const SocietyService = ({ navigation }: any) => {
         case 'report':
           navigation.navigate('SocietyReport');
           break;
-        case 'unitManagement':
+        case 'myUnit':
           navigation.navigate('UnitManagement');
           break;
         case 'lostAndFound':
@@ -111,7 +112,8 @@ const SocietyService = ({ navigation }: any) => {
           activeOpacity={0.85}
           onPress={() => handlePress(item)}
         >
-          <Icon name={item.icon} sizes={{ width: 32, height: 32 }} />
+          <Icon name={item.icon} sizes={{ width: 60, height: 60 }} />
+
           <Text style={societyServiceStyles.label}>{item.label}</Text>
         </TouchableOpacity>
       );

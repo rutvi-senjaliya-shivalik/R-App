@@ -40,6 +40,7 @@ import { sosReducer } from "./sos/sosReducer";
 import complaintsReducer from "./society/complaintsReducer";
 import amenitiesReducer from "./society/amenitiesReducer";
 import amenityBookingReducer from "./society/amenityBookingReducer";
+import recentBookingsReducer from "./society/recentBookingsReducer";
 import { RESET_STORE } from "../actionType";
 
 
@@ -83,6 +84,7 @@ const appReducer = combineReducers({
   complaints: complaintsReducer,
   amenities: amenitiesReducer,
   amenityBooking: amenityBookingReducer,
+  recentBookings: recentBookingsReducer,
 });
 
 export type RootState = ReturnType<typeof appReducer>;

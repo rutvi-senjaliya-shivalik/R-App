@@ -32,6 +32,7 @@ import complaintsListWatcherSaga from "./society/complaintsListSaga";
 import createComplaintWatcherSaga from "./society/createComplaintSaga";
 import amenitiesListWatcherSaga from "./society/amenitiesListSaga";
 import amenityBookingWatcherSaga from "./society/amenityBookingSaga";
+import recentBookingsWatcherSaga from "./society/recentBookingsSaga";
 
 
 export default function* rootSaga() {
@@ -72,5 +73,6 @@ export default function* rootSaga() {
     createComplaintWatcherSaga(),
     amenitiesListWatcherSaga(),
     amenityBookingWatcherSaga(),
+    recentBookingsWatcherSaga(),
   ]);
 }

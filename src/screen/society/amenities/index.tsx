@@ -5,6 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import {
   Container,
@@ -54,7 +55,7 @@ const AmenitiesScreen = ({ navigation }: any) => {
         activeOpacity={0.7}
         onPress={() => handleAmenityPress(item)}
       >
-        <View style={amenitiesStyles.amenityInfo}>
+        <View style={amenitiesStyles.amenityInfo}>          
           <Text style={amenitiesStyles.amenityName}>{item?.name}</Text>
           {item?.description && (
             <Text style={amenitiesStyles.amenityDescription}>

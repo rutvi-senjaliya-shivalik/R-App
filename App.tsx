@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, LogBox } from 'react-native';
 import RootNavigation from './src/navigation';
 import { Provider } from 'react-redux';
 import { persistor, store } from './src/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { MenuProvider } from "react-native-popup-menu";
 import 'react-native-get-random-values';
+LogBox.ignoreAllLogs();
 
 // create a component
 const App = () => {

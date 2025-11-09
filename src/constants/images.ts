@@ -55,6 +55,7 @@ const Images = {
   RED_ARROW: require('../assets/images/redarrow.png'),
   WATCHCAL: require('../assets/images/watchCal.png'),
   TERRITORY: require('../assets/images/territory.png'),
+  SOCIETY: require('../assets/images/society.png'),
   // SOS Emergency Icons
   MEDICAL_ICON: require('../assets/images/medical-icon.png'),
   FIRE_ICON: require('../assets/images/fire-icon.png'),

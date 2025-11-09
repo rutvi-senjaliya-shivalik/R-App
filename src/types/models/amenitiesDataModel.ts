@@ -10,4 +10,6 @@ export interface AmenitiesDataModel {
   status: string;
   createdAt: string;
   updatedAt: string;
+  image: string;
+  bigImage: string;
 }

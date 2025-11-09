@@ -6,6 +6,16 @@ export const amenitiesBookingStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.WHITE,
   },
+  loadingOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 999, // optional
+  },
   contentWrapper: {
     flex: 1,
   },
@@ -218,4 +228,3 @@ export const amenitiesBookingStyles = StyleSheet.create({
     color: COLORS.GREEN_TEXT || '#16A34A',
   },
 });
-

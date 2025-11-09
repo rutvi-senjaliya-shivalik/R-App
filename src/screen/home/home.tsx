@@ -153,7 +153,7 @@ const Home = (props: any) => {
     },
     {
       label: 'Society',
-      image: Images.TERRITORY,
+      image: Images.SOCIETY,
     },
   ];
 

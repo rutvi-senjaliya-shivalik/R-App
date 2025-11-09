@@ -1,9 +1,29 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Image, Alert } from 'react-native';
-import { Container, HeaderComponent, CustomSwitch, BottomSheet } from '../../../components/common';
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  Alert,
+  KeyboardAvoidingView,
+  ScrollView,
+} from 'react-native';
+import {
+  Container,
+  HeaderComponent,
+  CustomSwitch,
+  BottomSheet,
+} from '../../../components/common';
 import { unitManagementStyles } from './styles';
 import { IMAGES } from '../../../constants';
-import { FamilyMemberForm, VehicleForm, TenantForm, DocumentForm } from './forms';
+import {
+  FamilyMemberForm,
+  VehicleForm,
+  TenantForm,
+  DocumentForm,
+} from './forms';
+import { isIOS } from '../../../utils/constants';
 
 type OptionType = 'family' | 'vehicle' | 'tenant' | 'document';
 
@@ -221,13 +241,21 @@ const UnitManagementScreen = ({ navigation }: any) => {
             </View>
             <View style={unitManagementStyles.optionContent}>
               <Text style={unitManagementStyles.optionTitle}>{item.title}</Text>
-              <Text style={unitManagementStyles.optionDescription}>{item.description}</Text>
+              <Text style={unitManagementStyles.optionDescription}>
+                {item.description}
+              </Text>
             </View>
           </View>
           {item.isToggle ? (
-            <CustomSwitch value={toggleValue} onValueChange={() => handleOptionPress(item)} />
+            <CustomSwitch
+              value={toggleValue}
+              onValueChange={() => handleOptionPress(item)}
+            />
           ) : (
-            <Image source={IMAGES.ARROW} style={unitManagementStyles.arrowIcon} />
+            <Image
+              source={IMAGES.ARROW}
+              style={unitManagementStyles.arrowIcon}
+            />
           )}
         </TouchableOpacity>
       );
@@ -240,7 +268,7 @@ const UnitManagementScreen = ({ navigation }: any) => {
   return (
     <Container>
       <View style={unitManagementStyles.container}>
-        <HeaderComponent Title="Unit Management" onPress={() => navigation.goBack()} />
+        <HeaderComponent Title="My Unit" onPress={() => navigation.goBack()} />
         <View style={unitManagementStyles.contentWrapper}>
           <FlatList
             data={options}
@@ -266,7 +294,18 @@ const UnitManagementScreen = ({ navigation }: any) => {
           onPress: closeSheet,
         }}
       >
-        {renderFormContent()}
+        <KeyboardAvoidingView
+          behavior={isIOS ? 'padding' : 'height'}
+          style={{ flex: 1 }}
+          keyboardVerticalOffset={isIOS ? 100 : 0}
+        >
+          <ScrollView
+            style={{ flex: 1 }}
+            contentContainerStyle={{ flexGrow: 1 }}
+          >
+            {renderFormContent()}
+          </ScrollView>
+        </KeyboardAvoidingView>
       </BottomSheet>
     </Container>
   );
