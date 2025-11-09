@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "450125009395",
+    "project_id": "shivalikdemo-a1b2f",
+    "storage_bucket": "shivalikdemo-a1b2f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450125009395:android:db54397048c9ce034a4286",
+        "android_client_info": {
+          "package_name": "com.realEstateOS"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALF-AUiQIr6FaTbi8Cdi5KA8OBG3yp_uk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

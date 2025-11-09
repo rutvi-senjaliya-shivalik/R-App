@@ -6,6 +6,7 @@ import { STRING } from '../constants';
 import { print } from '../utils/method';
 import { logout, resetStore } from '../store/actions/auth/loginAction';
 import { store } from '../store';
+import { Alert } from 'react-native';
 
 interface ApiRequestProps {
   apiUrl: string;
@@ -23,8 +24,7 @@ export const handleLogout = async (): Promise<void> => {
   store.dispatch(logout());
   store.dispatch(resetStore());
   // Optionally, add navigation or Redux logout logic here
-}
-
+};
 
 export async function MakeApiRequest({
   apiUrl,
@@ -34,11 +34,14 @@ export async function MakeApiRequest({
   apiParams = {},
   timeout = 15000,
 }: ApiRequestProps): Promise<AxiosResponse<any>> {
-
   const token = await PrefManager.getValue(STRING.TOKEN);
+
+  console.log('token::', token);
+
   const headers = {
-   'Content-Type': apiHeaders['Content-Type'] || 'application/json',
-      Authorization: token && token ? token: undefined,
+    accept: 'application/json',
+    // 'Content-Type': apiHeaders['Content-Type'] || 'application/json',
+    ...(token ? { Authorization: token } : {}),
     ...apiHeaders,
   };
 
@@ -66,18 +69,22 @@ export async function MakeApiRequest({
     print(`${apiMethod} API Error:`, error.response || error, 0);
 
     // Handle status codes
-    if(error?.response?.status === 400) {
-      return Promise.reject(error);
-    }
-    else if(error?.response?.status === 401) {
-      console.log("error:============", error);
-
+    // if(error?.response?.status === 400) {
+    //   return Promise.reject(error);
+    // }
+    if (error?.response?.status === 401) {
+      console.log('error:============', error);
       // logout action
       await handleLogout();
       // return Promise.reject(error);
-    }
-    else {
-      return Promise.reject(error);
+    } else {
+      console.log('error::::', error.response?.data?.message);
+      let errorMessage = 'Ooops! Something went wrong. Please try again.';
+      if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      }
+      Alert.alert('Error', errorMessage);
+      return Promise.reject(error.response?.data?.message || error);
     }
   }
 }

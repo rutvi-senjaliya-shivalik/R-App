@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, ActivityIndicator, StyleProp, ViewStyle, TextStyle } from 'react-native';
 import { CustomButtonStyles } from './styles';
 import { COLORS, FF, FS } from '../../constants';
 
@@ -11,6 +11,9 @@ interface CustomButtonProps {
   showError?: boolean;
   errorMessage?: string;
   validationErrors?: string[];
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+  loadingColor?: string;
 }
 
 const CustomButton = ({
@@ -21,6 +24,9 @@ const CustomButton = ({
   showError = false,
   errorMessage = '',
   validationErrors = [],
+  style,
+  textStyle,
+  loadingColor,
 }: CustomButtonProps) => {
   const isDisabled = disabled || loading;
   const hasErrors = showError && (errorMessage || validationErrors.length > 0);
@@ -46,18 +52,23 @@ const CustomButton = ({
           CustomButtonStyles.container,
           isDisabled && CustomButtonStyles.disabled,
           hasErrors && CustomButtonStyles.errorState,
+          style,
         ]}
         onPress={handlePress}
         disabled={isDisabled}
       >
         {loading ? (
-          <ActivityIndicator size="small" color={isDisabled ? COLORS.BLACK : COLORS.WHITE} />
+          <ActivityIndicator 
+            size="small" 
+            color={loadingColor || (isDisabled ? COLORS.BLACK : COLORS.WHITE)} 
+          />
         ) : (
           <Text
             style={[
               CustomButtonStyles.title,
               isDisabled && CustomButtonStyles.disabledText,
               hasErrors && CustomButtonStyles.errorText,
+              textStyle,
             ]}
           >
             {title}

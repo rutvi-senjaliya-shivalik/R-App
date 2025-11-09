@@ -68,18 +68,18 @@ const Login = ({ navigation }: any) => {
     }
 
     // Special validation for Indian phone numbers (+91)
-    if (countryCode === '+91') {
-      const validationResult = validateIndianPhoneNumber(
-        mobileNumber,
-        countryCode,
-      );
-      if (!validationResult.isValid) {
-        setPhoneError(
-          validationResult.fieldErrors.phoneNumber || 'Invalid phone number',
-        );
-        return;
-      }
-    }
+    // if (countryCode === '+91') {
+    //   const validationResult = validateIndianPhoneNumber(
+    //     mobileNumber,
+    //     countryCode,
+    //   );
+    //   if (!validationResult.isValid) {
+    //     setPhoneError(
+    //       validationResult.fieldErrors.phoneNumber || 'Invalid phone number',
+    //     );
+    //     return;
+    //   }
+    // }
 
     // If validation passes, clear error and proceed with login
     setPhoneError('');
@@ -109,7 +109,7 @@ const Login = ({ navigation }: any) => {
       // Original API flow for other numbers
       const payload = {
         countryCode: countryCode,
-        phoneNumber: mobileNumber,
+        mobileNumber: mobileNumber,
       };
 
       const response = await dispatch(loginAction(payload));
@@ -118,7 +118,7 @@ const Login = ({ navigation }: any) => {
         console.log('Login Success', response.data);
         // Navigate to OTP screen with phone number
         navigation.navigate('OtpScreen', {
-          phoneNumber: mobileNumber,
+          mobileNumber: mobileNumber,
           countryCode: countryCode,
         });
       } else {
@@ -127,7 +127,6 @@ const Login = ({ navigation }: any) => {
       }
     } catch (error: any) {
       console.log('Login error:', error);
-      Alert.alert('Login Failed', error.message || 'Please try again');
     } finally {
       setIsLoading(false);
     }

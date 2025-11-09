@@ -22,8 +22,6 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>NSLocalNetworkUsageDescription</key>
-<string>Allow access to local network for React Native debugging</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -43,12 +41,14 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>R needs access to your camera to capture images for property listings and verification. This ensures seamless uploads and enhances your real estate experience.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>R needs access to your photo library to upload property images, share visual content, and store necessary media for documentation. This helps in creating detailed listings and enhances property presentations.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>R needs access to your contacts only to help you connect with or invite other users in the Contact module. This access is limited to this feature, and no contact data is uploaded or shared without your permission.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Allow access to local network for React Native debugging</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We use your location to show nearby projects and territory details relevant to your experience.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>R needs access to your photo library to upload property images, share visual content, and store necessary media for documentation. This helps in creating detailed listings and enhances property presentations.</string>
 	<key>RCTNewArchEnabled</key>
 	<true/>
 	<key>UIAppFonts</key>
@@ -60,6 +60,10 @@
 		<string>BricolageGrotesque-Medium.ttf</string>
 		<string>BricolageGrotesque-Regular.ttf</string>
 		<string>BricolageGrotesque-SemiBold.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

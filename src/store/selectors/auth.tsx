@@ -1,5 +1,9 @@
 import { RootState } from '../reducers';
 
+export const selectLoginData = (state: RootState) => state.auth.loginData;
+
+export const selectUserData = (state: RootState) => state.otp.userData;
+
 export const selectTerritoryListData = (state: RootState) => state.territoryList?.territoryListData;
 export const selectTerritoryListLoading = (state: RootState) => state.territoryList?.loading;
 export const selectTerritoryListError = (state: RootState) => state.territoryList?.error;

@@ -36,6 +36,11 @@ import { getProfessionalListReducer } from "./profile/getProfessionalListReducer
 import { createProfessionalReducer } from "./profile/createProfessionalReducer";
 import feedbackReducer from "./feedback/feedbackReducer";
 import getFeedbackModuleListReducer from "./feedback/getFeedbackModuleReducer";
+import { sosReducer } from "./sos/sosReducer";
+import complaintsReducer from "./society/complaintsReducer";
+import amenitiesReducer from "./society/amenitiesReducer";
+import amenityBookingReducer from "./society/amenityBookingReducer";
+import recentBookingsReducer from "./society/recentBookingsReducer";
 import { RESET_STORE } from "../actionType";
 
 
@@ -75,6 +80,11 @@ const appReducer = combineReducers({
   getFeedbackModuleList: getFeedbackModuleListReducer,
   getProfessionalList: getProfessionalListReducer,
   createProfessional: createProfessionalReducer,
+  sos: sosReducer,
+  complaints: complaintsReducer,
+  amenities: amenitiesReducer,
+  amenityBooking: amenityBookingReducer,
+  recentBookings: recentBookingsReducer,
 });
 
 export type RootState = ReturnType<typeof appReducer>;

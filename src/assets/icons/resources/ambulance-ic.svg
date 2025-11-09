@@ -1,0 +1,13 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ambulance Vehicle Icon -->
+  <rect x="6" y="16" width="24" height="18" rx="2" fill="#FF3B30"/>
+  <rect x="30" y="20" width="12" height="14" rx="1" fill="#FF3B30"/>
+  <rect x="32" y="22" width="8" height="6" fill="#FFFFFF"/>
+  <circle cx="14" cy="36" r="4" fill="#1C1C1E"/>
+  <circle cx="14" cy="36" r="2" fill="#8E8E93"/>
+  <circle cx="34" cy="36" r="4" fill="#1C1C1E"/>
+  <circle cx="34" cy="36" r="2" fill="#8E8E93"/>
+  <path d="M14 20H20M17 17V23" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+  <rect x="8" y="18" width="6" height="4" fill="#FFFFFF" opacity="0.3"/>
+</svg>
+

@@ -1,0 +1,217 @@
+import { StyleSheet } from 'react-native';
+import { COLORS, FS, LH, FF } from '../../../constants';
+
+export const noticeDashboardStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.WHITE,
+  },
+  headerSection: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.BORDER_GREY,
+    backgroundColor: COLORS.WHITE,
+  },
+  headerInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  noticeCount: {
+    fontSize: FS.FS14,
+    lineHeight: LH.LH20,
+    fontFamily: FF[500],
+    color: COLORS.GREY_TEXT,
+  },
+  lastUpdated: {
+    fontSize: FS.FS12,
+    lineHeight: LH.LH16,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    marginTop: 4,
+  },
+  listContent: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 24,
+  },
+  emptyListContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
+  noticeCard: {
+    backgroundColor: COLORS.WHITE,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
+    marginBottom: 16,
+    overflow: 'hidden',
+    shadowColor: COLORS.BLACK,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+    elevation: 3,
+  },
+  noticeHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 8,
+  },
+  noticeHeaderLeft: {
+    flex: 1,
+    marginRight: 12,
+  },
+  noticeDate: {
+    fontSize: FS.FS12,
+    lineHeight: LH.LH16,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+  },
+  priorityBadge: {
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 12,
+    alignSelf: 'flex-start',
+  },
+  priorityBadgeHigh: {
+    backgroundColor: COLORS.ORANGE_BG,
+    borderWidth: 1,
+    borderColor: COLORS.ORANGE_BORDER,
+  },
+  priorityBadgeMedium: {
+    backgroundColor: COLORS.YELLOW_BG,
+    borderWidth: 1,
+    borderColor: COLORS.YELLOW_BORDER,
+  },
+  priorityBadgeLow: {
+    backgroundColor: COLORS.OCEAN_BLUE_BG,
+    borderWidth: 1,
+    borderColor: COLORS.OCEAN_BLUE_BORDER,
+  },
+  priorityText: {
+    fontSize: FS.FS11,
+    lineHeight: LH.LH14,
+    fontFamily: FF[600],
+  },
+  priorityTextHigh: {
+    color: COLORS.ORANGE_TEXT,
+  },
+  priorityTextMedium: {
+    color: '#B45309',
+  },
+  priorityTextLow: {
+    color: COLORS.OCEAN_BLUE_TEXT,
+  },
+  noticeContent: {
+    paddingHorizontal: 16,
+    paddingTop: 8,
+    paddingBottom: 16,
+  },
+  noticeDescription: {
+    fontSize: FS.FS14,
+    lineHeight: LH.LH21,
+    fontFamily: FF[400],
+    color: COLORS.BLACK_TEXT,
+  },
+  noticeImage: {
+    width: '100%',
+    height: 180,
+    marginTop: 12,
+    borderRadius: 8,
+    backgroundColor: COLORS.LIGHT_GRAY,
+  },
+  noticeFooter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingBottom: 12,
+    marginTop: 8,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.BORDER_GREY,
+    paddingTop: 12,
+  },
+  authorInfo: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  authorAvatar: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: COLORS.BLUE_BG,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 8,
+  },
+  authorAvatarText: {
+    fontSize: FS.FS12,
+    fontFamily: FF[600],
+    color: COLORS.BLUE_TEXT,
+  },
+  authorName: {
+    fontSize: FS.FS13,
+    lineHeight: LH.LH18,
+    fontFamily: FF[500],
+    color: COLORS.BLACK_TEXT,
+  },
+  categoryTag: {
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 8,
+    backgroundColor: COLORS.LIGHT_GREEN,
+    borderWidth: 1,
+    borderColor: COLORS.LIGHT_BORDER_GREEN,
+  },
+  categoryText: {
+    fontSize: FS.FS11,
+    lineHeight: LH.LH14,
+    fontFamily: FF[500],
+    color: COLORS.GREEN_TEXT,
+  },
+  emptyStateContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 60,
+    paddingHorizontal: 32,
+  },
+  emptyStateIcon: {
+    fontSize: 64,
+    marginBottom: 16,
+  },
+  emptyStateTitle: {
+    fontSize: FS.FS18,
+    lineHeight: LH.LH24,
+    fontFamily: FF[600],
+    color: COLORS.BLACK_TEXT,
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  emptyStateMessage: {
+    fontSize: FS.FS14,
+    lineHeight: LH.LH20,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    textAlign: 'center',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    fontSize: FS.FS14,
+    lineHeight: LH.LH20,
+    fontFamily: FF[500],
+    color: COLORS.GREY_TEXT,
+    marginTop: 12,
+  },
+});
+

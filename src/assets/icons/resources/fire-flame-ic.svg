@@ -1,0 +1,7 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Modern Fire Flame Icon -->
+  <path d="M24 4C24 4 16 12 16 20C16 26.627 20.686 32 24 32C24 32 20 28 20 24C20 20 24 16 28 12C30 10 32 8 32 8C32 8 38 14 38 22C38 30.837 30.837 38 22 38C13.163 38 6 30.837 6 22C6 14 14 6 24 4Z" fill="#FF9500"/>
+  <ellipse cx="24" cy="20" rx="6" ry="8" fill="#FFD60A"/>
+  <ellipse cx="24" cy="22" rx="3" ry="4" fill="#FFFFFF" opacity="0.5"/>
+</svg>
+

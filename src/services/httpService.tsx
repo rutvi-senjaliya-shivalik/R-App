@@ -1,10 +1,17 @@
-let API_URL = "";
+let API_URL = "https://realos-api.devpress.net/";
+//"https://sectile-marla-retrospectively.ngrok-free.dev/";
 
 export const GOOGLE_PLACES_API = '';
 
 // AUTH FLOW
+export const LOGIN_API = API_URL + 'user/api/v1/users/register';
+export const OTP_VERIFY = API_URL + 'user/api/v1/users/verify-otp';
+export const RESEND_OTP_API = API_URL + 'user/api/v1/users/resend-otp';
+export const UPDATE_PROFILE = API_URL + 'user/api/v1/users/profile';
+export const GET_PROFILE = API_URL + 'user/api/v1/users/profile';
+export const GET_AMENITIES = API_URL + 'user/api/v1/amenities';
+
 export const LOGIN = API_URL + 'users/send-phone-otp';
-export const OTP_VERIFY = API_URL + 'users/verify-phone-otp';
 export const RESEND_OTP = API_URL + 'users/resend-otp';
 export const IMAGE = API_URL + 'common/upload-file-auth';
 export const PROFILE = API_URL + 'users/registrations';
@@ -98,3 +105,26 @@ export const GET_PROFESSIONAL_LIST = (page: number = 1) =>
 
 // Create Professional
 export const CREATE_PROFESSIONAL = API_URL + 'users/create/professionals';
+
+// Lost & Found (LOS)
+export const CREATE_LOS = API_URL + 'user/api/v1/los';
+export const GET_LOS_LIST = API_URL + 'user/api/v1/los';
+
+// Notices
+export const GET_NOTICES_LIST = API_URL + 'user/api/v1/notices';
+
+// SOS Emergency Alert
+export const CREATE_SOS = API_URL + 'user/api/v1/sos';
+
+// Visitor Entry
+export const CREATE_VISITOR = API_URL + 'user/api/v1/visitors';
+
+// Complaints
+export const GET_COMPLAINTS_LIST_API = API_URL + 'user/api/v1/complaints?page=1&limit=10';
+export const CREATE_COMPLAINT_API = API_URL + 'user/api/v1/complaints';
+
+// Amenities
+export const GET_AMENITIES_LIST_API = API_URL + 'user/api/v1/amenities';
+export const CREATE_AMENITY_BOOKING_API = API_URL + 'user/api/v1/amenity-payments';
+export const GET_RECENT_BOOKINGS_API = API_URL + 'user/api/v1/amenity-payments';
+

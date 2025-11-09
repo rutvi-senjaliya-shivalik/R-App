@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Alert, Linking, StatusBar, Platform, PermissionsAndroid } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { HomeStyles } from './styles';
@@ -10,6 +10,10 @@ import { userDetailAction } from '../../store/actions/auth/userDetailAction';
 import { selectUserDetailData } from '../../store/selectors/auth';
 import { Camera } from 'react-native-vision-camera';
 import Geolocation from 'react-native-geolocation-service';
+import { Screens } from '../../types';
+import SOSFab from '../../components/SOSFab';
+import { usePushNotification } from '../../services/hooks/usePushNotification';
+import { isEmpty } from 'lodash';
 
 const Home = (props: any) => {
   const dispatch = useDispatch() as any;
@@ -18,18 +22,16 @@ const Home = (props: any) => {
   const userDetailData = useSelector(selectUserDetailData);
   const user = userDetailData?.data?.result;
 
+  usePushNotification();
 
-  const userDetailsApi = () => {
-    dispatch(userDetailAction()).then((res: any) => {
-      console.log('User Details API Response', res);
-    });
-  }
+  const [fetched, setFetched] = useState(false);
 
   useEffect(() => {
-    if(user == undefined){
-      userDetailsApi();
+    if (!isEmpty(userData) && !fetched) {
+      dispatch(userDetailAction());
+      setFetched(true);
     }
-  }, []);
+  }, [userData, fetched, dispatch]);
 
   useEffect(() => {
     console.log('User is Employee', user?.isEmployee);
@@ -149,6 +151,10 @@ const Home = (props: any) => {
       label: 'Territory',
       image: Images.TERRITORY,
     },
+    {
+      label: 'Society',
+      image: Images.SOCIETY,
+    },
   ];
 
   const renderItem = ({ item }: any) => {
@@ -178,8 +184,9 @@ const Home = (props: any) => {
           else if (item.label === 'Desk') {
             props.navigation.navigate('Desk');
           }
-
-          else {
+          else if (item.label === 'Society') {
+            props.navigation.navigate(Screens.societyService);
+          } else {
             Alert.alert(
               'Coming Soon',
               'We’ll be introducing this feature soon.',
@@ -219,34 +226,12 @@ const Home = (props: any) => {
           columnWrapperStyle={{}}
           showsVerticalScrollIndicator={false}
         />
-
-
-
       </View>
+
+      {/* SOS Floating Action Button */}
+      <SOSFab />
     </Container>
   );
 };
 
 export default Home;
-{/* paste here */ }
-{/*
-          <CustomDropdownInput
-          placeholder="Select Fruit"
-          data={fruitArray}
-          value={fruit}
-          onChangeText={setFruit}
-          isActive={activeIndex === 0}
-          onFocus={() => setActiveIndex(0)}
-          onClose={() => setActiveIndex(null)}
-        />
-
-<CustomDropdownInput
-          placeholder="Select Berry"
-          data={berryArray}
-          value={berry}
-          onChangeText={setBerry}
-          isActive={activeIndex === 1}
-          onFocus={() => setActiveIndex(1)}
-          onClose={() => setActiveIndex(null)}
-        /> */}
-
