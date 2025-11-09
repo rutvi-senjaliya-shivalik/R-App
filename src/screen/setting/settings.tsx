@@ -1,27 +1,48 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { SettingStyles } from './styles';
 import { getInitials } from '../../utils/method';
-import { COLORS, IMAGES } from '../../constants';
+import { IMAGES } from '../../constants';
 import { Container, HeaderComponent } from '../../components/common';
 import { useSelector } from 'react-redux';
 
-const Setting = (props: any) => {
+interface SettingProps {
+  navigation: {
+    navigate: (screen: string) => void;
+    goBack: () => void;
+  };
+}
+
+const Setting: React.FC<SettingProps> = (props) => {
   const { userData } = useSelector((state: any) => state.otp);
 
-  // Static display data
-  const staticFirstName = 'John';
-  const staticLastName = 'Doe';
-  const staticDisplayName = 'John Doe';
-  const staticPhoneNumber = userData?.phoneNumber || '9988776655';
-  const staticCountryCode = userData?.countryCode || '+91';
+  // Extract user data - removed hardcoded fallbacks
+  const firstName = userData?.firstName || 'User';
+  const lastName = userData?.lastName || '';
+  const displayName = `${firstName} ${lastName}`.trim();
+  const phoneNumber = userData?.phoneNumber || '';
+  const countryCode = userData?.countryCode || '+91';
+  const email = userData?.email || '';
+
+  // Extract member/unit data from userData (set during member registration)
+  const member = userData?.member;
+  const isVerified = member?.memberStatus === 'approved';
+  const unitInfo = member 
+    ? `${member.blockName}-${member.unitNumber}` 
+    : 'Not assigned';
+  const residentType = member?.memberType || 'Resident';
+  
+  // Format member since date
+  const memberSince = member?.createdAt 
+    ? new Date(member.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+    : 'Recently joined';
 
   return (
     <Container>
       <View style={SettingStyles.container}>
         <HeaderComponent
-          Title="Profiles"
+          Title="My Profile"
           onPress={() => {
             props.navigation.goBack();
           }}
@@ -36,51 +57,103 @@ const Setting = (props: any) => {
             style={SettingStyles.card}
           >
             <TouchableOpacity
-              style={{ paddingVertical: 20, paddingHorizontal: 20 }}
+              style={SettingStyles.profileCardTouch}
               onPress={() => {
                 props.navigation.navigate('Profile');
               }}
             >
               <View style={SettingStyles.profileRow}>
-                <View style={SettingStyles.profileAvatar}>
-                  <Text style={SettingStyles.profileAvatarText}>
-                    {getInitials(staticFirstName, staticLastName)}
-                  </Text>
+                <View style={SettingStyles.profileAvatarContainer}>
+                  <View style={SettingStyles.profileAvatar}>
+                    <Text style={SettingStyles.profileAvatarText}>
+                      {getInitials(firstName, lastName)}
+                    </Text>
+                  </View>
+                  {isVerified && (
+                    <View style={SettingStyles.verifiedBadge}>
+                      <Text style={SettingStyles.verifiedBadgeText}>✓</Text>
+                    </View>
+                  )}
                 </View>
                 <View style={SettingStyles.profileInfo}>
                   <Text style={SettingStyles.profileName}>
-                    {staticDisplayName}
+                    {displayName}
+                    {isVerified && ' ✓'}
                   </Text>
                   <View style={SettingStyles.phoneContainer}>
-                    <Text style={SettingStyles.phoneText}>{staticCountryCode} {staticPhoneNumber}</Text>
+                    <Text style={SettingStyles.phoneText}>{countryCode} {phoneNumber}</Text>
                   </View>
+                  <Text style={SettingStyles.profileEmail}>
+                    {email}
+                  </Text>
                 </View>
               </View>
             </TouchableOpacity>
           </LinearGradient>
-          <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, width: "100%" }}>
 
-            {/* Menu Items */}
-            <View style={[SettingStyles.section, { marginTop: 16 }]}>
+          <View style={SettingStyles.unitInfoCard}>
+            <Text style={SettingStyles.unitLabel}>MY UNIT</Text>
+            <Text style={SettingStyles.unitText}>
+              {unitInfo}
+            </Text>
+            <View style={SettingStyles.badgeRow}>
+              <View style={[SettingStyles.residentBadge, residentType === 'Owner' ? SettingStyles.ownerBadge : SettingStyles.tenantBadge]}>
+                <Text style={SettingStyles.badgeText}>
+                  {residentType.toUpperCase()}
+                </Text>
+              </View>
+              <Text style={SettingStyles.memberSinceText}>
+                Member since {memberSince}
+              </Text>
+            </View>
+          </View>
+
+          <ScrollView showsVerticalScrollIndicator={false} style={SettingStyles.scrollView}>
+
+            <View style={SettingStyles.sectionMarginTop}>
               <TouchableOpacity
                 style={SettingStyles.menuItem}
-                onPress={() => { props.navigation.navigate('PersonalDetails') }}>
-                <Text style={SettingStyles.menuText}>Personal Details</Text>
+                onPress={() => { 
+                  Alert.alert('Coming Soon', 'Family members management will be available soon.');
+                }}>
+                <View style={SettingStyles.menuItemLeft}>
+                  <Text style={SettingStyles.menuIcon}>👥</Text>
+                  <Text style={SettingStyles.menuText}>Family Members</Text>
+                </View>
                 <Image source={IMAGES.BACK} style={SettingStyles.chevron} />
               </TouchableOpacity>
-
             </View>
-            <View style={[SettingStyles.section, { marginTop: 0 }]}>
+
+            <View style={SettingStyles.section}>
               <TouchableOpacity
                 style={SettingStyles.menuItem}
-                onPress={() => { props.navigation.navigate('ProfessionalDetails') }}>
-                <Text style={SettingStyles.menuText}>Professional Details</Text>
+                onPress={() => { 
+                  Alert.alert('Coming Soon', 'Vehicle management will be available soon.');
+                }}>
+                <View style={SettingStyles.menuItemLeft}>
+                  <Text style={SettingStyles.menuIcon}>🚗</Text>
+                  <Text style={SettingStyles.menuText}>My Vehicles</Text>
+                </View>
+                <Image source={IMAGES.BACK} style={SettingStyles.chevron} />
+              </TouchableOpacity>
+            </View>
+
+            <View style={SettingStyles.section}>
+              <TouchableOpacity
+                style={SettingStyles.menuItem}
+                onPress={() => { 
+                  Alert.alert('Coming Soon', 'Document management will be available soon.');
+                }}>
+                <View style={SettingStyles.menuItemLeft}>
+                  <Text style={SettingStyles.menuIcon}>📄</Text>
+                  <Text style={SettingStyles.menuText}>My Documents</Text>
+                </View>
                 <Image source={IMAGES.BACK} style={SettingStyles.chevron} />
               </TouchableOpacity>
             </View>
 
             {/* Action Buttons */}
-            <View style={[SettingStyles.section, { marginTop: 0 }]}>
+            <View style={SettingStyles.section}>
               <TouchableOpacity
                 style={SettingStyles.menuItem}
                 onPress={() => { props.navigation.navigate('ProfileSetting') }}>
