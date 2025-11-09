@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { InputField } from '../../../../components/common';
-import { formStyles } from './formStyles';
+import { formStyles } from '../styles/formStyles';
 
 interface VehicleFormProps {
   vehicleType: string;

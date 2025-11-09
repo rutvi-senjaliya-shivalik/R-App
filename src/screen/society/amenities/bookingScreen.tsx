@@ -19,7 +19,7 @@ import {
 } from '../../../components/common';
 import BottomSheet from '../../../components/common/BottomSheet/BottomSheet';
 import { Calendar, DateData } from 'react-native-calendars';
-import { amenitiesBookingStyles } from './bookingStyles';
+import { amenitiesBookingStyles } from './styles/bookingStyles';
 import { COLORS } from '../../../constants';
 import { createAmenityBooking } from '../../../store/actions/society/amenityBookingAction';
 import { selectUserData } from '../../../store/selectors/auth';

@@ -1,8 +1,8 @@
-import React, { useMemo, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { View, Text, FlatList, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, HeaderComponent } from '../../../components/common';
-import { recentBookingsStyles } from './recentBookingsStyles';
+import { recentBookingsStyles } from './styles/recentBookingsStyles';
 import { getRecentBookings } from '../../../store/actions/society/recentBookingsAction';
 import { selectRecentBookingsData } from '../../../store/selectors/amenities';
 import { COLORS } from '../../../constants';

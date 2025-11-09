@@ -12,7 +12,7 @@ import {
   HeaderComponent,
   CustomButton,
 } from '../../../components/common';
-import { complaintsStyles } from './styles';
+import { complaintsStyles } from './styles/styles';
 import { COLORS } from '../../../constants';
 import { getComplaintsListAction } from '../../../store/actions/society/complaintsListAction';
 import { ComplainDataModel } from '../../../types/models';

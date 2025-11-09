@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FS, LH, FF } from '../../../constants';
+import { COLORS, FS, LH, FF } from '../../../../constants';
 
 export const lostAndFoundStyles = StyleSheet.create({
   container: {

@@ -20,7 +20,7 @@ import {
 } from 'react-native';
 import { Container, HeaderComponent, BottomSheet, CustomButton } from '../../../components/common';
 import { LostAndFoundForm, LostAndFoundFormRef } from './LostAndFoundForm';
-import { lostAndFoundStyles } from './styles';
+import { lostAndFoundStyles } from './styles/styles';
 import { COLORS } from '../../../constants';
 import { MakeApiRequest } from '../../../services/apiService';
 import { GET_LOS_LIST } from '../../../services/httpService';

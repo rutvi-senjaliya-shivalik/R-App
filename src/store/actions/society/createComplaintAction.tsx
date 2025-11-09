@@ -41,6 +41,7 @@ export const createComplaintAction = (payload: CreateComplaintPayload) => {
         apiUrl: CREATE_COMPLAINT_API,
         apiMethod: POST,
         apiData: formData,
+        apiHeaders: { "Content-Type": "multipart/form-data" },
       });
 
       console.log('Create Complaint Response:', response);

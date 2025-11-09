@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FF, FS, LH } from '../../../constants';
+import { COLORS, FF, FS, LH } from '../../../../constants';
 
 export const amenitiesBookingStyles = StyleSheet.create({
   container: {

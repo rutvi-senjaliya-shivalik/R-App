@@ -15,7 +15,7 @@ import {
   CustomSwitch,
   BottomSheet,
 } from '../../../components/common';
-import { unitManagementStyles } from './styles';
+import { unitManagementStyles } from './styles/styles';
 import { IMAGES } from '../../../constants';
 import {
   FamilyMemberForm,

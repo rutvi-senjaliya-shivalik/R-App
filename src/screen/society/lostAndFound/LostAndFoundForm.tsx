@@ -11,12 +11,11 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  Animated,
   Alert,
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { ImagePickerBottomSheet } from '../../../components/common';
-import { lostAndFoundFormStyles } from './formStyles';
+import { lostAndFoundFormStyles } from './styles/formStyles';
 import { COLORS } from '../../../constants';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { commonImageAction } from '../../../store/actions/commonImage/imageAction';

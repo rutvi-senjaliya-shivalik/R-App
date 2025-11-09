@@ -17,7 +17,7 @@ import {
   ImagePickerModal,
   InputField,
 } from '../../../components/common';
-import { addComplaintStyles } from './addComplaintStyles';
+import { addComplaintStyles } from './styles/addComplaintStyles';
 import { createComplaintAction } from '../../../store/actions/society/createComplaintAction';
 import { selectUserData } from '../../../store/selectors/auth';
 
