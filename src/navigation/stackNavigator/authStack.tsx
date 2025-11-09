@@ -8,18 +8,19 @@ import WhoAmI from '../../screen/auth/whoAmI';
 import Territory from '../../screen/auth/territory';
 import { useSelector } from 'react-redux';
 import { selectUserData } from '../../store/selectors/auth';
-import { isEmpty } from 'lodash';
 
 const Stack = createStackNavigator();
 
 const AuthStack = () => {
   const userData = useSelector(selectUserData);
-
-  console.log('userData::::--->', userData, !isEmpty(userData), userData?.isProfileComplete );
-
-  const initialRoute = isEmpty(userData)
-    ? 'Landing'
-    : userData && (userData?.isProfileComplete ? 'Landing' : 'Profile');
+  // console.log('userData:::-->', userData);
+  
+  // // Determine initial route based on user data
+  // const initialRoute = !userData
+  //   ? 'Landing'
+  //   : userData?.isProfileComplete
+  //   ? 'Landing' // If profile is complete, they should be in AppStack, but if we're here, show Landing
+  //   : 'Profile';
 
   return (
     <Stack.Navigator

@@ -1,6 +1,8 @@
+import { STRING } from '../../../constants';
 import { POST } from '../../../constants/api';
 import { MakeApiRequest } from '../../../services/apiService';
 import { OTP_VERIFY } from '../../../services/httpService';
+import PrefManager from '../../../utils/prefManager';
 import * as types from '../../actionType';
 
 export const otpVarifyAction = (credentials: {
@@ -19,6 +21,7 @@ export const otpVarifyAction = (credentials: {
         apiData: credentials,
       });
       console.log('response:::', response);
+      await PrefManager.setValue(STRING.TOKEN, response?.data?.result?.token);
       dispatch(otpVarifySuccess(response?.data?.result));
       return response;
     } catch (error: any) {

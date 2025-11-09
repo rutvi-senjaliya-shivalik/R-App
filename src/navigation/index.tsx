@@ -29,7 +29,7 @@ const RootNavigation = () => {
     <NavigationContainer
       key={!isEmpty(userData) ? 'authenticated' : 'unauthenticated'}
     >
-      {!isEmpty(userData) && userData?.isProfileComplete ? (
+      {!isEmpty(userData) ? (
         <>
           <AppStack />
         </>

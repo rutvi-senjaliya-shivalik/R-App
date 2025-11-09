@@ -1,0 +1,8 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Police Badge Shield Icon -->
+  <path d="M24 4L6 12V24C6 33.941 13.059 41.941 24 44C34.941 41.941 42 33.941 42 24V12L24 4Z" fill="#007AFF"/>
+  <path d="M24 8L10 14V24C10 31.732 15.268 38.268 24 40C32.732 38.268 38 31.732 38 24V14L24 8Z" fill="#0051D5"/>
+  <circle cx="24" cy="24" r="8" fill="#FFFFFF"/>
+  <path d="M24 18L25.5 22H29.5L26.25 24.5L27.75 28.5L24 26L20.25 28.5L21.75 24.5L18.5 22H22.5L24 18Z" fill="#007AFF"/>
+</svg>
+

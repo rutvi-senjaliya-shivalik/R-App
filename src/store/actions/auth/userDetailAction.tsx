@@ -12,6 +12,7 @@ export const userDetailAction = () => {
         apiUrl: GET_PROFILE,
         apiMethod: GET,
       });
+      console.log('userDetailAction-response:::', response);
       dispatch(userDetailSuccess(response));
       dispatch(otpVarifySuccess(response?.data?.result));
       return response;

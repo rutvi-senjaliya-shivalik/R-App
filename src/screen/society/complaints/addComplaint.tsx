@@ -7,34 +7,42 @@ import {
   Image,
   Alert,
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import ImagePicker from 'react-native-image-crop-picker';
 import {
   Container,
   HeaderComponent,
-  TextInput,
   DropDowns,
   CustomButton,
   ImagePickerModal,
+  InputField,
 } from '../../../components/common';
 import { addComplaintStyles } from './addComplaintStyles';
-import { COLORS } from '../../../constants';
+import { createComplaintAction } from '../../../store/actions/society/createComplaintAction';
+import { selectUserData } from '../../../store/selectors/auth';
 
 const complaintTypes = [
-  { label: 'Parking', value: 'parking' },
-  { label: 'Neighbour/Community', value: 'neighbour' },
-  { label: 'Electricity', value: 'electricity' },
-  { label: 'Maintenance', value: 'maintenance' },
-  { label: 'Cleanliness', value: 'cleanliness' },
-  { label: 'Misconduct', value: 'misconduct' },
-  { label: 'Service', value: 'service' },
+  { label: 'Parking', value: 'Parking' },
+  { label: 'Neighbour/Community', value: 'Neighbour/Community' },
+  { label: 'Electricity', value: 'Electricity' },
+  { label: 'Maintenance', value: 'Maintenance' },
+  { label: 'Cleanliness', value: 'Cleanliness' },
+  { label: 'Misconduct', value: 'Misconduct' },
+  { label: 'Service', value: 'Service' },
 ];
 
-const AddComplaintScreen = ({ navigation }: any) => {
+const AddComplaintScreen = ({ navigation, route }: any) => {
+  const dispatch = useDispatch() as any;
+  const { createLoading } = useSelector((state: any) => state.complaints);
+  const userData = useSelector(selectUserData);
+  console.log('AddComplaintScreen-userData:::', userData);
+  const { onCallback } = route.params || {};
+
   const [complaintType, setComplaintType] = useState('');
   const [complaintTitle, setComplaintTitle] = useState('');
   const [complaintDescription, setComplaintDescription] = useState('');
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<any>(null);
   const [showImagePicker, setShowImagePicker] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [errors, setErrors] = useState({
     type: '',
@@ -45,7 +53,7 @@ const AddComplaintScreen = ({ navigation }: any) => {
   const validateForm = useCallback(() => {
     let isValid = true;
     const newErrors = { type: '', title: '', description: '' };
-
+    console.log('complaintType:::', complaintType);
     if (!complaintType) {
       newErrors.type = 'Please select a complaint type';
       isValid = false;
@@ -70,23 +78,82 @@ const AddComplaintScreen = ({ navigation }: any) => {
       return;
     }
 
-    setIsSubmitting(true);
+    try {
+      const payload = {
+        society: userData?.societyId,
+        type: complaintType,
+        title: complaintTitle,
+        description: complaintDescription,
+        priority: 'High',
+        image: selectedImage,
+      };
+      const results = await dispatch(createComplaintAction(payload));
+      if (results?.data?.result) {
+        Alert.alert(
+          'Success',
+          results?.data?.message || 'Complaint submitted successfully!',
+          [
+            {
+              text: 'OK',
+              onPress: () => {
+                onCallback?.();
+                navigation.goBack();
+              },
+            },
+          ],
+        );
+      }
+    } catch (error: any) {
+      console.log('Error submitting complaint:', error);
+    }
+  }, [
+    validateForm,
+    userData?.societyId,
+    complaintType,
+    complaintTitle,
+    complaintDescription,
+    selectedImage,
+    dispatch,
+    onCallback,
+    navigation,
+  ]);
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      Alert.alert('Success', 'Complaint submitted successfully', [
-        {
-          text: 'OK',
-          onPress: () => navigation.goBack(),
-        },
-      ]);
-    }, 1500);
-  }, [validateForm, navigation]);
-
-  const handleImageSelect = useCallback((image: any) => {
-    setSelectedImage(image.path);
+  const handleCameraPress = useCallback(() => {
     setShowImagePicker(false);
+    setTimeout(() => {
+      ImagePicker.openCamera({
+        width: 1000,
+        height: 1000,
+        cropping: true,
+        includeBase64: false,
+        compressImageQuality: 0.8,
+      })
+        .then((image: any) => {
+          setSelectedImage(image);
+        })
+        .catch((error: any) => {
+          console.log('Camera error:', error);
+        });
+    }, 500);
+  }, []);
+
+  const handleGalleryPress = useCallback(() => {
+    setShowImagePicker(false);
+    setTimeout(() => {
+      ImagePicker.openPicker({
+        width: 1000,
+        height: 1000,
+        cropping: true,
+        includeBase64: false,
+        compressImageQuality: 0.8,
+      })
+        .then((image: any) => {
+          setSelectedImage(image);
+        })
+        .catch((error: any) => {
+          console.log('Gallery error:', error);
+        });
+    }, 500);
   }, []);
 
   const handleRemoveImage = useCallback(() => {
@@ -107,13 +174,14 @@ const AddComplaintScreen = ({ navigation }: any) => {
           keyboardShouldPersistTaps="handled"
         >
           <View style={addComplaintStyles.formContainer}>
-            <Text style={addComplaintStyles.sectionTitle}>Complaint Type</Text>
+            <Text style={addComplaintStyles.sectionTitle}>Complaint Type*</Text>
             <DropDowns
               data={complaintTypes}
               value={complaintType}
-              onChange={(item: any) => {
-                setComplaintType(item.value);
-                setErrors((prev) => ({ ...prev, type: '' }));
+              onChange={(value: string) => {
+                console.log('Selected complaint type:', value);
+                setComplaintType(value);
+                setErrors(prev => ({ ...prev, type: '' }));
               }}
               placeholder="Select complaint type"
             />
@@ -121,13 +189,15 @@ const AddComplaintScreen = ({ navigation }: any) => {
               <Text style={addComplaintStyles.errorText}>{errors.type}</Text>
             ) : null}
 
-            <Text style={addComplaintStyles.sectionTitle}>Complaint Title</Text>
-            <TextInput
+            <Text style={addComplaintStyles.sectionTitle}>
+              Complaint Title*
+            </Text>
+            <InputField
               placeholder="Enter complaint title"
               value={complaintTitle}
               onChangeText={(text: string) => {
                 setComplaintTitle(text);
-                setErrors((prev) => ({ ...prev, title: '' }));
+                setErrors(prev => ({ ...prev, title: '' }));
               }}
             />
             {errors.title ? (
@@ -135,14 +205,14 @@ const AddComplaintScreen = ({ navigation }: any) => {
             ) : null}
 
             <Text style={addComplaintStyles.sectionTitle}>
-              Complaint Description
+              Complaint Description*
             </Text>
-            <TextInput
+            <InputField
               placeholder="Enter detailed description of your complaint"
               value={complaintDescription}
               onChangeText={(text: string) => {
                 setComplaintDescription(text);
-                setErrors((prev) => ({ ...prev, description: '' }));
+                setErrors(prev => ({ ...prev, description: '' }));
               }}
               multiline
               numberOfLines={6}
@@ -160,7 +230,7 @@ const AddComplaintScreen = ({ navigation }: any) => {
             {selectedImage ? (
               <View style={addComplaintStyles.imageContainer}>
                 <Image
-                  source={{ uri: selectedImage }}
+                  source={{ uri: selectedImage.path }}
                   style={addComplaintStyles.image}
                   resizeMode="cover"
                 />
@@ -186,7 +256,7 @@ const AddComplaintScreen = ({ navigation }: any) => {
               <CustomButton
                 title="Submit Complaint"
                 onPress={handleSubmit}
-                loading={isSubmitting}
+                loading={createLoading}
               />
             </View>
           </View>
@@ -194,13 +264,13 @@ const AddComplaintScreen = ({ navigation }: any) => {
       </View>
 
       <ImagePickerModal
-        visible={showImagePicker}
+        isVisible={showImagePicker}
         onClose={() => setShowImagePicker(false)}
-        onImageSelect={handleImageSelect}
+        onCameraPress={handleCameraPress}
+        onGalleryPress={handleGalleryPress}
       />
     </Container>
   );
 };
 
 export default AddComplaintScreen;
-

@@ -1,31 +1,43 @@
-import React, { useCallback, useMemo } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
-import { Container, HeaderComponent, CustomButton } from '../../../components/common';
+import React, { useCallback, useMemo, useEffect } from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
+import {
+  Container,
+  HeaderComponent,
+  CustomButton,
+  Icon,
+} from '../../../components/common';
 import { amenitiesStyles } from './styles';
-
-type Amenity = {
-  id: string;
-  name: string;
-  description: string;
-};
+import { useDispatch, useSelector } from 'react-redux';
+import { getAmenitiesList } from '../../../store/actions/society/amenitiesListAction';
+import { AmenitiesDataModel } from '../../../types/models';
+import { selectAmenitiesData } from '../../../store/selectors/amenities';
+import { COLORS } from '../../../constants';
 
 const AmenitiesScreen = ({ navigation }: any) => {
-  const amenitiesList: Amenity[] = useMemo(
-    () => [
-      { id: '1', name: 'Club House', description: 'Modern clubhouse with entertainment facilities' },
-      { id: '2', name: 'GYM', description: 'Fully equipped fitness center with modern equipment' },
-      { id: '3', name: 'Swimming Pool', description: 'Olympic-size swimming pool with separate kids area' },
-      { id: '4', name: 'Community Hall', description: 'Spacious hall for events and gatherings' },
-      { id: '5', name: 'Tennis Court', description: 'Professional tennis court with night lighting' },
-      { id: '6', name: 'Kids Play Area', description: 'Safe and fun play area for children' },
-      { id: '7', name: 'Yoga Room', description: 'Peaceful room for yoga and meditation' },
-      { id: '8', name: 'Party Lawn', description: 'Beautiful outdoor space for celebrations' },
-    ],
-    [],
-  );
+  const dispatch = useDispatch() as any;
+
+  const { loading, amenitiesData, error } = useSelector(selectAmenitiesData);
+
+  const fetchAmenities = useCallback(async () => {
+    try {
+      await dispatch(getAmenitiesList());
+    } catch (err: any) {
+      console.log('Error fetching amenities:', err);
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    fetchAmenities();
+  }, [fetchAmenities]);
 
   const handleAmenityPress = useCallback(
-    (amenity: Amenity) => {
+    (amenity: AmenitiesDataModel) => {
       navigation.navigate('AmenitiesBooking', { amenity });
     },
     [navigation],
@@ -36,42 +48,64 @@ const AmenitiesScreen = ({ navigation }: any) => {
   }, [navigation]);
 
   const renderAmenity = useCallback(
-    ({ item }: { item: Amenity }) => (
+    ({ item }: { item: AmenitiesDataModel }) => (
       <TouchableOpacity
         style={amenitiesStyles.amenityCard}
         activeOpacity={0.7}
         onPress={() => handleAmenityPress(item)}
       >
-        <Text style={amenitiesStyles.amenityName}>{item.name}</Text>
-        <Text style={amenitiesStyles.amenityDescription}>{item.description}</Text>
+        <View style={amenitiesStyles.amenityInfo}>
+          <Text style={amenitiesStyles.amenityName}>{item?.name}</Text>
+          {item?.description && (
+            <Text style={amenitiesStyles.amenityDescription}>
+              {item?.description}
+            </Text>
+          )}
+        </View>
+        <Icon name={'arrow-right-ic'} styles={amenitiesStyles.arrowIcon} />
       </TouchableOpacity>
     ),
     [handleAmenityPress],
   );
 
-  const keyExtractor = useCallback((item: Amenity) => item.id, []);
+  const keyExtractor = useCallback((item: AmenitiesDataModel) => item?._id, []);
 
   return (
     <Container>
       <View style={amenitiesStyles.container}>
-        <HeaderComponent Title="Amenities" onPress={() => navigation.goBack()} />
-        <View style={amenitiesStyles.contentWrapper}>
-          <FlatList
-            data={amenitiesList}
-            keyExtractor={keyExtractor}
-            renderItem={renderAmenity}
-            contentContainerStyle={amenitiesStyles.listContent}
-            showsVerticalScrollIndicator={false}
-          />
-        </View>
-        <View style={amenitiesStyles.recentBookingsButton}>
-          <CustomButton title="Recent Bookings" onPress={handleRecentBookings} />
-        </View>
+        <HeaderComponent
+          Title="Amenities"
+          onPress={() => navigation.goBack()}
+        />
+        {loading ? (
+          <View style={amenitiesStyles.loadingContainer}>
+            <ActivityIndicator size="large" color={COLORS.BLUE_TEXT} />
+            <Text style={amenitiesStyles.loadingText}>
+              Loading amenities...
+            </Text>
+          </View>
+        ) : (
+          <>
+            <View style={amenitiesStyles.contentWrapper}>
+              <FlatList
+                data={amenitiesData}
+                keyExtractor={keyExtractor}
+                renderItem={renderAmenity}
+                contentContainerStyle={amenitiesStyles.listContent}
+                showsVerticalScrollIndicator={false}
+              />
+            </View>
+            <View style={amenitiesStyles.recentBookingsButton}>
+              <CustomButton
+                title="Recent Bookings"
+                onPress={handleRecentBookings}
+              />
+            </View>
+          </>
+        )}
       </View>
     </Container>
   );
 };
 
 export default AmenitiesScreen;
-
-

@@ -23,7 +23,7 @@ export const societyServiceStyles = StyleSheet.create({
     borderColor: COLORS.BORDER_GREY,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 24,
+    paddingVertical: 30,
     paddingHorizontal: 10,
   },
   icon: {
@@ -38,6 +38,25 @@ export const societyServiceStyles = StyleSheet.create({
     color: COLORS.BLACK_TEXT,
     textAlign: 'center',
   },
+  floatingButtonContainer: {
+    position: 'absolute',
+    right: 16,
+    bottom: 16,
+    width: 60,
+    height: 60,
+    borderRadius: 28,
+    backgroundColor: '#4A90E2',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 8,
+  },
+  aiVoiceStyle: {
+    width: 32,
+    height: 32,
+    tintColor: '#FFFFFF',
+  },
 });
-
-

@@ -90,6 +90,17 @@ export const complaintsStyles = StyleSheet.create({
     color: COLORS.GREY_TEXT,
     textAlign: 'center',
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    marginTop: 16,
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+  },
   buttonWrapper: {
     position: 'absolute',
     bottom: 20,

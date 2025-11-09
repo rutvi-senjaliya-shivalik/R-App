@@ -1,103 +1,93 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import { View, FlatList, Text, TouchableOpacity } from 'react-native';
-import { Container, HeaderComponent, CustomButton } from '../../../components/common';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import {
+  View,
+  FlatList,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  Container,
+  HeaderComponent,
+  CustomButton,
+} from '../../../components/common';
 import { complaintsStyles } from './styles';
 import { COLORS } from '../../../constants';
-
-type ComplaintStatus = 'pending' | 'in-progress' | 'resolved' | 'closed';
-
-interface Complaint {
-  id: string;
-  type: string;
-  title: string;
-  description: string;
-  status: ComplaintStatus;
-  date: string;
-}
+import { getComplaintsListAction } from '../../../store/actions/society/complaintsListAction';
+import { ComplainDataModel } from '../../../types/models';
 
 const ComplaintsScreen = ({ navigation }: any) => {
-  const [complaints] = useState<Complaint[]>([
-    {
-      id: '1',
-      type: 'Parking',
-      title: 'Unauthorized parking in my slot',
-      description: 'Someone has parked their car in my designated parking slot.',
-      status: 'pending',
-      date: '2024-01-15',
-    },
-    {
-      id: '2',
-      type: 'Maintenance',
-      title: 'Water leakage in bathroom',
-      description: 'There is continuous water leakage from the bathroom ceiling.',
-      status: 'in-progress',
-      date: '2024-01-14',
-    },
-    {
-      id: '3',
-      type: 'Cleanliness',
-      title: 'Garbage not collected',
-      description: 'Garbage has not been collected for 3 days near lift lobby.',
-      status: 'resolved',
-      date: '2024-01-13',
-    },
-    {
-      id: '4',
-      type: 'Electricity',
-      title: 'Power outage in corridor',
-      description: 'The corridor lights on 3rd floor are not working.',
-      status: 'pending',
-      date: '2024-01-12',
-    },
-  ]);
+  const dispatch = useDispatch() as any;
+  const { loading, complaintsData, error } = useSelector(
+    (state: any) => state.complaints,
+  );
+  console.log('complaintsData::::--->', complaintsData);
 
-  const getStatusColor = useCallback((status: ComplaintStatus) => {
+  useEffect(() => {
+    fetchComplaints();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const fetchComplaints = useCallback(async () => {
+    try {
+      await dispatch(getComplaintsListAction());
+    } catch (err: any) {
+      console.log('Error fetching complaints:', err);
+    }
+  }, [dispatch]);
+
+  const getStatusColor = useCallback((status: string) => {
     switch (status) {
       case 'pending':
-        return COLORS.ORANGE || '#FF9800';
+        return COLORS?.ORANGE || '#FF9800';
       case 'in-progress':
-        return COLORS.BLUE_TEXT || '#2196F3';
+        return COLORS?.BLUE_TEXT || '#2196F3';
       case 'resolved':
-        return COLORS.GREEN || '#4CAF50';
+        return COLORS?.GREEN || '#4CAF50';
       case 'closed':
-        return COLORS.GREY_TEXT || '#9E9E9E';
+        return COLORS?.GREY_TEXT || '#9E9E9E';
       default:
-        return COLORS.GREY_TEXT || '#9E9E9E';
+        return COLORS?.GREY_TEXT || '#9E9E9E';
     }
   }, []);
 
-  const getStatusText = useCallback((status: ComplaintStatus) => {
-    return status.charAt(0).toUpperCase() + status.slice(1).replace('-', ' ');
+  const getStatusText = useCallback((status: string) => {
+    return status?.charAt(0).toUpperCase() + status?.slice(1).replace('-', ' ');
   }, []);
 
   const handleAddComplaint = useCallback(() => {
-    navigation.navigate('AddComplaint');
-  }, [navigation]);
+    navigation.navigate('AddComplaint', {
+      onCallback: () => {
+        fetchComplaints();
+      },
+    });
+  }, [fetchComplaints, navigation]);
 
   const renderItem = useCallback(
-    ({ item }: { item: Complaint }) => {
+    ({ item }: { item: ComplainDataModel }) => {
       return (
         <TouchableOpacity style={complaintsStyles.card} activeOpacity={0.7}>
           <View style={complaintsStyles.cardHeader}>
             <View style={complaintsStyles.typeContainer}>
-              <Text style={complaintsStyles.typeText}>{item.type}</Text>
+              <Text style={complaintsStyles.typeText}>{item?.type}</Text>
             </View>
             <View
               style={[
                 complaintsStyles.statusBadge,
-                { backgroundColor: getStatusColor(item.status) },
+                { backgroundColor: getStatusColor(item?.status) },
               ]}
             >
               <Text style={complaintsStyles.statusText}>
-                {getStatusText(item.status)}
+                {getStatusText(item?.status)}
               </Text>
             </View>
           </View>
-          <Text style={complaintsStyles.title}>{item.title}</Text>
+          <Text style={complaintsStyles.title}>{item?.title}</Text>
           <Text style={complaintsStyles.description} numberOfLines={2}>
-            {item.description}
+            {item?.description}
           </Text>
-          <Text style={complaintsStyles.date}>{item.date}</Text>
+          <Text style={complaintsStyles.date}>{item?.createdAt}</Text>
         </TouchableOpacity>
       );
     },
@@ -124,14 +114,23 @@ const ComplaintsScreen = ({ navigation }: any) => {
           onPress={() => navigation.goBack()}
         />
         <View style={complaintsStyles.contentWrapper}>
-          <FlatList
-            data={complaints}
-            keyExtractor={(item) => item.id}
-            renderItem={renderItem}
-            ListEmptyComponent={renderEmptyComponent}
-            contentContainerStyle={complaintsStyles.listContent}
-            showsVerticalScrollIndicator={false}
-          />
+          {loading ? (
+            <View style={complaintsStyles.loadingContainer}>
+              <ActivityIndicator size="large" color={COLORS.BLUE_TEXT} />
+              <Text style={complaintsStyles.loadingText}>
+                Loading complaints...
+              </Text>
+            </View>
+          ) : (
+            <FlatList
+              data={complaintsData}
+              keyExtractor={item => item?.id}
+              renderItem={renderItem}
+              ListEmptyComponent={renderEmptyComponent}
+              contentContainerStyle={complaintsStyles.listContent}
+              showsVerticalScrollIndicator={false}
+            />
+          )}
           <View style={complaintsStyles.buttonWrapper}>
             <CustomButton
               title="Add New Complaint"
@@ -145,4 +144,3 @@ const ComplaintsScreen = ({ navigation }: any) => {
 };
 
 export default ComplaintsScreen;
-

@@ -24,6 +24,10 @@ import SOSScreen from '../../screen/society/sos';
 import ReportScreen from '../../screen/society/report';
 import DashboardScreen from '../../screen/society/dashboard';
 import UnitManagementScreen from '../../screen/society/unitManagement';
+import LostAndFoundScreen from '../../screen/society/lostAndFound';
+import NoticeDashboardScreen from '../../screen/society/noticeDashboard';
+import MyParkingScreen from '../../screen/society/myParking';
+import VisitorEntryScreen from '../../screen/society/visitorEntry';
 import ComplaintsScreen from '../../screen/society/complaints';
 import AddComplaintScreen from '../../screen/society/complaints/addComplaint';
 
@@ -65,6 +69,10 @@ const AppStack = () => {
       <Stack.Screen name="UnitManagement" component={UnitManagementScreen} />
       <Stack.Screen name="Complaints" component={ComplaintsScreen} />
       <Stack.Screen name="AddComplaint" component={AddComplaintScreen} />
+      <Stack.Screen name="LostAndFound" component={LostAndFoundScreen} />
+      <Stack.Screen name="NoticeDashboard" component={NoticeDashboardScreen} />
+      <Stack.Screen name="MyParking" component={MyParkingScreen} />
+      <Stack.Screen name="VisitorEntry" component={VisitorEntryScreen} />
     </Stack.Navigator>
   );
 };

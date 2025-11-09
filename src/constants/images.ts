@@ -55,6 +55,11 @@ const Images = {
   RED_ARROW: require('../assets/images/redarrow.png'),
   WATCHCAL: require('../assets/images/watchCal.png'),
   TERRITORY: require('../assets/images/territory.png'),
+  // SOS Emergency Icons
+  MEDICAL_ICON: require('../assets/images/medical-icon.png'),
+  FIRE_ICON: require('../assets/images/fire-icon.png'),
+  THEFT_ICON: require('../assets/images/theft-icon.png'),
+  AI_VOICE_ASSISTANT: require('../assets/images/ai-voice-assistant.png'),
 };
 
 export default Images;

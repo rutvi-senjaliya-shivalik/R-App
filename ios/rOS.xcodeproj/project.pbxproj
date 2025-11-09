@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		18835E452EC01C9B006D103E /* sound-effect-uk-ambulance-siren-164354.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18835E442EC01C9B006D103E /* sound-effect-uk-ambulance-siren-164354.mp3 */; };
+		18835E462EC01C9B006D103E /* fire-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18835E432EC01C9B006D103E /* fire-alarm.mp3 */; };
 		18A66C1F2EBFF32A0005B555 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18A66C1E2EBFF32A0005B555 /* GoogleService-Info.plist */; };
 		21B8848A2A114056AFAEE053 /* BricolageGrotesque-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E1CBB0201454FB89668ECC7 /* BricolageGrotesque-Medium.ttf */; };
 		4392CA735A86C167B72B4DCF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
@@ -27,6 +29,8 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = rOS/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = rOS/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = rOS/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		18835E432EC01C9B006D103E /* fire-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "fire-alarm.mp3"; sourceTree = "<group>"; };
+		18835E442EC01C9B006D103E /* sound-effect-uk-ambulance-siren-164354.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "sound-effect-uk-ambulance-siren-164354.mp3"; sourceTree = "<group>"; };
 		18A66C1E2EBFF32A0005B555 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		18A66C202EBFF60D0005B555 /* rOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = rOS.entitlements; path = rOS/rOS.entitlements; sourceTree = "<group>"; };
 		279CE92D642F4FF69AD750AB /* BricolageGrotesque-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BricolageGrotesque-ExtraLight.ttf"; path = "../src/assets/fonts/BricolageGrotesque-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -89,6 +93,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				18835E432EC01C9B006D103E /* fire-alarm.mp3 */,
+				18835E442EC01C9B006D103E /* sound-effect-uk-ambulance-siren-164354.mp3 */,
 				13B07FAE1A68108700A75B9A /* rOS */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -201,6 +207,8 @@
 				97CFD1D32F0040D9A2EAEAA7 /* BricolageGrotesque-ExtraBold.ttf in Resources */,
 				5C9FE8326D744C3D89DC1254 /* BricolageGrotesque-ExtraLight.ttf in Resources */,
 				E891673A730D439AB1B164A8 /* BricolageGrotesque-Light.ttf in Resources */,
+				18835E452EC01C9B006D103E /* sound-effect-uk-ambulance-siren-164354.mp3 in Resources */,
+				18835E462EC01C9B006D103E /* fire-alarm.mp3 in Resources */,
 				21B8848A2A114056AFAEE053 /* BricolageGrotesque-Medium.ttf in Resources */,
 				EBD230426AB2477EB02ECE9A /* BricolageGrotesque-Regular.ttf in Resources */,
 				18A66C1F2EBFF32A0005B555 /* GoogleService-Info.plist in Resources */,

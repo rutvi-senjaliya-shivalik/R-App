@@ -15,6 +15,7 @@ export const amenitiesStyles = StyleSheet.create({
     paddingBottom: 100,
   },
   amenityCard: {
+    flexDirection: 'row',
     backgroundColor: COLORS.WHITE,
     borderRadius: 12,
     padding: 16,
@@ -26,6 +27,10 @@ export const amenitiesStyles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 4,
     elevation: 2,
+  },
+  amenityInfo: {
+    flex: 1,
+    flexDirection: 'column',
   },
   amenityName: {
     fontSize: FS.FS18,
@@ -51,5 +56,20 @@ export const amenitiesStyles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: COLORS.BORDER_GREY,
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    marginTop: 16,
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+  },
+  arrowIcon: {
+    alignItems: 'center',
+    width: 24,
+    height: 24,
+  },
 });
-

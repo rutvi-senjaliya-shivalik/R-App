@@ -39,7 +39,8 @@ export async function MakeApiRequest({
   console.log('token::', token);
 
   const headers = {
-    'Content-Type': apiHeaders['Content-Type'] || 'application/json',
+    accept: 'application/json',
+    // 'Content-Type': apiHeaders['Content-Type'] || 'application/json',
     ...(token ? { Authorization: token } : {}),
     ...apiHeaders,
   };

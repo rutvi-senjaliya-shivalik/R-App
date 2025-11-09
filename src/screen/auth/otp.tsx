@@ -209,7 +209,7 @@ const OtpScreen = ({ route, navigation }: any) => {
       if (response.status === 200) {
         console.log('OTP Success', response.data?.result);
         const userData = response.data?.result;
-
+        console.log('userData?.token::', userData?.token);
         // Store access token for subsequent API calls
         PrefManager.setValue(STRING.TOKEN, userData?.token);
 
@@ -240,7 +240,7 @@ const OtpScreen = ({ route, navigation }: any) => {
           console.log(
             '📍 Profile and identity submitted but territory not submitted - moving to territory setup',
           );
-          navigation.navigate('Territory', { userData });
+          // navigation.navigate('Territory', { userData });
         }
         // All three conditions are met - proceed to main app
         else {
