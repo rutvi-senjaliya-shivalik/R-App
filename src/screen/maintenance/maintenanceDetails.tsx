@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Alert, Modal, ActivityIndicator } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
 import { Container, HeaderComponent } from '../../components/common';
 import { MakeApiRequest } from '../../services/apiService';
 import { GET, POST } from '../../constants/api';
@@ -16,10 +15,7 @@ interface Props {
 }
 
 const MaintenanceDetails: React.FC<Props> = ({ route, navigation }) => {
-  const { billId, unitId } = route.params || {};
-  const { userData } = useSelector((state: any) => state.otp);
-  const memberId = userData?.member?._id;
-  const userId = userData?.user?._id || userData?._id;
+  const { billId } = route.params || {};
 
   const [bill, setBill] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -28,7 +24,7 @@ const MaintenanceDetails: React.FC<Props> = ({ route, navigation }) => {
   const [processing, setProcessing] = useState<boolean>(false);
 
   const loadBillDetails = useCallback(async () => {
-    if (!billId || !unitId) {
+    if (!billId) {
       setLoading(false);
       return;
     }
@@ -36,7 +32,7 @@ const MaintenanceDetails: React.FC<Props> = ({ route, navigation }) => {
     try {
       setLoading(true);
       const response = await MakeApiRequest({
-        apiUrl: `http://10.0.2.2:5000/api/resident/maintenance/bills/${billId}?unitId=${unitId}`,
+        apiUrl: `http://10.0.2.2:5000/api/maintenance/bills/${billId}`,
         apiMethod: GET,
       });
 
@@ -49,7 +45,7 @@ const MaintenanceDetails: React.FC<Props> = ({ route, navigation }) => {
     } finally {
       setLoading(false);
     }
-  }, [billId, unitId]);
+  }, [billId]);
 
   useFocusEffect(
     useCallback(() => {
@@ -69,30 +65,22 @@ const MaintenanceDetails: React.FC<Props> = ({ route, navigation }) => {
     // Simulate payment gateway processing
     setTimeout(async () => {
       try {
-        const paymentMethod = selectedGateway === 'razorpay' ? 'razorpay' : selectedGateway === 'stripe' ? 'stripe' : 'upi';
-
         const response = await MakeApiRequest({
-          apiUrl: 'http://10.0.2.2:5000/api/resident/maintenance/bills/pay',
+          apiUrl: 'http://10.0.2.2:5000/api/maintenance/bills/pay',
           apiMethod: POST,
           apiData: {
             billId: bill._id,
-            unitId,
-            memberId,
-            paymentAmount: bill.totalOwnerAmount || bill.totalTenantAmount || 0,
-            paymentMethod,
+            paymentMethod: selectedGateway,
           },
         });
 
         if (response.data.success) {
-          const txnId = response.data.data.transactionId || `${selectedGateway.toUpperCase()}_${Date.now()}`;
-          const paymentMethodDisplay = selectedGateway === 'razorpay' ? 'Razorpay' : selectedGateway === 'stripe' ? 'Stripe' : 'UPI';
-
           setProcessing(false);
           setShowPaymentModal(false);
 
           Alert.alert(
             '✅ Payment Successful',
-            `Your payment of ₹${bill.totalOwnerAmount || bill.totalTenantAmount || 0} has been processed successfully.\n\nTransaction ID: ${txnId}\nPayment Method: ${paymentMethodDisplay}`,
+            `Your payment of ₹${bill.amount} has been processed successfully.\n\nTransaction ID: ${response.data.data.transactionId}\nPayment Method: ${selectedGateway.toUpperCase()}`,
             [{ text: 'OK', onPress: () => navigation.goBack() }]
           );
         }
@@ -138,6 +126,8 @@ const MaintenanceDetails: React.FC<Props> = ({ route, navigation }) => {
     );
   }
 
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
   return (
     <Container>
       <View style={maintenanceStyles.container}>
@@ -145,14 +135,14 @@ const MaintenanceDetails: React.FC<Props> = ({ route, navigation }) => {
           Title="Bill Details"
           onPress={() => navigation.goBack()}
         />
-      
-        <ScrollView 
+
+        <ScrollView
           style={maintenanceStyles.contentWrapper}
           showsVerticalScrollIndicator={false}
         >
         <View style={maintenanceStyles.detailsHeader}>
           <Text style={maintenanceStyles.billTitle}>
-            {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][bill.month - 1]} {bill.year}
+            {monthNames[bill.month - 1]} {bill.year}
           </Text>
           <Text style={maintenanceStyles.billStatus}>
             {bill.isPaid ? '✅ Paid' : '⏳ Pending Payment'}
@@ -162,7 +152,7 @@ const MaintenanceDetails: React.FC<Props> = ({ route, navigation }) => {
       <View style={maintenanceStyles.amountCard}>
         <Text style={maintenanceStyles.amountLabel}>Total Amount</Text>
         <Text style={maintenanceStyles.amountLarge}>
-          ₹ {(bill.totalOwnerAmount || bill.totalTenantAmount || 0).toLocaleString()}
+          ₹ {(bill.amount || 0).toLocaleString()}
         </Text>
         {!bill.isPaid && (
           <Text style={maintenanceStyles.dueLabel}>
@@ -171,38 +161,7 @@ const MaintenanceDetails: React.FC<Props> = ({ route, navigation }) => {
         )}
       </View>
 
-      <Text style={maintenanceStyles.sectionTitle}>Bill Information</Text>
-      <View style={maintenanceStyles.breakdownContainer}>
-        <View style={maintenanceStyles.breakdownRow}>
-          <Text style={maintenanceStyles.breakdownLabel}>Owner Amount</Text>
-          <Text style={maintenanceStyles.breakdownValue}>₹ {(bill.totalOwnerAmount || 0).toLocaleString()}</Text>
-        </View>
-        <View style={maintenanceStyles.divider} />
-        <View style={maintenanceStyles.breakdownRow}>
-          <Text style={maintenanceStyles.breakdownLabel}>Tenant Amount</Text>
-          <Text style={maintenanceStyles.breakdownValue}>₹ {(bill.totalTenantAmount || 0).toLocaleString()}</Text>
-        </View>
-        {bill.lateFeeEnabled && (
-          <>
-            <View style={maintenanceStyles.divider} />
-            <View style={maintenanceStyles.breakdownRow}>
-              <Text style={maintenanceStyles.breakdownLabel}>Late Fee</Text>
-              <Text style={maintenanceStyles.breakdownValue}>₹ {(bill.lateFeeAmount || 0).toLocaleString()}</Text>
-            </View>
-          </>
-        )}
-        {bill.description && (
-          <>
-            <View style={maintenanceStyles.divider} />
-            <View style={maintenanceStyles.breakdownRow}>
-              <Text style={maintenanceStyles.breakdownLabel}>Description</Text>
-              <Text style={maintenanceStyles.breakdownValue}>{bill.description}</Text>
-            </View>
-          </>
-        )}
-      </View>
-
-      {bill.isPaid && bill.paymentDetails ? (
+      {bill.isPaid ? (
         <View style={maintenanceStyles.paidInfo}>
           <View style={maintenanceStyles.paidBadge}>
             <Text style={maintenanceStyles.paidBadgeText}>✓ PAYMENT COMPLETED</Text>
@@ -210,24 +169,24 @@ const MaintenanceDetails: React.FC<Props> = ({ route, navigation }) => {
           <View style={maintenanceStyles.paidInfoRow}>
             <Text style={maintenanceStyles.paidInfoLabel}>Payment Date</Text>
             <Text style={maintenanceStyles.paidInfoValue}>
-              {new Date(bill.paymentDetails.paymentDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
+              {new Date(bill.paidDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
             </Text>
           </View>
           <View style={maintenanceStyles.paidInfoRow}>
             <Text style={maintenanceStyles.paidInfoLabel}>Payment Method</Text>
             <Text style={maintenanceStyles.paidInfoValue}>
-              {bill.paymentDetails.paymentMethod?.toUpperCase() || 'N/A'}
+              {bill.paymentMethod?.toUpperCase() || 'N/A'}
             </Text>
           </View>
           <View style={maintenanceStyles.paidInfoRow}>
             <Text style={maintenanceStyles.paidInfoLabel}>Transaction ID</Text>
-            <Text style={maintenanceStyles.paidInfoValue}>{bill.paymentDetails.transactionId}</Text>
+            <Text style={maintenanceStyles.paidInfoValue}>{bill.transactionId}</Text>
           </View>
         </View>
       ) : (
         <TouchableOpacity style={maintenanceStyles.payBtn} onPress={handlePaymentInitiate}>
           <Text style={maintenanceStyles.payBtnText}>
-            Proceed to Pay ₹ {(bill.totalOwnerAmount || bill.totalTenantAmount || 0).toLocaleString()}
+            Proceed to Pay ₹ {(bill.amount || 0).toLocaleString()}
           </Text>
         </TouchableOpacity>
       )}
@@ -243,8 +202,8 @@ const MaintenanceDetails: React.FC<Props> = ({ route, navigation }) => {
           <View style={maintenanceStyles.modalContent}>
             <View style={maintenanceStyles.modalHeader}>
               <Text style={maintenanceStyles.modalTitle}>Select Payment Method</Text>
-              <TouchableOpacity 
-                style={maintenanceStyles.closeButton} 
+              <TouchableOpacity
+                style={maintenanceStyles.closeButton}
                 onPress={() => !processing && setShowPaymentModal(false)}
                 disabled={processing}
               >
@@ -256,7 +215,7 @@ const MaintenanceDetails: React.FC<Props> = ({ route, navigation }) => {
               <>
                 <View style={maintenanceStyles.modalSection}>
                   <Text style={maintenanceStyles.modalSectionTitle}>Choose Payment Gateway</Text>
-                  
+
                   <TouchableOpacity
                     style={[
                       maintenanceStyles.paymentMethodCard,
@@ -315,7 +274,7 @@ const MaintenanceDetails: React.FC<Props> = ({ route, navigation }) => {
                     <View style={maintenanceStyles.summaryRow}>
                       <Text style={maintenanceStyles.summaryLabel}>Billing Period</Text>
                       <Text style={maintenanceStyles.summaryValue}>
-                        {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][bill.month - 1]} {bill.year}
+                        {monthNames[bill.month - 1]} {bill.year}
                       </Text>
                     </View>
                     <View style={maintenanceStyles.summaryRow}>
@@ -326,7 +285,7 @@ const MaintenanceDetails: React.FC<Props> = ({ route, navigation }) => {
                     </View>
                     <View style={maintenanceStyles.summaryTotal}>
                       <Text style={maintenanceStyles.summaryTotalLabel}>Amount to Pay</Text>
-                      <Text style={maintenanceStyles.summaryTotalValue}>₹ {bill.totalOwnerAmount || bill.totalTenantAmount || 0}</Text>
+                      <Text style={maintenanceStyles.summaryTotalValue}>₹ {bill.amount || 0}</Text>
                     </View>
                   </View>
                 </View>

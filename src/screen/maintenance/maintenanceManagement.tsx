@@ -29,7 +29,7 @@ const MaintenanceManagement: React.FC<Props> = ({ navigation }) => {
     setLoading(true);
     try {
       const response = await MakeApiRequest({
-        apiUrl: `http://10.0.2.2:5000/api/resident/maintenance/bills?unitId=${unitId}`,
+        apiUrl: `http://10.0.2.2:5000/api/maintenance/bills/unit?unitId=${unitId}`,
         apiMethod: GET,
       });
 
@@ -73,7 +73,7 @@ const MaintenanceManagement: React.FC<Props> = ({ navigation }) => {
       <View style={maintenanceStyles.card}>
         <View style={maintenanceStyles.row}>
           <Text style={maintenanceStyles.month}>{monthName} {item.year}</Text>
-          <Text style={maintenanceStyles.amount}>₹ {item.totalOwnerAmount || item.totalTenantAmount || 0}</Text>
+          <Text style={maintenanceStyles.amount}>₹ {item.amount || 0}</Text>
         </View>
         <Text style={maintenanceStyles.due}>Due: {new Date(item.dueDate).toLocaleDateString()}</Text>
         <View style={maintenanceStyles.rowSpace}>
