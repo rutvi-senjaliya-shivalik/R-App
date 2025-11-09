@@ -10,7 +10,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
-import { COLORS, FS } from '../../constants';
+import { COLORS, FS, FF } from '../../constants';
 
 type Item = { label: string; value: string };
 
@@ -115,8 +115,18 @@ const Dropdowns = ({
         }}
         onChange={item => onChange(item.value)}
         dropdownPosition={position} // <-- auto top/bottom
-        itemTextStyle={{ color: COLORS.BLACK }}
-        containerStyle={{ backgroundColor: '#ffffff' ,zIndex:999999}}
+        itemTextStyle={{ 
+          color: COLORS.BLACK_TEXT,
+          fontSize: FS.FS14,
+          fontFamily: FF[400],
+        }}
+        containerStyle={{ 
+          backgroundColor: COLORS.WHITE,
+          borderColor: COLORS.BORDER_GREY,
+          borderWidth: 1,
+          borderRadius: 8,
+          zIndex: 999999,
+        }}
         backgroundColor="transparent"
         search={search}
         searchPlaceholder={searchPlaceholder}
@@ -136,22 +146,24 @@ const styles = StyleSheet.create({
   dropdown: {
     height: 50,
     borderColor: COLORS.BORDER_GREY,
-    borderBottomWidth: 0.5,
-    borderRadius: 4,
-    paddingHorizontal: 12,
-    marginTop: 5,
-    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    marginTop: 0,
+    backgroundColor: COLORS.LIGHT_GRAY,
     zIndex:999999
   },
   dropdownError: {
-    borderColor: 'red',
+    borderColor: COLORS.ERROR_COLOR,
   },
   dropdownPlaceholder: {
-    fontSize: FS.FS16,
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
     color: COLORS.GREY_TEXT,
   },
   dropdownSelectedText: {
-    fontSize: FS.FS16,
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
     color: COLORS.BLACK_TEXT,
   },
 });

@@ -89,6 +89,38 @@ const Loginstyles = StyleSheet.create({
         fontFamily: FF[400],
         color: COLORS.ERROR_COLOR,
         // textAlign: 'left',
+    },
+    // Quick Fill styles
+    quickFillContainer: {
+        marginTop: 16,
+        marginBottom: 24,
+        alignItems: 'center',
+    },
+    quickFillLabel: {
+        fontSize: FS.FS12,
+        fontFamily: FF[400],
+        color: COLORS.GREY_TEXT,
+        marginBottom: 12,
+    },
+    quickFillButtons: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+    },
+    quickFillButton: {
+        backgroundColor: COLORS.LIGHT_BLUE,
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        borderRadius: 8,
+        marginHorizontal: 4,
+        marginVertical: 4,
+        borderWidth: 1,
+        borderColor: COLORS.BLUE_BORDER,
+    },
+    quickFillButtonText: {
+        fontSize: FS.FS11,
+        fontFamily: FF[500],
+        color: COLORS.BLUE_TEXT,
     }
 });
 

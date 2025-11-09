@@ -10,7 +10,7 @@ import rootSaga from './sagas';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['otp'], // Persist OTP state (which contains auth data) and punch-in data
+  whitelist: ['otp', 'language'], // Persist OTP state (which contains auth data) and language preference
   blacklist: [],
 };
 

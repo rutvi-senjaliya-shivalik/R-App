@@ -15,6 +15,7 @@ const InputField = ({
   value,
   onChangeText,
   error,
+  style,
   ...rest
 }: InputFieldProps) => {
   return (
@@ -23,7 +24,7 @@ const InputField = ({
         placeholderTextColor={COLORS.GREY_TEXT}
         cursorColor={COLORS.BLACK}
         placeholder={placeholder}
-        style={[InputFieldStyles.input, error && InputFieldStyles.inputError]}
+        style={[InputFieldStyles.input, error && InputFieldStyles.inputError, style]}
         value={value}
         onChangeText={onChangeText}
         {...rest}

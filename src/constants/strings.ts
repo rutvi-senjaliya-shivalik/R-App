@@ -3,6 +3,8 @@ const STRING = {
 
     TOKEN:"Token",
     USER:"User",
+    ROLE:"Role",
+    SELECTED_SOCIETY:"SelectedSociety",
     }
 
     export default STRING;

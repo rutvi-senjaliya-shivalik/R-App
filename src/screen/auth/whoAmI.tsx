@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { WhoAmIStyles } from './styles';
-import { Container, CustomButton, DropDowns } from '../../components/common';
+import { Container, CustomButton, Dropdowns } from '../../components/common';
 import { IMAGES } from '../../constants';
 import { COLORS } from '../../constants';
 import {
@@ -15,8 +15,10 @@ import {
 } from '../../store/selectors/auth';
 import PrefManager from '../../utils/prefManager';
 import { setAuthToken } from '../../store/actions/auth/loginAction';
+import { useTranslation } from '../../context/LanguageContext';
 
 const WhoAmI = ({ route, navigation }: any) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const whoAmIData = useSelector(selectWhoAmIData);
   const loading = useSelector(selectWhoAmILoading);
@@ -138,7 +140,7 @@ const WhoAmI = ({ route, navigation }: any) => {
 
   const handleSubmit = async () => {
     if (!selectedOption) {
-      Alert.alert('Error', 'Please select your identity');
+      Alert.alert(t('common.error'), t('auth.pleaseSelectYourIdentity'));
       return;
     }
 
@@ -146,7 +148,7 @@ const WhoAmI = ({ route, navigation }: any) => {
       selectedOption === 'Working Professionals (Job in Real Estate)' &&
       !selectedJobRole
     ) {
-      Alert.alert('Error', 'Please select your job role');
+      Alert.alert(t('common.error'), t('auth.pleaseSelectYourJobRole'));
       return;
     }
 
@@ -197,15 +199,15 @@ const WhoAmI = ({ route, navigation }: any) => {
           navigation.navigate('Territory', { userData });
         }
       }
-    } catch (error: any) {
+      } catch (error: any) {
       console.log(
         'WhoAmI API error:',
         error?.response?.data?.message || error?.message,
       );
       Alert.alert(
-        'Error',
+        t('common.error'),
         error?.response?.data?.message ||
-          'Something went wrong. Please try again.',
+          t('errors.somethingWentWrong'),
       );
     }
   };
@@ -217,18 +219,18 @@ const WhoAmI = ({ route, navigation }: any) => {
           <Image source={IMAGES.APP_LOGO} style={WhoAmIStyles.logo} />
         </View>
         <View style={WhoAmIStyles.titleContainer}>
-          <Text style={WhoAmIStyles.title}>WHO ARE YOU?</Text>
+          <Text style={WhoAmIStyles.title}>{t('auth.whoAreYou')}</Text>
           <Text style={WhoAmIStyles.subtitle}>
-            Select the identity that best describe you{' '}
+            {t('auth.selectIdentityBestDescribes')}
           </Text>
         </View>
 
         {/* Identity Dropdown */}
         <View style={styles.dropdownContainer}>
-          <DropDowns
+          <Dropdowns
             data={options}
             value={selectedOption}
-            placeholder="Select your identity"
+            placeholder={t('auth.selectYourIdentity')}
             onChange={handleOptionSelect}
             // dropdownPosition="bottom"
             dropdownStyle={styles.dropdownStyle}
@@ -238,10 +240,10 @@ const WhoAmI = ({ route, navigation }: any) => {
         {/* Job Role Dropdown - Only show when Working Professionals is selected */}
         {selectedOption === 'Working Professionals (Job in Real Estate)' && (
           <View style={styles.dropdownContainer}>
-            <DropDowns
+            <Dropdowns
               data={jobRoles}
               value={selectedJobRole}
-              placeholder="Select your job role"
+              placeholder={t('auth.selectYourJobRole')}
               onChange={handleJobRoleSelect}
               //   dropdownPosition="bottom"
               dropdownStyle={styles.dropdownStyle}
@@ -251,7 +253,7 @@ const WhoAmI = ({ route, navigation }: any) => {
       </View>
       <View style={{ alignItems: 'center', bottom: 10, alignSelf: 'center' }}>
         <CustomButton
-          title={loading ? 'Submitting...' : 'Continue'}
+          title={loading ? t('auth.submitting') : t('auth.continue')}
           onPress={handleSubmit}
           disabled={
             loading ||

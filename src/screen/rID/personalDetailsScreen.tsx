@@ -3,10 +3,9 @@ import { View, Text, Image, TouchableOpacity, ScrollView, KeyboardAvoidingView, 
 import { useSelector } from 'react-redux';
 import { selectEditProfileLoading, selectEditProfileError } from '../../store/selectors/profile';
 import { ProfileScreenStyles } from './styles';
-import { Container, HeaderComponent, TextInputField, ImagePickerModal, CalendarPicker } from '../../components/common';
+import { Container, HeaderComponent, TextInputField, ImagePickerModal, CalendarPicker, Dropdowns } from '../../components/common';
 import { COLORS, IMAGES } from '../../constants';
 import { BLOOD_GROUPS } from '../../constants/arrays';
-import Dropdowns from '../../components/common/dropDown';
 import { validateRequiredFields, getImageNameFromUri } from '../../utils/helper';
 import ImagePicker from 'react-native-image-crop-picker';
 import { useDispatch } from 'react-redux';

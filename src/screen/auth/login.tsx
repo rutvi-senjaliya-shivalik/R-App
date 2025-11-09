@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
   Image,
   Alert,
   TouchableWithoutFeedback,
+  TouchableOpacity,
   Keyboard,
 } from 'react-native';
 import { Loginstyles } from './styles';
@@ -21,13 +22,17 @@ import { getMaxPhoneLength, openLink } from '../../utils/helper';
 import PrefManager from '../../utils/prefManager';
 import STRING from '../../constants/strings';
 import { validateIndianPhoneNumber } from '../../utils/validationHelper';
+import { useTranslation } from '../../context/LanguageContext';
 
 const Login = ({ navigation }: any) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch() as any;
-  const [mobileNumber, setMobileNumber] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('9988776655');
   const [countryCode, setCountryCode] = useState('+91');
   const [phoneError, setPhoneError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const isMountedRef = useRef(true);
+  const isProcessingRef = useRef(false);
 
   const handleCountryCodeChange = (code: string) => {
     setCountryCode(code);
@@ -39,11 +44,21 @@ const Login = ({ navigation }: any) => {
     setPhoneError(''); // Clear error when phone number changes
   };
 
+  // Cleanup on unmount
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+
   // Auto-clear error after 2 seconds
   useEffect(() => {
     if (phoneError) {
       const timer = setTimeout(() => {
-        setPhoneError('');
+        if (isMountedRef.current) {
+          setPhoneError('');
+        }
       }, 2000);
 
       return () => clearTimeout(timer);
@@ -51,19 +66,28 @@ const Login = ({ navigation }: any) => {
   }, [phoneError]);
 
   const handleLoginValidation = () => {
+    // Prevent validation if already processing
+    if (isProcessingRef.current || isLoading) {
+      return;
+    }
+
     const maxLength = getMaxPhoneLength(countryCode);
 
     // Check if mobile number is blank
     if (mobileNumber.trim() === '') {
-      setPhoneError('Please enter your mobile number');
+      if (isMountedRef.current) {
+        setPhoneError(t('auth.pleaseEnterMobileNumber'));
+      }
       return;
     }
 
     // Check if mobile number length is less than required
     if (mobileNumber.length < maxLength) {
-      setPhoneError(
-        `Please enter a valid phone number with ${maxLength} digits.`,
-      );
+      if (isMountedRef.current) {
+        setPhoneError(
+          t('auth.pleaseEnterValidPhoneNumber', { digits: maxLength }),
+        );
+      }
       return;
     }
 
@@ -74,62 +98,83 @@ const Login = ({ navigation }: any) => {
         countryCode,
       );
       if (!validationResult.isValid) {
-        setPhoneError(
-          validationResult.fieldErrors.phoneNumber || 'Invalid phone number',
-        );
+        if (isMountedRef.current) {
+          setPhoneError(
+            validationResult.fieldErrors.phoneNumber ||
+              t('auth.invalidPhoneNumber'),
+          );
+        }
         return;
       }
     }
 
     // If validation passes, clear error and proceed with login
-    setPhoneError('');
+    if (isMountedRef.current) {
+      setPhoneError('');
+    }
     handleLogin();
   };
 
   const handleLogin = async () => {
-    setIsLoading(true);
+    // Prevent multiple simultaneous calls
+    if (isProcessingRef.current) {
+      console.log('Login already in progress, ignoring duplicate call');
+      return;
+    }
+
+    isProcessingRef.current = true;
+
+    if (isMountedRef.current) {
+      setIsLoading(true);
+    }
+
     try {
       // Clear any existing token
-      PrefManager.removeValue(STRING.TOKEN);
+      await PrefManager.removeValue(STRING.TOKEN);
 
-      // Static credentials bypass - check if mobile number matches static number
-      const STATIC_MOBILE_NUMBER = '9988776655';
-
-      if (mobileNumber === STATIC_MOBILE_NUMBER) {
-        console.log('Static login detected - bypassing API');
-        // Navigate directly to OTP screen with phone number
-        navigation.navigate('OtpScreen', {
-          phoneNumber: mobileNumber,
-          countryCode: countryCode,
-        });
-        setIsLoading(false);
-        return;
-      }
-
-      // Original API flow for other numbers
+      // API call for login
       const payload = {
         countryCode: countryCode,
         phoneNumber: mobileNumber,
+        userLoginType: 2,
       };
 
       const response = await dispatch(loginAction(payload));
+      console.log('🚀 ~ handleLogin ~ response:', response);
 
-      if (response.status === 200) {
+      // Check if component is still mounted before updating state
+      if (!isMountedRef.current) {
+        return;
+      }
+
+      // Safe response handling
+      if (response && response.status === 200) {
         console.log('Login Success', response.data);
         // Navigate to OTP screen with phone number
-        navigation.navigate('OtpScreen', {
-          phoneNumber: mobileNumber,
-          countryCode: countryCode,
-        });
+        if (navigation?.navigate) {
+          navigation.navigate('OtpScreen', {
+            phoneNumber: mobileNumber,
+            countryCode: countryCode,
+          });
+        }
       } else {
         console.log('Login Failed', response);
-        Alert.alert('Login Failed', 'Please try again');
+        Alert.alert(t('auth.loginFailed'), t('auth.pleaseTryAgain'));
       }
     } catch (error: any) {
       console.log('Login error:', error);
-      Alert.alert('Login Failed', error.message || 'Please try again');
+      // Only show alert if component is still mounted
+      if (isMountedRef.current) {
+        Alert.alert(
+          t('auth.loginFailed'),
+          error?.message || t('auth.pleaseTryAgain'),
+        );
+      }
     } finally {
-      setIsLoading(false);
+      if (isMountedRef.current) {
+        setIsLoading(false);
+      }
+      isProcessingRef.current = false;
     }
   };
 
@@ -157,18 +202,18 @@ const Login = ({ navigation }: any) => {
 
             {/* Login Title */}
             <View style={Loginstyles.titleContainer}>
-              <Text style={Loginstyles.title}>Login</Text>
+              <Text style={Loginstyles.title}>{t('auth.login')}</Text>
             </View>
 
             {/* Mobile Number Input Section */}
             <View style={Loginstyles.inputSection}>
               <Text style={Loginstyles.inputLabel}>
-                Enter your mobile number to receive a verification code.
+                {t('auth.enterMobileNumber')}
               </Text>
             </View>
             <View style={Loginstyles.inputContainer}>
               <CountryInputField
-                placeholder="Mobile No"
+                placeholder={t('auth.mobileNo')}
                 value={mobileNumber}
                 onChangeText={handlePhoneNumberChange}
                 onCountryCodeChange={handleCountryCodeChange}
@@ -185,25 +230,73 @@ const Login = ({ navigation }: any) => {
               </View>
             ) : null}
 
+            {/* Quick Fill Number Buttons */}
+            <View style={Loginstyles.quickFillContainer}>
+              <Text style={Loginstyles.quickFillLabel}>
+                {t('auth.clickOnNumberToLoginAs')}
+              </Text>
+              <View style={Loginstyles.quickFillButtons}>
+                <TouchableOpacity
+                  onPress={() => {
+                    setMobileNumber('9876543330');
+                    setPhoneError('');
+                  }}
+                  activeOpacity={0.7}
+                >
+                  <View style={Loginstyles.quickFillButton}>
+                    <Text style={Loginstyles.quickFillButtonText}>
+                      Security: 9876543330
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    setMobileNumber('9906546153');
+                    setPhoneError('');
+                  }}
+                  activeOpacity={0.7}
+                >
+                  <View style={Loginstyles.quickFillButton}>
+                    <Text style={Loginstyles.quickFillButtonText}>
+                      Member: 9906546153
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    setMobileNumber('7698213884');
+                    setPhoneError('');
+                  }}
+                  activeOpacity={0.7}
+                >
+                  <View style={Loginstyles.quickFillButton}>
+                    <Text style={Loginstyles.quickFillButtonText}>
+                      Admin: 7698213884
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+
             {/* Continue Button */}
             <View style={Loginstyles.buttonContainer}>
               <CustomButton
-                title="Continue"
+                title={t('auth.continue')}
                 onPress={handleLoginValidation}
                 loading={isLoading}
               />
               <View style={Loginstyles.termsContainer}>
                 <Text style={Loginstyles.termsText}>
-                  By continuing you agree to the{' '}
+                  {t('auth.termsAndConditions')}{' '}
                   <Text style={Loginstyles.linkText} onPress={handleTermsPress}>
-                    Terms of Service
+                    {t('auth.termsOfService')}
                   </Text>{' '}
-                  and{' '}
+                  {t('auth.and')}{' '}
                   <Text
                     style={Loginstyles.linkText}
                     onPress={handlePrivacyPress}
                   >
-                    Privacy Policy
+                    {t('auth.privacyPolicy')}
                   </Text>
                 </Text>
               </View>

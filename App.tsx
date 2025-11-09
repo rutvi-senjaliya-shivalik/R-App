@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { persistor, store } from './src/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { MenuProvider } from "react-native-popup-menu";
+import { LanguageProvider } from './src/context/LanguageContext';
 import 'react-native-get-random-values';
 
 // create a component
@@ -14,7 +15,9 @@ const App = () => {
        <MenuProvider>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <RootNavigation />
+          <LanguageProvider>
+            <RootNavigation />
+          </LanguageProvider>
         </PersistGate>
       </Provider>
        </MenuProvider>

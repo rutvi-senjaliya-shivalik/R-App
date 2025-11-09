@@ -17,12 +17,14 @@ import { myContactListAction } from '../../store/actions/contacts/myContactListA
 import { Initials } from '../../utils/method';
 import { addContactAction } from '../../store/actions/contacts/addContactAction';
 import { COLORS, FF, FS, LH } from '../../constants';
+import { useTranslation } from '../../context/LanguageContext';
 
 let permissionGranted: any;
 
 
 
 const Contact = (props: any) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch() as any;
   const { userData } = useSelector((state: any) => state.otp);
   const [contacts, setContacts] = useState([]);
@@ -250,11 +252,11 @@ const Contact = (props: any) => {
     <Container>
       <View style={ContactStyles.container}>
         <HeaderComponent
-          Title="Network"
+          Title={t('contact.contacts')}
           onPress={() => props.navigation.goBack()}
         />
         <View style={ContactStyles.searchContainer}>
-          <SearchInput value={search} onChangeText={setSearch} placeholder="Search" />
+          <SearchInput value={search} onChangeText={setSearch} placeholder={t('common.search')} />
         </View>
         {/* userCard */}
         <View style={{ paddingVertical: 12,flexDirection:'row',alignItems:'center',borderBottomWidth:0.3,borderBottomColor:COLORS.BORDER_GREY,paddingBottom:20 }}>
@@ -292,7 +294,7 @@ const Contact = (props: any) => {
             !loading ? (
               <View style={{marginTop:24, alignItems: 'center', padding: 20}}>
                 <Text style={{ fontSize: FS.FS16, color: COLORS.GREY_TEXT, fontFamily: FF[400], textAlign: 'center' }}>
-                  No contacts found. Pull down to refresh or check your connection.
+                  {t('contact.noContactsFound')}
                 </Text>
               </View>
             ) : null

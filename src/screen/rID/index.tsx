@@ -1,13 +1,72 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, Alert, PermissionsAndroid, Linking, Pressable, TextInput } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Alert,
+  PermissionsAndroid,
+  Linking,
+  TextInput,
+} from 'react-native';
 import { useSelector } from 'react-redux';
-import { selectEditProfileLoading, selectEditProfileError, selectCreatePropertyLoading, selectCreatePropertyError, selectPropertyListLoading, selectPropertyListData, selectPropertyListError, selectGetBranchesListData, selectGetBranchesListLoading, selectGetBranchesListCurrentPage, selectGetBranchesListHasMore, selectGetShiftManagementsListData, selectGetShiftManagementsListLoading, selectGetShiftManagementsListCurrentPage, selectGetShiftManagementsListHasMore, selectGetDesignationsListData, selectGetDesignationsListLoading, selectGetDesignationsListCurrentPage, selectGetDesignationsListHasMore, selectGetDepartmentsListData, selectGetDepartmentsListLoading, selectGetProfessionalListData, selectGetProfessionalListLoading, selectGetProfessionalListCurrentPage, selectGetProfessionalListHasMore } from '../../store/selectors/profile';
+import {
+  selectEditProfileLoading,
+  selectEditProfileError,
+  selectCreatePropertyLoading,
+  selectCreatePropertyError,
+  selectPropertyListLoading,
+  selectPropertyListData,
+  selectPropertyListError,
+  selectGetBranchesListData,
+  selectGetBranchesListLoading,
+  selectGetBranchesListCurrentPage,
+  selectGetBranchesListHasMore,
+  selectGetShiftManagementsListData,
+  selectGetShiftManagementsListLoading,
+  selectGetShiftManagementsListCurrentPage,
+  selectGetShiftManagementsListHasMore,
+  selectGetDesignationsListData,
+  selectGetDesignationsListLoading,
+  selectGetDesignationsListCurrentPage,
+  selectGetDesignationsListHasMore,
+  selectGetDepartmentsListData,
+  selectGetDepartmentsListLoading,
+  selectGetProfessionalListData,
+  selectGetProfessionalListLoading,
+  selectGetProfessionalListCurrentPage,
+  selectGetProfessionalListHasMore,
+} from '../../store/selectors/profile';
 import { ProfileScreenStyles } from './styles';
-import { Container, HeaderComponent, TextInputField, CustomButton, ImagePickerModal, CalendarPicker } from '../../components/common';
-import { COLORS, IMAGES} from '../../constants';
-import { BLOOD_GROUPS, OCCUPATION_OPTIONS, COMPANY_INFO_OPTIONS, AREA_OPTIONS } from '../../constants/arrays';
-import Dropdowns from '../../components/common/dropDown';
-import { validateRequiredFields, getImageNameFromUri, extractFlatNumber, extractPropertyName, formatDateToDisplay, formatDateToServer } from '../../utils/helper';
+import {
+  Container,
+  HeaderComponent,
+  TextInputField,
+  CustomButton,
+  ImagePickerModal,
+  CalendarPicker,
+  Dropdowns,
+} from '../../components/common';
+import { COLORS, IMAGES } from '../../constants';
+import {
+  BLOOD_GROUPS,
+  OCCUPATION_OPTIONS,
+  COMPANY_INFO_OPTIONS,
+  AREA_OPTIONS,
+} from '../../constants/arrays';
+import {
+  validateRequiredFields,
+  getImageNameFromUri,
+  extractFlatNumber,
+  extractPropertyName,
+  formatDateToDisplay,
+  formatDateToServer,
+} from '../../utils/helper';
 import ImagePicker from 'react-native-image-crop-picker';
 import { useDispatch } from 'react-redux';
 import { commonImageAction } from '../../store/actions/commonImage/imageAction';
@@ -42,13 +101,23 @@ const ProfileScreen = (props: any) => {
   const branchesListLoading = useSelector(selectGetBranchesListLoading);
   const branchesListCurrentPage = useSelector(selectGetBranchesListCurrentPage);
   const branchesListHasMore = useSelector(selectGetBranchesListHasMore);
-  const shiftManagementsListData = useSelector(selectGetShiftManagementsListData);
-  const shiftManagementsListLoading = useSelector(selectGetShiftManagementsListLoading);
-  const shiftManagementsListCurrentPage = useSelector(selectGetShiftManagementsListCurrentPage);
-  const shiftManagementsListHasMore = useSelector(selectGetShiftManagementsListHasMore);
+  const shiftManagementsListData = useSelector(
+    selectGetShiftManagementsListData,
+  );
+  const shiftManagementsListLoading = useSelector(
+    selectGetShiftManagementsListLoading,
+  );
+  const shiftManagementsListCurrentPage = useSelector(
+    selectGetShiftManagementsListCurrentPage,
+  );
+  const shiftManagementsListHasMore = useSelector(
+    selectGetShiftManagementsListHasMore,
+  );
   const designationsListData = useSelector(selectGetDesignationsListData);
   const designationsListLoading = useSelector(selectGetDesignationsListLoading);
-  const designationsListCurrentPage = useSelector(selectGetDesignationsListCurrentPage);
+  const designationsListCurrentPage = useSelector(
+    selectGetDesignationsListCurrentPage,
+  );
   const designationsListHasMore = useSelector(selectGetDesignationsListHasMore);
   const departmentsListData = useSelector(selectGetDepartmentsListData);
   const departmentsListLoading = useSelector(selectGetDepartmentsListLoading);
@@ -58,20 +127,33 @@ const ProfileScreen = (props: any) => {
   const professionalListHasMore = useSelector(selectGetProfessionalListHasMore);
   const dispatch = useDispatch() as any;
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isPersonalDetailsExpanded, setIsPersonalDetailsExpanded] = useState(false);
+  const [isPersonalDetailsExpanded, setIsPersonalDetailsExpanded] =
+    useState(false);
   const [profileImageUri, setProfileImageUri] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<any>(null);
   const [imageFormData, setImageFormData] = useState<any>(null);
   const [isImagePickerVisible, setIsImagePickerVisible] = useState(false);
   const [opencountryPicker, setOpenCountryPicker] = useState(false);
-  const [isAddressDetailsExpanded, setIsAddressDetailsExpanded] = useState(false);
-  const [isProfessionalCompanyInfoExpanded, setIsProfessionalCompanyInfoExpanded] = useState(false);
-  const [isPropertyDetailsExpanded, setIsPropertyDetailsExpanded] = useState(false);
+  const [isAddressDetailsExpanded, setIsAddressDetailsExpanded] =
+    useState(false);
+  const [
+    isProfessionalCompanyInfoExpanded,
+    setIsProfessionalCompanyInfoExpanded,
+  ] = useState(false);
+  const [isPropertyDetailsExpanded, setIsPropertyDetailsExpanded] =
+    useState(false);
   const [openPicker, setOpenPicker] = useState(false);
   const [reflectedDate, setReflectedDate] = useState('');
   const [openJoiningDatePicker, setOpenJoiningDatePicker] = useState(false);
   const [reflectedJoiningDate, setReflectedJoiningDate] = useState('');
-
+  const [openPropertyStartDatePicker, setOpenPropertyStartDatePicker] =
+    useState(false);
+  const [reflectedPropertyStartDate, setReflectedPropertyStartDate] =
+    useState('');
+  const [openCompanyStartDatePicker, setOpenCompanyStartDatePicker] =
+    useState(false);
+  const [reflectedCompanyStartDate, setReflectedCompanyStartDate] =
+    useState('');
 
   const [personalDetails, setPersonalDetails] = useState({
     firstName: '',
@@ -81,7 +163,7 @@ const ProfileScreen = (props: any) => {
     dob: '',
     gender: '',
     nationality: '',
-    bloodGroup: ''
+    bloodGroup: '',
   });
 
   const [professionalDetails, setProfessionalDetails] = useState({
@@ -93,7 +175,7 @@ const ProfileScreen = (props: any) => {
     subBranch: '',
     shift: '',
     employeeType: '',
-    joiningDate: ''
+    joiningDate: '',
   });
 
   const [companyDetails, setCompanyDetails] = useState({
@@ -117,7 +199,8 @@ const ProfileScreen = (props: any) => {
     area: '',
     landmark: '',
     lat: '',
-    long: ''
+    long: '',
+    startDate: '',
   });
 
   const [propertyDetails, setPropertyDetails] = useState({
@@ -131,14 +214,13 @@ const ProfileScreen = (props: any) => {
     state: '',
     country: '',
     lat: '',
-    long: ''
+    long: '',
+    startDate: '',
   });
 
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [isSelecting, setIsSelecting] = useState(false);
-
-
 
   // Fetch property list when component mounts
   useEffect(() => {
@@ -203,11 +285,13 @@ const ProfileScreen = (props: any) => {
       // Format and set joining date for display if available
       if (lastProfessional.joiningDate) {
         const date = new Date(lastProfessional.joiningDate);
-        const formattedDate = date.toLocaleDateString('en-GB', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric'
-        }).replace(/\//g, '-');
+        const formattedDate = date
+          .toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+          })
+          .replace(/\//g, '-');
         setReflectedJoiningDate(formattedDate);
       }
     }
@@ -215,7 +299,11 @@ const ProfileScreen = (props: any) => {
 
   // Prefill property details if property list data exists
   useEffect(() => {
-    if (propertyListData && propertyListData.data && propertyListData.data.result?.properties?.length > 0) {
+    if (
+      propertyListData &&
+      propertyListData.data &&
+      propertyListData.data.result?.properties?.length > 0
+    ) {
       const firstProperty = propertyListData.data.result?.properties[0]; // Get the first property
       setPropertyDetails(prevState => ({
         ...prevState,
@@ -229,7 +317,7 @@ const ProfileScreen = (props: any) => {
         state: firstProperty.state || '',
         country: firstProperty.country || '',
         lat: firstProperty.lat || '',
-        long: firstProperty.long || ''
+        long: firstProperty.long || '',
       }));
     }
   }, [propertyListData]);
@@ -243,20 +331,24 @@ const ProfileScreen = (props: any) => {
 
   useEffect(() => {
     if (userData) {
-      console.log("userData==========", userData);
+      console.log('userData==========', userData);
 
       setPersonalDetails(prevState => ({
         ...prevState,
         firstName: userData.firstName || '',
         lastName: userData.lastName || '',
-        phone: userData.countryCode + " " + userData.phoneNumber,
+        phone: userData.countryCode + ' ' + userData.phoneNumber,
         email: userData.email || '',
         dob: userData.dob || '',
         gender: userData.gender || '',
         nationality: userData.nationality || '',
-        bloodGroup: userData.bloodGroup || ''
+        bloodGroup: userData.bloodGroup || '',
       }));
-      setProfileImageUri(userData.profileImage != "" ? userData.profilePath + userData.profileImage : '');
+      setProfileImageUri(
+        userData.profileImage != ''
+          ? userData.profilePath + userData.profileImage
+          : '',
+      );
 
       // Format and set DOB for display if available
       if (userData.dob) {
@@ -268,7 +360,10 @@ const ProfileScreen = (props: any) => {
 
   // Prefill professional details from employeeDetails (only if no professional data exists)
   useEffect(() => {
-    if (employeeDetails && !professionalListData?.data?.result?.professionals?.length) {
+    if (
+      employeeDetails &&
+      !professionalListData?.data?.result?.professionals?.length
+    ) {
       setProfessionalDetails(prevState => ({
         ...prevState,
         branch: employeeDetails.branchDetails?._id || '',
@@ -290,33 +385,49 @@ const ProfileScreen = (props: any) => {
   useEffect(() => {
     const loadInitialDropdownData = async () => {
       try {
-        const lastProfessional = professionalListData?.data?.result?.professionals?.length > 0
-          ? professionalListData.data.result.professionals[professionalListData.data.result.professionals.length - 1]
-          : null;
+        const lastProfessional =
+          professionalListData?.data?.result?.professionals?.length > 0
+            ? professionalListData.data.result.professionals[
+                professionalListData.data.result.professionals.length - 1
+              ]
+            : null;
 
         // Load branches if value exists (from professional data or employee details)
-        const branchId = lastProfessional?.branch || employeeDetails?.branchDetails?._id;
+        const branchId =
+          lastProfessional?.branch || employeeDetails?.branchDetails?._id;
         if (branchId && !branchesListData?.data?.result?.branches) {
           await dispatch(getBranchesListAction(1));
           await dispatch(getBranchesListAction(2));
         }
 
         // Load shifts if value exists
-        const shiftId = lastProfessional?.shift || employeeDetails?.shiftManagement?._id;
-        if (shiftId && !shiftManagementsListData?.data?.result?.shiftManagements) {
+        const shiftId =
+          lastProfessional?.shift || employeeDetails?.shiftManagement?._id;
+        if (
+          shiftId &&
+          !shiftManagementsListData?.data?.result?.shiftManagements
+        ) {
           await dispatch(getShiftManagementsListAction(1));
           await dispatch(getShiftManagementsListAction(2));
         }
 
         // Load designations if value exists
-        const designationId = lastProfessional?.employeeType || employeeDetails?.designationDetails?._id;
-        if (designationId && !designationsListData?.data?.result?.designations) {
+        const designationId =
+          lastProfessional?.employeeType ||
+          employeeDetails?.designationDetails?._id;
+        if (
+          designationId &&
+          !designationsListData?.data?.result?.designations
+        ) {
           await dispatch(getDesignationsListAction(1));
           await dispatch(getDesignationsListAction(2));
         }
 
         // Load departments if value exists
-        const departmentId = lastProfessional?.departmentId || lastProfessional?.department || employeeDetails?.departmentDetails?._id;
+        const departmentId =
+          lastProfessional?.departmentId ||
+          lastProfessional?.department ||
+          employeeDetails?.departmentDetails?._id;
         if (departmentId && !departmentsListData?.data?.result?.departments) {
           await dispatch(getDepartmentsListAction(1));
           await dispatch(getDepartmentsListAction(2));
@@ -326,7 +437,10 @@ const ProfileScreen = (props: any) => {
       }
     };
 
-    if (employeeDetails || professionalListData?.data?.result?.professionals?.length > 0) {
+    if (
+      employeeDetails ||
+      professionalListData?.data?.result?.professionals?.length > 0
+    ) {
       loadInitialDropdownData();
     }
   }, [employeeDetails, professionalListData, dispatch]);
@@ -341,8 +455,8 @@ const ProfileScreen = (props: any) => {
         // { label: 'Select Branch', value: '' },
         ...branchesListData.data.result.branches.map((branch: any) => ({
           label: branch.title || branch.name,
-          value: branch._id
-        }))
+          value: branch._id,
+        })),
       ];
     }
     return [];
@@ -352,10 +466,12 @@ const ProfileScreen = (props: any) => {
     if (shiftManagementsListData?.data?.result?.shiftManagements) {
       return [
         // { label: 'Select Shift', value: '' },
-        ...shiftManagementsListData.data.result.shiftManagements.map((shift: any) => ({
-          label: shift.title || shift.name,
-          value: shift._id
-        }))
+        ...shiftManagementsListData.data.result.shiftManagements.map(
+          (shift: any) => ({
+            label: shift.title || shift.name,
+            value: shift._id,
+          }),
+        ),
       ];
     }
     return [];
@@ -365,10 +481,12 @@ const ProfileScreen = (props: any) => {
     if (designationsListData?.data?.result?.designations) {
       return [
         // { label: 'Select Employee Type', value: '' },
-        ...designationsListData.data.result.designations.map((designation: any) => ({
-          label: designation.title || designation.name,
-          value: designation._id
-        }))
+        ...designationsListData.data.result.designations.map(
+          (designation: any) => ({
+            label: designation.title || designation.name,
+            value: designation._id,
+          }),
+        ),
       ];
     }
     return [];
@@ -378,10 +496,12 @@ const ProfileScreen = (props: any) => {
     if (departmentsListData?.data?.result?.departments) {
       const options = [
         // { label: 'Select Department', value: '' },
-        ...departmentsListData.data.result.departments.map((department: any) => ({
-          label: department.title || department.name,
-          value: department._id
-        }))
+        ...departmentsListData.data.result.departments.map(
+          (department: any) => ({
+            label: department.title || department.name,
+            value: department._id,
+          }),
+        ),
       ];
       // console.log('Department options:', options);
       // console.log('Current department value in state:', professionalDetails.department);
@@ -405,7 +525,7 @@ const ProfileScreen = (props: any) => {
     } else if (employeeDetails?.branchDetails?._id) {
       // Check if default branch exists in loaded data
       const branchExists = branchesListData.data.result.branches.some(
-        (branch: any) => branch._id === employeeDetails.branchDetails._id
+        (branch: any) => branch._id === employeeDetails.branchDetails._id,
       );
 
       // If branch doesn't exist and we have more pages, load next page
@@ -434,12 +554,17 @@ const ProfileScreen = (props: any) => {
       }
     } else if (employeeDetails?.shiftManagement?._id) {
       // Check if default shift exists in loaded data
-      const shiftExists = shiftManagementsListData.data.result.shiftManagements.some(
-        (shift: any) => shift._id === employeeDetails.shiftManagement._id
-      );
+      const shiftExists =
+        shiftManagementsListData.data.result.shiftManagements.some(
+          (shift: any) => shift._id === employeeDetails.shiftManagement._id,
+        );
 
       // If shift doesn't exist and we have more pages, load next page
-      if (!shiftExists && shiftManagementsListHasMore && !shiftManagementsListLoading) {
+      if (
+        !shiftExists &&
+        shiftManagementsListHasMore &&
+        !shiftManagementsListLoading
+      ) {
         try {
           const nextPage = shiftManagementsListCurrentPage + 1;
           // console.log('Loading page', nextPage, 'to find default shift');
@@ -464,12 +589,18 @@ const ProfileScreen = (props: any) => {
       }
     } else if (employeeDetails?.designationDetails?._id) {
       // Check if default designation exists in loaded data
-      const designationExists = designationsListData.data.result.designations.some(
-        (designation: any) => designation._id === employeeDetails.designationDetails._id
-      );
+      const designationExists =
+        designationsListData.data.result.designations.some(
+          (designation: any) =>
+            designation._id === employeeDetails.designationDetails._id,
+        );
 
       // If designation doesn't exist and we have more pages, load next page
-      if (!designationExists && designationsListHasMore && !designationsListLoading) {
+      if (
+        !designationExists &&
+        designationsListHasMore &&
+        !designationsListLoading
+      ) {
         try {
           const nextPage = designationsListCurrentPage + 1;
           // console.log('Loading page', nextPage, 'to find default designation');
@@ -535,7 +666,7 @@ const ProfileScreen = (props: any) => {
   const handleChange = (field: any, value: any) => {
     setPersonalDetails((prevState: any) => ({
       ...prevState,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -543,7 +674,7 @@ const ProfileScreen = (props: any) => {
   const handleProfessionalChange = (field: any, value: any) => {
     setProfessionalDetails((prevState: any) => ({
       ...prevState,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -551,14 +682,14 @@ const ProfileScreen = (props: any) => {
   const handleCompanyChange = (field: any, value: any) => {
     setCompanyDetails((prevState: any) => ({
       ...prevState,
-      [field]: value
+      [field]: value,
     }));
   };
 
   const handlePropertyChange = (field: any, value: any) => {
     setPropertyDetails((prevState: any) => ({
       ...prevState,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -573,7 +704,9 @@ const ProfileScreen = (props: any) => {
     setIsSearching(true);
     try {
       const response = await fetch(
-        `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(text)}&key=${GOOGLE_PLACES_API}&types=establishment|geocode&language=en`
+        `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
+          text,
+        )}&key=${GOOGLE_PLACES_API}&types=establishment|geocode&language=en`,
       );
       const data = await response.json();
 
@@ -593,7 +726,7 @@ const ProfileScreen = (props: any) => {
   const handlePlaceSelect = async (place: any) => {
     if (isSelecting) return; // Prevent double-tap
 
-    console.log("PLACE SELECTED:", place);
+    console.log('PLACE SELECTED:', place);
     setIsSelecting(true);
 
     // Immediately update the UI
@@ -603,7 +736,7 @@ const ProfileScreen = (props: any) => {
     try {
       // Get place details
       const response = await fetch(
-        `https://maps.googleapis.com/maps/api/place/details/json?place_id=${place.place_id}&key=${GOOGLE_PLACES_API}&fields=address_components,geometry`
+        `https://maps.googleapis.com/maps/api/place/details/json?place_id=${place.place_id}&key=${GOOGLE_PLACES_API}&fields=address_components,geometry`,
       );
       const data = await response.json();
 
@@ -613,21 +746,17 @@ const ProfileScreen = (props: any) => {
 
         details.address_components?.forEach((component: any) => {
           const types = component.types;
-          if (types.includes('locality'))
-            city = component.long_name;
+          if (types.includes('locality')) city = component.long_name;
           else if (types.includes('administrative_area_level_1'))
             state = component.long_name;
-          else if (types.includes('country'))
-            country = component.long_name;
-          else if (types.includes('postal_code'))
-            pincode = component.long_name;
+          else if (types.includes('country')) country = component.long_name;
+          else if (types.includes('postal_code')) pincode = component.long_name;
           else if (
             types.includes('sublocality') ||
             types.includes('sublocality_level_1')
           )
             area = component.long_name;
-          else if (types.includes('route'))
-            landmark = component.long_name;
+          else if (types.includes('route')) landmark = component.long_name;
         });
 
         // Update all address fields
@@ -669,7 +798,8 @@ const ProfileScreen = (props: any) => {
       console.log('Image upload response:', imageUploadResponse);
 
       if (imageUploadResponse.status === 200) {
-        const profileImageFileName = imageUploadResponse?.data?.result?.fileName;
+        const profileImageFileName =
+          imageUploadResponse?.data?.result?.fileName;
         console.log('Image upload successful:', profileImageFileName);
 
         // Prepare profile data with the new image
@@ -689,7 +819,9 @@ const ProfileScreen = (props: any) => {
 
         // Call editProfileAction with the updated profile data
         console.log('Calling editProfileAction with new image...');
-        const editProfileResponse = await dispatch(editProfileAction(userId, profileData, userData));
+        const editProfileResponse = await dispatch(
+          editProfileAction(userId, profileData, userData),
+        );
 
         if (editProfileResponse.status === 200) {
           console.log('Profile updated successfully with new image');
@@ -704,7 +836,10 @@ const ProfileScreen = (props: any) => {
       }
     } catch (error) {
       console.error('Error in handleImageUploadAndProfileUpdate:', error);
-      Alert.alert('Error', 'Something went wrong while updating your profile image');
+      Alert.alert(
+        'Error',
+        'Something went wrong while updating your profile image',
+      );
     }
   };
 
@@ -715,7 +850,9 @@ const ProfileScreen = (props: any) => {
 
       if (Platform.OS === 'android') {
         // Check if permission is already granted
-        const hasPermission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.CAMERA);
+        const hasPermission = await PermissionsAndroid.check(
+          PermissionsAndroid.PERMISSIONS.CAMERA,
+        );
         console.log('🔒 Current permission status:', hasPermission);
 
         if (hasPermission) {
@@ -729,10 +866,11 @@ const ProfileScreen = (props: any) => {
           PermissionsAndroid.PERMISSIONS.CAMERA,
           {
             title: 'Camera Permission',
-            message: 'This app needs access to your camera to take photos for your profile.',
+            message:
+              'This app needs access to your camera to take photos for your profile.',
             buttonPositive: 'OK',
             buttonNegative: 'Cancel',
-          }
+          },
         );
 
         console.log('🔒 Permission request result:', granted);
@@ -757,11 +895,14 @@ const ProfileScreen = (props: any) => {
                     Linking.openSettings();
                   } catch (error) {
                     console.warn('Failed to open settings:', error);
-                    Alert.alert('Error', 'Unable to open settings. Please manually enable camera permission.');
+                    Alert.alert(
+                      'Error',
+                      'Unable to open settings. Please manually enable camera permission.',
+                    );
                   }
                 },
               },
-            ]
+            ],
           );
           return false;
         } else {
@@ -769,7 +910,7 @@ const ProfileScreen = (props: any) => {
           Alert.alert(
             'Permission Denied',
             'Camera permission is required to take photos. Please grant permission to continue.',
-            [{ text: 'OK' }]
+            [{ text: 'OK' }],
           );
           return false;
         }
@@ -791,7 +932,7 @@ const ProfileScreen = (props: any) => {
       Alert.alert(
         'Error',
         'Something went wrong while checking camera permissions. Please try again.',
-        [{ text: 'OK' }]
+        [{ text: 'OK' }],
       );
       return false;
     }
@@ -808,82 +949,107 @@ const ProfileScreen = (props: any) => {
         height: 400,
         cropping: true,
         compressImageQuality: 0.7,
-      }
+      };
       // Remove problematic iOS settings
 
+      ImagePicker.openCamera(cameraOptions)
+        .then(async image => {
+          console.log('📷 Camera image captured successfully!');
+          setIsImagePickerVisible(false);
+          setSelectedImage(image);
+          setProfileImageUri(image.path);
 
-      ImagePicker.openCamera(cameraOptions).then(async image => {
-        console.log('📷 Camera image captured successfully!');
-        setIsImagePickerVisible(false);
-        setSelectedImage(image);
-        setProfileImageUri(image.path);
+          // Prepare form data for image upload
+          let imageData: any = {
+            uri: image.path,
+            type: image.mime,
+            name: getImageNameFromUri(image.path),
+          };
+          setImageFormData(imageData);
+          console.log('📷 Camera image data:', imageData);
 
-        // Prepare form data for image upload
-        let imageData: any = {
-          uri: image.path,
-          type: image.mime,
-          name: getImageNameFromUri(image.path),
-        };
-        setImageFormData(imageData);
-        console.log('📷 Camera image data:', imageData);
+          // Automatically upload image and call editProfileAction
+          await handleImageUploadAndProfileUpdate(imageData);
+        })
+        .catch(error => {
+          setIsImagePickerVisible(false);
+          console.log('❌ Camera error occurred:', {
+            code: error.code,
+            message: error.message,
+            fullError: error,
+          });
 
-        // Automatically upload image and call editProfileAction
-        await handleImageUploadAndProfileUpdate(imageData);
-      }).catch(error => {
-        setIsImagePickerVisible(false);
-        console.log('❌ Camera error occurred:', {
-          code: error.code,
-          message: error.message,
-          fullError: error
+          // Don't show alert if user just cancelled
+          if (error.code === 'E_PICKER_CANCELLED') {
+            console.log('ℹ️ User cancelled camera');
+            return;
+          }
+
+          // Provide user-friendly error messages
+          if (error.code === 'camera_unavailable') {
+            console.log('❌ Camera unavailable on device');
+            Alert.alert(
+              'Camera Unavailable',
+              'Camera is not available on this device.',
+            );
+          } else if (
+            error.code === 'E_NO_CAMERA_PERMISSION' ||
+            error.code === 'permission'
+          ) {
+            console.log('❌ Camera permission denied');
+            Alert.alert(
+              'Permission Denied',
+              'Camera permission was denied. Please enable it in settings.',
+            );
+          } else if (error.code === 'E_PICKER_NO_CAMERA_PERMISSION') {
+            console.log('❌ Camera permission denied during capture');
+            Alert.alert(
+              'Permission Denied',
+              'Camera permission was denied while taking the photo. Please try again.',
+            );
+          } else if (error.code === 'E_PICKER_CANNOT_RUN_CAMERA_ON_SIMULATOR') {
+            console.log('❌ Camera not available on simulator');
+            Alert.alert(
+              'Camera Unavailable',
+              'Camera is not available on simulator. Please test on a real device.',
+            );
+          } else if (
+            Platform.OS === 'ios' &&
+            error.code === 'E_PICKER_CANCELLED'
+          ) {
+            console.log('ℹ️ User cancelled camera on iOS');
+            // Don't show alert for user cancellation on iOS
+            return;
+          } else if (
+            Platform.OS === 'ios' &&
+            error.message?.includes('permission')
+          ) {
+            console.log('❌ iOS camera permission issue');
+            Alert.alert(
+              'Camera Permission Required',
+              'This app needs access to your camera to take photos. Please grant permission in Settings.',
+              [
+                { text: 'Cancel', style: 'cancel' },
+                {
+                  text: 'Open Settings',
+                  onPress: () => {
+                    try {
+                      Linking.openSettings();
+                    } catch (settingsError) {
+                      console.warn('Failed to open settings:', settingsError);
+                    }
+                  },
+                },
+              ],
+            );
+          } else {
+            console.log('❌ Unknown camera error:', error);
+            Alert.alert(
+              'Error',
+              `Failed to open camera: ${error.message || 'Unknown error'}`,
+            );
+          }
         });
-
-        // Don't show alert if user just cancelled
-        if (error.code === 'E_PICKER_CANCELLED') {
-          console.log('ℹ️ User cancelled camera');
-          return;
-        }
-
-        // Provide user-friendly error messages
-        if (error.code === 'camera_unavailable') {
-          console.log('❌ Camera unavailable on device');
-          Alert.alert('Camera Unavailable', 'Camera is not available on this device.');
-        } else if (error.code === 'E_NO_CAMERA_PERMISSION' || error.code === 'permission') {
-          console.log('❌ Camera permission denied');
-          Alert.alert('Permission Denied', 'Camera permission was denied. Please enable it in settings.');
-        } else if (error.code === 'E_PICKER_NO_CAMERA_PERMISSION') {
-          console.log('❌ Camera permission denied during capture');
-          Alert.alert('Permission Denied', 'Camera permission was denied while taking the photo. Please try again.');
-        } else if (error.code === 'E_PICKER_CANNOT_RUN_CAMERA_ON_SIMULATOR') {
-          console.log('❌ Camera not available on simulator');
-          Alert.alert('Camera Unavailable', 'Camera is not available on simulator. Please test on a real device.');
-        } else if (Platform.OS === 'ios' && error.code === 'E_PICKER_CANCELLED') {
-          console.log('ℹ️ User cancelled camera on iOS');
-          // Don't show alert for user cancellation on iOS
-          return;
-        } else if (Platform.OS === 'ios' && error.message?.includes('permission')) {
-          console.log('❌ iOS camera permission issue');
-          Alert.alert(
-            'Camera Permission Required',
-            'This app needs access to your camera to take photos. Please grant permission in Settings.',
-            [
-              { text: 'Cancel', style: 'cancel' },
-              {
-                text: 'Open Settings',
-                onPress: () => {
-                  try {
-                    Linking.openSettings();
-                  } catch (settingsError) {
-                    console.warn('Failed to open settings:', settingsError);
-                  }
-                }
-              }
-            ]
-          );
-        } else {
-          console.log('❌ Unknown camera error:', error);
-          Alert.alert('Error', `Failed to open camera: ${error.message || 'Unknown error'}`);
-        }
-      });
     } catch (error) {
       console.error('❌ Exception in UploadImage:', error);
       setIsImagePickerVisible(false);
@@ -930,7 +1096,7 @@ const ProfileScreen = (props: any) => {
         Alert.alert(
           'Camera Error',
           'Unable to open camera. Please make sure the app has camera permission and try again.',
-          [{ text: 'OK' }]
+          [{ text: 'OK' }],
         );
       } else {
         Alert.alert('Error', 'Something went wrong while opening the camera.');
@@ -951,10 +1117,11 @@ const ProfileScreen = (props: any) => {
           PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
           {
             title: 'Storage Permission',
-            message: 'This app needs access to your photo library to select images for your profile.',
+            message:
+              'This app needs access to your photo library to select images for your profile.',
             buttonPositive: 'OK',
             buttonNegative: 'Cancel',
-          }
+          },
         );
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
@@ -975,7 +1142,7 @@ const ProfileScreen = (props: any) => {
         Alert.alert(
           'Storage Permission Required',
           'Please grant storage permission to access your photo library.',
-          [{ text: 'OK' }]
+          [{ text: 'OK' }],
         );
         setIsImagePickerVisible(false);
         return;
@@ -988,61 +1155,91 @@ const ProfileScreen = (props: any) => {
         compressImageQuality: 0.7,
         compressImageMaxHeight: 1000,
         compressImageMaxWidth: 1000,
-      }).then(async image => {
-        setIsImagePickerVisible(false); // Close modal after successful selection
-        setSelectedImage(image);
-        setProfileImageUri(image.path);
+      })
+        .then(async image => {
+          setIsImagePickerVisible(false); // Close modal after successful selection
+          setSelectedImage(image);
+          setProfileImageUri(image.path);
 
-        // Prepare form data for image upload
-        let imageData: any = {
-          uri: image.path,
-          type: image.mime,
-          name: getImageNameFromUri(image.path),
-        };
-        setImageFormData(imageData);
+          // Prepare form data for image upload
+          let imageData: any = {
+            uri: image.path,
+            type: image.mime,
+            name: getImageNameFromUri(image.path),
+          };
+          setImageFormData(imageData);
 
-        // Automatically upload image and call editProfileAction
-        await handleImageUploadAndProfileUpdate(imageData);
-        console.log('Gallery image selected:', imageData);
-      }).catch(error => {
-        setIsImagePickerVisible(false); // Close modal even if error occurs
-        console.log('Gallery error:', error);
+          // Automatically upload image and call editProfileAction
+          await handleImageUploadAndProfileUpdate(imageData);
+          console.log('Gallery image selected:', imageData);
+        })
+        .catch(error => {
+          setIsImagePickerVisible(false); // Close modal even if error occurs
+          console.log('Gallery error:', error);
 
-        // Don't show alert if user just cancelled
-        if (error.code === 'E_PICKER_CANCELLED' || error.code === 'picker_canceled') {
-          console.log('User cancelled gallery selection');
-          return;
-        }
+          // Don't show alert if user just cancelled
+          if (
+            error.code === 'E_PICKER_CANCELLED' ||
+            error.code === 'picker_canceled'
+          ) {
+            console.log('User cancelled gallery selection');
+            return;
+          }
 
-        // Provide user-friendly error messages
-        if (error.code === 'E_NO_LIBRARY_PERMISSION' || error.code === 'permission') {
-          Alert.alert('Permission Denied', 'Storage permission was denied. Please enable it in settings.');
-        } else {
-          Alert.alert('Error', 'Failed to open photo library. Please try again.');
-        }
-      });
+          // Provide user-friendly error messages
+          if (
+            error.code === 'E_NO_LIBRARY_PERMISSION' ||
+            error.code === 'permission'
+          ) {
+            Alert.alert(
+              'Permission Denied',
+              'Storage permission was denied. Please enable it in settings.',
+            );
+          } else {
+            Alert.alert(
+              'Error',
+              'Failed to open photo library. Please try again.',
+            );
+          }
+        });
     } catch (error) {
       console.error('Error in handleGalleryPress:', error);
       setIsImagePickerVisible(false);
-      Alert.alert('Error', 'Something went wrong while opening the photo library.');
+      Alert.alert(
+        'Error',
+        'Something went wrong while opening the photo library.',
+      );
     }
   };
 
   // Section Header Component for Accordion
-  const SectionHeader = ({ title, isOpen, onPress, index }: { title: string, isOpen: boolean, onPress: () => void, index: number }) => (
+  const SectionHeader = ({
+    title,
+    isOpen,
+    onPress,
+    index,
+  }: {
+    title: string;
+    isOpen: boolean;
+    onPress: () => void;
+    index: number;
+  }) => (
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.8}
       style={ProfileScreenStyles.sectionHeaderContainer}
     >
-      <Text style={ProfileScreenStyles.sectionHeaderText}>{index}. {title}</Text>
-      <Text style={ProfileScreenStyles.sectionHeaderArrow}>{isOpen ? '▲' : '▼'}</Text>
+      <Text style={ProfileScreenStyles.sectionHeaderText}>
+        {index}. {title}
+      </Text>
+      <Text style={ProfileScreenStyles.sectionHeaderArrow}>
+        {isOpen ? '▲' : '▼'}
+      </Text>
     </TouchableOpacity>
   );
 
   // Profile Image Component
   const ProfileImageSection = () => {
-
     return (
       <View style={ProfileScreenStyles.profileImageSection}>
         <View style={ProfileScreenStyles.profileImageContainer}>
@@ -1075,7 +1272,7 @@ const ProfileScreen = (props: any) => {
         </View>
       </View>
     );
-  }
+  };
 
   // Handle Submit Function - Profile Details
   const handleSubmit = async () => {
@@ -1086,10 +1283,15 @@ const ProfileScreen = (props: any) => {
       firstName: personalDetails.firstName,
       lastName: personalDetails.lastName,
       phone: personalDetails.phone,
-      email: personalDetails.email
+      email: personalDetails.email,
     };
 
-    const validation = validateRequiredFields(requiredFields, ['firstName', 'lastName', 'phone', 'email']);
+    const validation = validateRequiredFields(requiredFields, [
+      'firstName',
+      'lastName',
+      'phone',
+      'email',
+    ]);
 
     if (!validation.isValid) {
       Alert.alert('Validation Error', validation.errors.join('\n'));
@@ -1148,10 +1350,10 @@ const ProfileScreen = (props: any) => {
       // Get user ID from userData
       const userId = userData?._id;
 
-
-
       // Call the edit profile API with original user data for comparison
-      const editProfileResponse = await dispatch(editProfileAction(userId, profileData, userData));
+      const editProfileResponse = await dispatch(
+        editProfileAction(userId, profileData, userData),
+      );
 
       console.log('Edit profile response:', editProfileResponse);
 
@@ -1166,14 +1368,13 @@ const ProfileScreen = (props: any) => {
               onPress: () => {
                 // Reset form or navigate back
                 props.navigation.goBack();
-              }
-            }
-          ]
+              },
+            },
+          ],
         );
       } else {
         Alert.alert('Error', 'Failed to update profile. Please try again.');
       }
-
     } catch (error) {
       console.error('Submission error:', error);
       Alert.alert('Error', 'Failed to update profile. Please try again.');
@@ -1198,21 +1399,36 @@ const ProfileScreen = (props: any) => {
       state: propertyDetails.state,
       country: propertyDetails.country,
       lat: propertyDetails.lat,
-      long: propertyDetails.long
+      long: propertyDetails.long,
     };
 
     const validation = validateRequiredFields(requiredPropertyFields, [
-      'selectedProperty', 'landmark', 'pinCode', 'area', 'city', 'state', 'country', 'lat', 'long'
+      'selectedProperty',
+      'landmark',
+      'pinCode',
+      'area',
+      'city',
+      'state',
+      'country',
+      'lat',
+      'long',
     ]);
 
     if (!validation.isValid) {
-      Alert.alert('Validation Error', 'Please fill all required property fields:\n' + validation.errors.join('\n'));
+      Alert.alert(
+        'Validation Error',
+        'Please fill all required property fields:\n' +
+          validation.errors.join('\n'),
+      );
       return;
     }
 
     // Additional validation for coordinates
     if (!propertyDetails.lat || !propertyDetails.long) {
-      Alert.alert('Validation Error', 'Please select a property location from the search results');
+      Alert.alert(
+        'Validation Error',
+        'Please select a property location from the search results',
+      );
       return;
     }
 
@@ -1230,18 +1446,19 @@ const ProfileScreen = (props: any) => {
         state: propertyDetails.state?.trim() || '',
         country: propertyDetails.country?.trim() || '',
         lat: propertyDetails.lat?.trim() || '',
-        long: propertyDetails.long?.trim() || ''
+        long: propertyDetails.long?.trim() || '',
       };
 
       console.log('Calling create property API with data:', propertyData);
 
       // Call the create property API
-      const createPropertyResponse = await dispatch(createPropertyAction(propertyData));
+      const createPropertyResponse = await dispatch(
+        createPropertyAction(propertyData),
+      );
 
       console.log('Create property response:', createPropertyResponse);
 
       if (createPropertyResponse.status === 200) {
-
         Alert.alert(
           'Success!',
           'Property details have been saved successfully.',
@@ -1264,19 +1481,24 @@ const ProfileScreen = (props: any) => {
                 //   long: ''
                 // });
                 // props.navigation.goBack();
-              }
-            }
-          ]
+              },
+            },
+          ],
         );
       } else {
-        Alert.alert('Error', 'Failed to save property details. Please try again.');
+        Alert.alert(
+          'Error',
+          'Failed to save property details. Please try again.',
+        );
       }
-
     } catch (error: any) {
       console.log('error', error);
 
       console.error('Property submission error:', error);
-      Alert.alert('Error', 'Failed to save property details. Please try again.');
+      Alert.alert(
+        'Error',
+        'Failed to save property details. Please try again.',
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -1286,16 +1508,34 @@ const ProfileScreen = (props: any) => {
   const PersonalDetails = () => (
     <View style={ProfileScreenStyles.personalDetailsContainer}>
       <View style={ProfileScreenStyles.inputWrapper}>
-        <TextInputField placeholder='First Name*' value={personalDetails.firstName} onChangeText={(text) => handleChange('firstName', text)} />
+        <TextInputField
+          placeholder="First Name*"
+          value={personalDetails.firstName}
+          onChangeText={text => handleChange('firstName', text)}
+        />
       </View>
       <View style={ProfileScreenStyles.inputWrapper}>
-        <TextInputField placeholder='Last Name*' value={personalDetails.lastName} onChangeText={(text) => handleChange('lastName', text)} />
+        <TextInputField
+          placeholder="Last Name*"
+          value={personalDetails.lastName}
+          onChangeText={text => handleChange('lastName', text)}
+        />
       </View>
-      <View style={ProfileScreenStyles.inputWrapper} pointerEvents='none'>
-        <TextInputField placeholder='Phone Number*' value={personalDetails.phone} onChangeText={(text) => handleChange('phone', text)} />
+      <View style={ProfileScreenStyles.inputWrapper} pointerEvents="none">
+        <TextInputField
+          placeholder="Phone Number*"
+          value={personalDetails.phone}
+          onChangeText={text => handleChange('phone', text)}
+        />
       </View>
       <View style={ProfileScreenStyles.inputWrapper}>
-        <TextInputField placeholder='Email*' value={personalDetails.email} onChangeText={(text) => handleChange('email', text)} keyboardType="email-address" autoCapitalize="none" />
+        <TextInputField
+          placeholder="Email*"
+          value={personalDetails.email}
+          onChangeText={text => handleChange('email', text)}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
       </View>
       {/* gender */}
       <View style={ProfileScreenStyles.inputWrapper}>
@@ -1333,12 +1573,21 @@ const ProfileScreen = (props: any) => {
       </View>
       {/* dob */}
       <View style={ProfileScreenStyles.dobContainer}>
-        <TouchableOpacity style={ProfileScreenStyles.dobButton} activeOpacity={0.8} onPress={() => setOpenPicker(true)}>
+        <TouchableOpacity
+          style={ProfileScreenStyles.dobButton}
+          activeOpacity={0.8}
+          onPress={() => setOpenPicker(true)}
+        >
           <View style={{ paddingHorizontal: 10 }}>
-            <Text style={ProfileScreenStyles.dobText}>{reflectedDate || 'Date of Birth'}</Text>
+            <Text style={ProfileScreenStyles.dobText}>
+              {reflectedDate || 'Date of Birth'}
+            </Text>
           </View>
           <View>
-            <Image source={IMAGES.CALENDAR} style={ProfileScreenStyles.calendarIcon} />
+            <Image
+              source={IMAGES.CALENDAR}
+              style={ProfileScreenStyles.calendarIcon}
+            />
           </View>
         </TouchableOpacity>
       </View>
@@ -1349,10 +1598,14 @@ const ProfileScreen = (props: any) => {
           onPress={() => setOpenCountryPicker(true)}
           activeOpacity={0.7}
         >
-          <Text style={[
-            ProfileScreenStyles.nationalityText,
-            personalDetails.nationality ? ProfileScreenStyles.nationalityTextSelected : ProfileScreenStyles.nationalityTextPlaceholder
-          ]}>
+          <Text
+            style={[
+              ProfileScreenStyles.nationalityText,
+              personalDetails.nationality
+                ? ProfileScreenStyles.nationalityTextSelected
+                : ProfileScreenStyles.nationalityTextPlaceholder,
+            ]}
+          >
             {personalDetails.nationality || 'Nationality'}
           </Text>
           <Text style={ProfileScreenStyles.dropdownArrow}>▼</Text>
@@ -1368,12 +1621,15 @@ const ProfileScreen = (props: any) => {
       </View>
       {/* <CalendarPicker  /> */}
       <TouchableOpacity
-        style={[ProfileScreenStyles.submitButton, (isSubmitting || editProfileLoading) && { opacity: 0.6 }]}
+        style={[
+          ProfileScreenStyles.submitButton,
+          (isSubmitting || editProfileLoading) && { opacity: 0.6 },
+        ]}
         onPress={handleSubmit}
         disabled={isSubmitting || editProfileLoading}
       >
         <Text style={ProfileScreenStyles.submitButtonText}>
-          {(isSubmitting || editProfileLoading) ? 'Updating...' : 'Submit'}
+          {isSubmitting || editProfileLoading ? 'Updating...' : 'Submit'}
         </Text>
       </TouchableOpacity>
     </View>
@@ -1384,28 +1640,37 @@ const ProfileScreen = (props: any) => {
     if (isSubmitting) return;
 
     // Check if this is an update (professionalListData has items)
-    const isUpdateMode = professionalListData?.data?.result?.professionals?.length >= 1;
+    const isUpdateMode =
+      professionalListData?.data?.result?.professionals?.length >= 1;
 
     if (isUpdateMode) {
       // Show alert for update feature under development
       Alert.alert(
         'Feature Under Development',
         'This feature is currently under development.\nUpdate Professional Info will be available soon.',
-        [{ text: 'OK' }]
+        [{ text: 'OK' }],
       );
       return;
     }
 
     // Validate occupation field - mandatory
-    if (!professionalDetails.occupation || professionalDetails.occupation.trim() === '') {
+    if (
+      !professionalDetails.occupation ||
+      professionalDetails.occupation.trim() === ''
+    ) {
       Alert.alert('Please select an Occupation');
       return;
     }
 
     // Check if occupation is "Own Company" and validate company name
     if (professionalDetails.occupation === 'own_company') {
-      if (!companyDetails.companyName || companyDetails.companyName.trim() === '') {
-        Alert.alert('Company Name is required when occupation is "Own Company"');
+      if (
+        !companyDetails.companyName ||
+        companyDetails.companyName.trim() === ''
+      ) {
+        Alert.alert(
+          'Company Name is required when occupation is "Own Company"',
+        );
         return;
       }
     }
@@ -1415,8 +1680,12 @@ const ProfileScreen = (props: any) => {
       // Prepare professional data for API call
       const professionalData = {
         occupation: professionalDetails.occupation,
-        ...(professionalDetails.companyInfo && { companyInfo: professionalDetails.companyInfo }),
-        ...(professionalDetails.industry && { industry: professionalDetails.industry }),
+        ...(professionalDetails.companyInfo && {
+          companyInfo: professionalDetails.companyInfo,
+        }),
+        ...(professionalDetails.industry && {
+          industry: professionalDetails.industry,
+        }),
         ...(userData?.isEmployee === true && {
           branch: professionalDetails.branch,
           departmentId: professionalDetails.department,
@@ -1424,21 +1693,42 @@ const ProfileScreen = (props: any) => {
           employeeType: professionalDetails.employeeType,
           joiningDate: professionalDetails.joiningDate,
         }),
-        ...(companyDetails.companyName && { companyName: companyDetails.companyName }),
-        ...(companyDetails.companyType && { companyType: companyDetails.companyType }),
-        ...(companyDetails.brandLogo && { brandLogo: companyDetails.brandLogo }),
-        ...(companyDetails.brandName && { brandName: companyDetails.brandName }),
-        ...(companyDetails.designation && { designation: companyDetails.designation }),
-        ...(companyDetails.companyEmail && { companyEmail: companyDetails.companyEmail }),
-        ...(companyDetails.companyAddress && { companyAddress: companyDetails.companyAddress }),
-        ...(companyDetails.companyMobileNo && { companyMobileNo: companyDetails.companyMobileNo }),
-        ...(companyDetails.companyDescription && { companyDescription: companyDetails.companyDescription }),
-        ...(companyDetails.visitingCard && { visitingCard: companyDetails.visitingCard }),
+        ...(companyDetails.companyName && {
+          companyName: companyDetails.companyName,
+        }),
+        ...(companyDetails.companyType && {
+          companyType: companyDetails.companyType,
+        }),
+        ...(companyDetails.brandLogo && {
+          brandLogo: companyDetails.brandLogo,
+        }),
+        ...(companyDetails.brandName && {
+          brandName: companyDetails.brandName,
+        }),
+        ...(companyDetails.designation && {
+          designation: companyDetails.designation,
+        }),
+        ...(companyDetails.companyEmail && {
+          companyEmail: companyDetails.companyEmail,
+        }),
+        ...(companyDetails.companyAddress && {
+          companyAddress: companyDetails.companyAddress,
+        }),
+        ...(companyDetails.companyMobileNo && {
+          companyMobileNo: companyDetails.companyMobileNo,
+        }),
+        ...(companyDetails.companyDescription && {
+          companyDescription: companyDetails.companyDescription,
+        }),
+        ...(companyDetails.visitingCard && {
+          visitingCard: companyDetails.visitingCard,
+        }),
       };
 
-
       // Call the create professional API
-      const createProfessionalResponse = await dispatch(createProfessionalAction(professionalData));
+      const createProfessionalResponse = await dispatch(
+        createProfessionalAction(professionalData),
+      );
 
       console.log('Create professional response:', createProfessionalResponse);
 
@@ -1454,14 +1744,16 @@ const ProfileScreen = (props: any) => {
               text: 'OK',
               onPress: () => {
                 // Reset form or navigate back if needed
-              }
-            }
-          ]
+              },
+            },
+          ],
         );
       } else {
-        Alert.alert('Error', 'Failed to save professional details. Please try again.');
+        Alert.alert(
+          'Error',
+          'Failed to save professional details. Please try again.',
+        );
       }
-
     } catch (error: any) {
       console.log('Professional submission error:', error);
       Alert.alert('Error', error.response.data.message);
@@ -1478,69 +1770,88 @@ const ProfileScreen = (props: any) => {
           data={OCCUPATION_OPTIONS}
           value={professionalDetails.occupation}
           placeholder="Occupation*"
-          onChange={(value: string) => handleProfessionalChange('occupation', value)}
+          onChange={(value: string) =>
+            handleProfessionalChange('occupation', value)
+          }
         />
       </View>
 
       {/* Company Info Section Header */}
       <TouchableOpacity
-        onPress={() => setIsProfessionalCompanyInfoExpanded(!isProfessionalCompanyInfoExpanded)}
+        onPress={() =>
+          setIsProfessionalCompanyInfoExpanded(
+            !isProfessionalCompanyInfoExpanded,
+          )
+        }
         activeOpacity={0.8}
         style={ProfileScreenStyles.sectionHeaderContainer}
       >
         <Text style={ProfileScreenStyles.sectionHeaderText}>Company Info.</Text>
-        <Text style={ProfileScreenStyles.sectionHeaderArrow}>{isProfessionalCompanyInfoExpanded ? '▲' : '▼'}</Text>
+        <Text style={ProfileScreenStyles.sectionHeaderArrow}>
+          {isProfessionalCompanyInfoExpanded ? '▲' : '▼'}
+        </Text>
       </TouchableOpacity>
 
       {/* Company Info Fields - Show when expanded */}
       {isProfessionalCompanyInfoExpanded && (
         <View style={ProfileScreenStyles.personalDetailsContainer}>
           <View style={ProfileScreenStyles.inputWrapper}>
-            <TouchableOpacity style={ProfileScreenStyles.dobButton} activeOpacity={0.8} onPress={() => { }}>
+            <TouchableOpacity
+              style={ProfileScreenStyles.dobButton}
+              activeOpacity={0.8}
+              onPress={() => {}}
+            >
               <View style={{ paddingHorizontal: 10 }}>
                 <Text style={ProfileScreenStyles.dobText}>Brand Logo</Text>
               </View>
               <View>
-                <Image source={IMAGES.CAMERA} style={ProfileScreenStyles.calendarIcon} />
+                <Image
+                  source={IMAGES.CAMERA}
+                  style={ProfileScreenStyles.calendarIcon}
+                />
               </View>
             </TouchableOpacity>
           </View>
           <View style={ProfileScreenStyles.inputWrapper}>
             <TextInputField
-              placeholder={professionalDetails.occupation === 'own_company' ? 'Company Name*' : 'Company Name'}
+              placeholder={
+                professionalDetails.occupation === 'own_company'
+                  ? 'Company Name*'
+                  : 'Company Name'
+              }
               value={companyDetails.companyName}
-              onChangeText={(text) => handleCompanyChange('companyName', text)}
+              onChangeText={text => handleCompanyChange('companyName', text)}
             />
           </View>
           <View style={ProfileScreenStyles.inputWrapper}>
             <TextInputField
               placeholder="Company Type"
               value={companyDetails.companyType}
-              onChangeText={(text) => handleCompanyChange('companyType', text)}
+              onChangeText={text => handleCompanyChange('companyType', text)}
             />
           </View>
 
           <View style={ProfileScreenStyles.inputWrapper}>
             <TextInputField
-              placeholder='Brand Name'
+              placeholder="Brand Name"
               value={companyDetails.brandName}
-              onChangeText={(text) => handleCompanyChange('brandName', text)}
+              onChangeText={text => handleCompanyChange('brandName', text)}
             />
           </View>
 
           <View style={ProfileScreenStyles.inputWrapper}>
             <TextInputField
-              placeholder='Designation'
+              placeholder="Designation"
               value={companyDetails.designation}
-              onChangeText={(text) => handleCompanyChange('designation', text)}
+              onChangeText={text => handleCompanyChange('designation', text)}
             />
           </View>
 
           <View style={ProfileScreenStyles.inputWrapper}>
             <TextInputField
-              placeholder='Company Email'
+              placeholder="Company Email"
               value={companyDetails.companyEmail}
-              onChangeText={(text) => handleCompanyChange('companyEmail', text)}
+              onChangeText={text => handleCompanyChange('companyEmail', text)}
               keyboardType="email-address"
               autoCapitalize="none"
             />
@@ -1548,21 +1859,45 @@ const ProfileScreen = (props: any) => {
 
           <View style={ProfileScreenStyles.inputWrapper}>
             <TextInputField
-              placeholder='Company Address'
+              placeholder="Company Address"
               value={companyDetails.companyAddress}
-              onChangeText={(text) => handleCompanyChange('companyAddress', text)}
+              onChangeText={text => handleCompanyChange('companyAddress', text)}
             />
+          </View>
+
+          <View style={ProfileScreenStyles.inputWrapper}>
+            <TouchableOpacity
+              onPress={() => setOpenCompanyStartDatePicker(true)}
+              activeOpacity={0.7}
+            >
+              <TextInputField
+                placeholder="Start Date"
+                value={reflectedCompanyStartDate}
+                editable={false}
+                pointerEvents="none"
+                onChangeText={() => {}}
+              />
+            </TouchableOpacity>
           </View>
           <View style={ProfileScreenStyles.inputWrapper}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View style={{ borderBottomWidth: 1, borderBottomColor: COLORS.BORDER_GREY, paddingVertical: 14, paddingRight: 10 }}>
+              <View
+                style={{
+                  borderBottomWidth: 1,
+                  borderBottomColor: COLORS.BORDER_GREY,
+                  paddingVertical: 14,
+                  paddingRight: 10,
+                }}
+              >
                 <Text style={ProfileScreenStyles.dobText}>+91</Text>
               </View>
               <View style={{ flex: 1, marginLeft: 10 }}>
                 <TextInputField
-                  placeholder='Company Mobile No'
+                  placeholder="Company Mobile No"
                   value={companyDetails.companyMobileNo}
-                  onChangeText={(text) => handleCompanyChange('companyMobileNo', text)}
+                  onChangeText={text =>
+                    handleCompanyChange('companyMobileNo', text)
+                  }
                   keyboardType="numeric"
                 />
               </View>
@@ -1571,19 +1906,28 @@ const ProfileScreen = (props: any) => {
 
           <View style={ProfileScreenStyles.inputWrapper}>
             <TextInputField
-              placeholder='Company Description'
+              placeholder="Company Description"
               value={companyDetails.companyDescription}
-              onChangeText={(text) => handleCompanyChange('companyDescription', text)}
+              onChangeText={text =>
+                handleCompanyChange('companyDescription', text)
+              }
             />
           </View>
 
           <View style={ProfileScreenStyles.inputWrapper}>
-            <TouchableOpacity style={ProfileScreenStyles.dobButton} activeOpacity={0.8} onPress={() => { }}>
+            <TouchableOpacity
+              style={ProfileScreenStyles.dobButton}
+              activeOpacity={0.8}
+              onPress={() => {}}
+            >
               <View style={{ paddingHorizontal: 10 }}>
                 <Text style={ProfileScreenStyles.dobText}>Visiting Card</Text>
               </View>
               <View>
-                <Image source={IMAGES.CAMERA} style={ProfileScreenStyles.calendarIcon} />
+                <Image
+                  source={IMAGES.CAMERA}
+                  style={ProfileScreenStyles.calendarIcon}
+                />
               </View>
             </TouchableOpacity>
           </View>
@@ -1592,52 +1936,64 @@ const ProfileScreen = (props: any) => {
 
       <View style={ProfileScreenStyles.inputWrapper}>
         <TextInputField
-          placeholder='Industry'
+          placeholder="Industry"
           value={professionalDetails.industry}
-          onChangeText={(text) => handleProfessionalChange('industry', text)}
+          onChangeText={text => handleProfessionalChange('industry', text)}
         />
       </View>
 
+      {userData?.isEmployee == true ? (
+        <View pointerEvents="none" style={{ opacity: 0.5 }}>
+          {/* Employee Fields - Always show after Company Info */}
+          <View style={ProfileScreenStyles.inputWrapper}>
+            {departmentsListLoading &&
+            !departmentsListData?.data?.result?.departments ? (
+              <View style={{ padding: 15, alignItems: 'center' }}>
+                <Text style={{ color: COLORS.GREY_TEXT }}>
+                  Loading departments...
+                </Text>
+              </View>
+            ) : (
+              <Dropdowns
+                data={departmentOptions}
+                value={professionalDetails.department}
+                placeholder="Department"
+                onChange={(value: string) =>
+                  handleProfessionalChange('department', value)
+                }
+                onFocus={handleDepartmentDropdownClick}
+              />
+            )}
+          </View>
 
-      {userData?.isEmployee == true ? <View pointerEvents='none' style={{ opacity: 0.5 }}>
-        {/* Employee Fields - Always show after Company Info */}
-        <View style={ProfileScreenStyles.inputWrapper}>
-          {departmentsListLoading && !departmentsListData?.data?.result?.departments ? (
-            <View style={{ padding: 15, alignItems: 'center' }}>
-              <Text style={{ color: COLORS.GREY_TEXT }}>Loading departments...</Text>
-            </View>
-          ) : (
-            <Dropdowns
-              data={departmentOptions}
-              value={professionalDetails.department}
-              placeholder="Department"
-              onChange={(value: string) => handleProfessionalChange('department', value)}
-              onFocus={handleDepartmentDropdownClick}
-            />
-          )}
-        </View>
+          <View style={ProfileScreenStyles.inputWrapper}>
+            {branchesListLoading &&
+            !branchesListData?.data?.result?.branches ? (
+              <View style={{ padding: 15, alignItems: 'center' }}>
+                <Text style={{ color: COLORS.GREY_TEXT }}>
+                  Loading branches...
+                </Text>
+              </View>
+            ) : (
+              <Dropdowns
+                data={branchOptions}
+                value={professionalDetails.branch}
+                placeholder="Branch"
+                onChange={(value: string) =>
+                  handleProfessionalChange('branch', value)
+                }
+                onFocus={handleBranchDropdownClick}
+                flatListProps={
+                  {
+                    onEndReached: handleBranchesEndReached,
+                    onEndReachedThreshold: 0.5,
+                  } as any
+                }
+              />
+            )}
+          </View>
 
-        <View style={ProfileScreenStyles.inputWrapper}>
-          {branchesListLoading && !branchesListData?.data?.result?.branches ? (
-            <View style={{ padding: 15, alignItems: 'center' }}>
-              <Text style={{ color: COLORS.GREY_TEXT }}>Loading branches...</Text>
-            </View>
-          ) : (
-            <Dropdowns
-              data={branchOptions}
-              value={professionalDetails.branch}
-              placeholder="Branch"
-              onChange={(value: string) => handleProfessionalChange('branch', value)}
-              onFocus={handleBranchDropdownClick}
-              flatListProps={{
-                onEndReached: handleBranchesEndReached,
-                onEndReachedThreshold: 0.5,
-              } as any}
-            />
-          )}
-        </View>
-
-        {/* <View style={ProfileScreenStyles.inputWrapper}>
+          {/* <View style={ProfileScreenStyles.inputWrapper}>
           <TextInputField
             placeholder='Sub branch'
             value={professionalDetails.subBranch}
@@ -1645,91 +2001,136 @@ const ProfileScreen = (props: any) => {
           />
         </View> */}
 
-        <View style={ProfileScreenStyles.inputWrapper}>
-          {shiftManagementsListLoading && !shiftManagementsListData?.data?.result?.shiftManagements ? (
-            <View style={{ padding: 15, alignItems: 'center' }}>
-              <Text style={{ color: COLORS.GREY_TEXT }}>Loading shifts...</Text>
-            </View>
-          ) : (
-            <Dropdowns
-              data={shiftOptions}
-              value={professionalDetails.shift}
-              placeholder="Shift"
-              onChange={(value: string) => handleProfessionalChange('shift', value)}
-              onFocus={handleShiftDropdownClick}
-              flatListProps={{
-                onEndReached: handleShiftsEndReached,
-                onEndReachedThreshold: 0.5,
-              } as any}
-            />
-          )}
-        </View>
+          <View style={ProfileScreenStyles.inputWrapper}>
+            {shiftManagementsListLoading &&
+            !shiftManagementsListData?.data?.result?.shiftManagements ? (
+              <View style={{ padding: 15, alignItems: 'center' }}>
+                <Text style={{ color: COLORS.GREY_TEXT }}>
+                  Loading shifts...
+                </Text>
+              </View>
+            ) : (
+              <Dropdowns
+                data={shiftOptions}
+                value={professionalDetails.shift}
+                placeholder="Shift"
+                onChange={(value: string) =>
+                  handleProfessionalChange('shift', value)
+                }
+                onFocus={handleShiftDropdownClick}
+                flatListProps={
+                  {
+                    onEndReached: handleShiftsEndReached,
+                    onEndReachedThreshold: 0.5,
+                  } as any
+                }
+              />
+            )}
+          </View>
 
-        <View style={ProfileScreenStyles.inputWrapper}>
-          {designationsListLoading && !designationsListData?.data?.result?.designations ? (
-            <View style={{ padding: 15, alignItems: 'center' }}>
-              <Text style={{ color: COLORS.GREY_TEXT }}>Loading employee types...</Text>
-            </View>
-          ) : (
-            <Dropdowns
-              data={employeeTypeOptions}
-              value={professionalDetails.employeeType}
-              placeholder="Employee Type"
-              onChange={(value: string) => handleProfessionalChange('employeeType', value)}
-              onFocus={handleEmployeeTypeDropdownClick}
-              flatListProps={{
-                onEndReached: handleDesignationsEndReached,
-                onEndReachedThreshold: 0.5,
-              } as any}
-            />
-          )}
+          <View style={ProfileScreenStyles.inputWrapper}>
+            {designationsListLoading &&
+            !designationsListData?.data?.result?.designations ? (
+              <View style={{ padding: 15, alignItems: 'center' }}>
+                <Text style={{ color: COLORS.GREY_TEXT }}>
+                  Loading employee types...
+                </Text>
+              </View>
+            ) : (
+              <Dropdowns
+                data={employeeTypeOptions}
+                value={professionalDetails.employeeType}
+                placeholder="Employee Type"
+                onChange={(value: string) =>
+                  handleProfessionalChange('employeeType', value)
+                }
+                onFocus={handleEmployeeTypeDropdownClick}
+                flatListProps={
+                  {
+                    onEndReached: handleDesignationsEndReached,
+                    onEndReachedThreshold: 0.5,
+                  } as any
+                }
+              />
+            )}
+          </View>
+          <View style={ProfileScreenStyles.dobContainer}>
+            <TouchableOpacity
+              style={ProfileScreenStyles.dobButton}
+              activeOpacity={0.8}
+              onPress={() => setOpenJoiningDatePicker(true)}
+            >
+              <View style={{ paddingHorizontal: 10 }}>
+                <Text style={ProfileScreenStyles.dobText}>
+                  {reflectedJoiningDate || 'Joining date'}
+                </Text>
+              </View>
+              <View>
+                <Image
+                  source={IMAGES.CALENDAR}
+                  style={ProfileScreenStyles.calendarIcon}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={ProfileScreenStyles.dobContainer}>
-          <TouchableOpacity style={ProfileScreenStyles.dobButton} activeOpacity={0.8} onPress={() => setOpenJoiningDatePicker(true)}>
-            <View style={{ paddingHorizontal: 10 }}>
-              <Text style={ProfileScreenStyles.dobText}>{reflectedJoiningDate || 'Joining date'}</Text>
-            </View>
-            <View>
-              <Image source={IMAGES.CALENDAR} style={ProfileScreenStyles.calendarIcon} />
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View> : undefined}
+      ) : undefined}
 
       <TouchableOpacity
-        style={[ProfileScreenStyles.submitButton, isSubmitting && { opacity: 0.6 }]}
+        style={[
+          ProfileScreenStyles.submitButton,
+          isSubmitting && { opacity: 0.6 },
+        ]}
         onPress={handleProfessionalSubmit}
         disabled={isSubmitting}
       >
         <Text style={ProfileScreenStyles.submitButtonText}>
           {isSubmitting
-            ? (professionalListData?.data?.result?.professionals?.length >= 1 ? 'Updating...' : 'Submitting...')
-            : (professionalListData?.data?.result?.professionals?.length >= 1 ? 'Update' : 'Submit')}
+            ? professionalListData?.data?.result?.professionals?.length >= 1
+              ? 'Updating...'
+              : 'Submitting...'
+            : professionalListData?.data?.result?.professionals?.length >= 1
+            ? 'Update'
+            : 'Submit'}
         </Text>
       </TouchableOpacity>
     </View>
-
   );
 
-
   const PropertyDetails = () => (
-    <View style={[ProfileScreenStyles.personalDetailsContainer,{zIndex:999999}]}>
+    <View
+      style={[ProfileScreenStyles.personalDetailsContainer, { zIndex: 999999 }]}
+    >
       {propertyListLoading && (
         <View style={{ padding: 20, alignItems: 'center' }}>
-          <Text style={{ color: COLORS.GREY_TEXT, fontSize: 16 }}>Loading property data...</Text>
+          <Text style={{ color: COLORS.GREY_TEXT, fontSize: 16 }}>
+            Loading property data...
+          </Text>
         </View>
       )}
       <View style={ProfileScreenStyles.inputWrapper}>
-        <View style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          borderBottomWidth: 1,
-          borderBottomColor: COLORS.BORDER_GREY,
-          paddingVertical: 14
-        }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' ,/* zIndex:999999 */}}>
-            <View style={{ flex: 1, position: 'relative',/* zIndex:999999 */ }}>
-              <View style={{ flexDirection: 'row', alignItems: 'center',/* zIndex:999999 */ }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            borderBottomWidth: 1,
+            borderBottomColor: COLORS.BORDER_GREY,
+            paddingVertical: 14,
+          }}
+        >
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center' /* zIndex:999999 */,
+            }}
+          >
+            <View style={{ flex: 1, position: 'relative' /* zIndex:999999 */ }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center' /* zIndex:999999 */,
+                }}
+              >
                 <TextInput
                   style={{
                     flex: 1,
@@ -1743,78 +2144,82 @@ const ProfileScreen = (props: any) => {
                   value={propertyDetails.selectedProperty || ''}
                   onChangeText={handlePropertySearch}
                 />
-                {(propertyDetails.selectedProperty && propertyDetails.selectedProperty.length > 0) && (
-                  <TouchableOpacity
-                    onPress={() => {
-                      // Clear all property-related fields
-                      handlePropertyChange('selectedProperty', '');
-                      handlePropertyChange('flatHouseOffice', '');
-                      handlePropertyChange('city', '');
-                      handlePropertyChange('state', '');
-                      handlePropertyChange('country', '');
-                      handlePropertyChange('pinCode', '');
-                      handlePropertyChange('area', '');
-                      handlePropertyChange('landmark', '');
-                      handlePropertyChange('lat', '');
-                      handlePropertyChange('long', '');
-                      setSearchResults([]);
-                    }}
-                    style={{
-                      padding: 5,
-                      marginLeft: 10,
-                    }}
-                    activeOpacity={0.7}
-                  >
-                    <Text style={{ fontSize: 18, color: '#999' }}>✕</Text>
-                  </TouchableOpacity>
-                )}
+                {propertyDetails.selectedProperty &&
+                  propertyDetails.selectedProperty.length > 0 && (
+                    <TouchableOpacity
+                      onPress={() => {
+                        // Clear all property-related fields
+                        handlePropertyChange('selectedProperty', '');
+                        handlePropertyChange('flatHouseOffice', '');
+                        handlePropertyChange('city', '');
+                        handlePropertyChange('state', '');
+                        handlePropertyChange('country', '');
+                        handlePropertyChange('pinCode', '');
+                        handlePropertyChange('area', '');
+                        handlePropertyChange('landmark', '');
+                        handlePropertyChange('lat', '');
+                        handlePropertyChange('long', '');
+                        setSearchResults([]);
+                      }}
+                      style={{
+                        padding: 5,
+                        marginLeft: 10,
+                      }}
+                      activeOpacity={0.7}
+                    >
+                      <Text style={{ fontSize: 18, color: '#999' }}>✕</Text>
+                    </TouchableOpacity>
+                  )}
               </View>
               {searchResults.length > 0 && (
-                <View style={{
-                  // position: 'absolute',
-                  top: 10,
-                  left: 0,
-                  right: 0,
-                  bottom: -200, // Extend below to cover content
-                  backgroundColor: '#ffffff',
-                  borderRadius: 8,
-                  zIndex: -999999,
-                  shadowColor: '#000',
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 3.84,
-                  elevation: 5,
-                }}>
+                <View
+                  style={{
+                    // position: 'absolute',
+                    top: 10,
+                    left: 0,
+                    right: 0,
+                    bottom: -200, // Extend below to cover content
+                    backgroundColor: '#ffffff',
+                    borderRadius: 8,
+                    zIndex: -999999,
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 2 },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3.84,
+                    elevation: 5,
+                  }}
+                >
                   <ScrollView
                     style={{
                       maxHeight: 200,
                     }}
                     keyboardShouldPersistTaps="always"
                   >
-                  {searchResults.map((result, index) => (
-                    <TouchableOpacity
-                      key={index}
-                      style={{
-                        padding: 15,
-                        borderBottomWidth: index < searchResults.length - 1 ? 0.5 : 0,
-                        borderBottomColor: '#e0e0e0',
-                        // backgroundColor: '#4CAF50',
-                        zIndex: 999999,
-                        elevation: 999999
-                      }}
-                      onPress={(e) => {
-                        e.stopPropagation();
-                        console.log("TOUCH EVENT TRIGGERED", result);
-                        handlePlaceSelect(result);
-                      }}
-                      activeOpacity={0.5}
-                      disabled={isSelecting}
-                    >
-                      <Text style={{ color: '#000', fontSize: 16 }}>
-                        {result.description}
-                      </Text>
-                    </TouchableOpacity>
-                  ))}
+                    {searchResults.map((result, index) => (
+                      <TouchableOpacity
+                        key={index}
+                        style={{
+                          padding: 15,
+                          borderBottomWidth:
+                            index < searchResults.length - 1 ? 0.5 : 0,
+                          borderBottomColor: '#e0e0e0',
+                          // backgroundColor: '#4CAF50',
+                          zIndex: 999999,
+                          elevation: 999999,
+                        }}
+                        onPress={e => {
+                          e.stopPropagation();
+                          console.log('TOUCH EVENT TRIGGERED', result);
+                          handlePlaceSelect(result);
+                        }}
+                        activeOpacity={0.5}
+                        disabled={isSelecting}
+                      >
+                        <Text style={{ color: '#000', fontSize: 16 }}>
+                          {result.description}
+                        </Text>
+                      </TouchableOpacity>
+                    ))}
                   </ScrollView>
                 </View>
               )}
@@ -1825,91 +2230,112 @@ const ProfileScreen = (props: any) => {
 
       <View style={ProfileScreenStyles.inputWrapper}>
         <TextInputField
-          placeholder='Selected Property'
+          placeholder="Selected Property"
           value={propertyDetails.selectedProperty}
-          onChangeText={(text) => handlePropertyChange('selectedProperty', text)}
+          onChangeText={text => handlePropertyChange('selectedProperty', text)}
         />
       </View>
 
       <View style={ProfileScreenStyles.inputWrapper}>
         <TextInputField
-          placeholder='Flat / House/ Office/ Showroom No'
+          placeholder="Flat / House/ Office/ Showroom No"
           value={propertyDetails.flatHouseOffice}
-          onChangeText={(text) => handlePropertyChange('flatHouseOffice', text)}
+          onChangeText={text => handlePropertyChange('flatHouseOffice', text)}
         />
       </View>
 
       <View style={ProfileScreenStyles.inputWrapper}>
         <TextInputField
-          placeholder='Landmark'
+          placeholder="Landmark"
           value={propertyDetails.landmark}
-          onChangeText={(text) => handlePropertyChange('landmark', text)}
+          onChangeText={text => handlePropertyChange('landmark', text)}
         />
       </View>
 
       <View style={ProfileScreenStyles.inputWrapper}>
         <TextInputField
-          placeholder='Pincode'
+          placeholder="Pincode"
           value={propertyDetails.pinCode}
-          onChangeText={(text) => handlePropertyChange('pinCode', text)}
+          onChangeText={text => handlePropertyChange('pinCode', text)}
           keyboardType="numeric"
         />
       </View>
 
       <View style={ProfileScreenStyles.inputWrapper}>
         <TextInputField
-          placeholder='Area'
+          placeholder="Area"
           value={propertyDetails.area}
-          onChangeText={(text) => handlePropertyChange('area', text)}
+          onChangeText={text => handlePropertyChange('area', text)}
         />
       </View>
 
       <View style={ProfileScreenStyles.inputWrapper}>
         <TextInputField
-          placeholder='City'
+          placeholder="City"
           value={propertyDetails.city}
-          onChangeText={(text) => handlePropertyChange('city', text)}
+          onChangeText={text => handlePropertyChange('city', text)}
         />
       </View>
 
       <View style={ProfileScreenStyles.inputWrapper}>
         <TextInputField
-          placeholder='State'
+          placeholder="State"
           value={propertyDetails.state}
-          onChangeText={(text) => handlePropertyChange('state', text)}
+          onChangeText={text => handlePropertyChange('state', text)}
         />
       </View>
 
       <View style={ProfileScreenStyles.inputWrapper}>
         <TextInputField
-          placeholder='Country'
+          placeholder="Country"
           value={propertyDetails.country}
-          onChangeText={(text) => handlePropertyChange('country', text)}
+          onChangeText={text => handlePropertyChange('country', text)}
         />
+      </View>
+
+      <View style={ProfileScreenStyles.inputWrapper}>
+        <TouchableOpacity
+          onPress={() => setOpenPropertyStartDatePicker(true)}
+          activeOpacity={0.7}
+        >
+          <TextInputField
+            placeholder="Start Date"
+            value={reflectedPropertyStartDate}
+            editable={false}
+            pointerEvents="none"
+            onChangeText={() => {}}
+          />
+        </TouchableOpacity>
       </View>
       <TouchableOpacity
-        style={[ProfileScreenStyles.submitButton, (isSubmitting || createPropertyLoading || propertyListLoading) && { opacity: 0.6 }]}
+        style={[
+          ProfileScreenStyles.submitButton,
+          (isSubmitting || createPropertyLoading || propertyListLoading) && {
+            opacity: 0.6,
+          },
+        ]}
         onPress={handlePropertySubmit}
         disabled={isSubmitting || createPropertyLoading || propertyListLoading}
       >
         <Text style={ProfileScreenStyles.submitButtonText}>
-          {(isSubmitting || createPropertyLoading) ? 'Submitting...' : 'Submit'}
+          {isSubmitting || createPropertyLoading ? 'Submitting...' : 'Submit'}
         </Text>
       </TouchableOpacity>
     </View>
   );
-
 
   return (
     <KeyboardAvoidingView
       style={ProfileScreenStyles.keyboardAvoidingView}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={-35}
-
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Container style={ProfileScreenStyles.mainContainer}>
-          <HeaderComponent Title='Your Profile' onPress={() => props.navigation.goBack()} />
+          <HeaderComponent
+            Title="Your Profile"
+            onPress={() => props.navigation.goBack()}
+          />
           <ScrollView
             style={ProfileScreenStyles.container}
             nestedScrollEnabled={true}
@@ -1977,8 +2403,6 @@ const ProfileScreen = (props: any) => {
               />
               {isPropertyDetailsExpanded && PropertyDetails()}
             </View>
-
-
           </ScrollView>
           {/* </View> */}
 
@@ -1997,20 +2421,19 @@ const ProfileScreen = (props: any) => {
             onRequestClose={() => setOpenCountryPicker(false)}
             style={{
               modal: ProfileScreenStyles.countryPickerModal,
-              countryName:{
-                color:"#000000"
+              countryName: {
+                color: '#000000',
               },
-              dialCode:{
-                  color:"#000000"
-              }
+              dialCode: {
+                color: '#000000',
+              },
             }}
             show={opencountryPicker}
             lang="en"
-            pickerButtonOnPress={(item) => {
-              handleChange("nationality", item?.name?.en);
+            pickerButtonOnPress={item => {
+              handleChange('nationality', item?.name?.en);
               setOpenCountryPicker(false);
             }}
-
           />
 
           {/* Calendar Modal */}
@@ -2022,7 +2445,7 @@ const ProfileScreen = (props: any) => {
               setReflectedDate(formattedDate);
               setPersonalDetails(prevState => ({
                 ...prevState,
-                dob: date // Store in yyyy-mm-dd format for server
+                dob: date, // Store in yyyy-mm-dd format for server
               }));
               setOpenPicker(false);
             }}
@@ -2038,11 +2461,43 @@ const ProfileScreen = (props: any) => {
               setReflectedJoiningDate(formattedDate);
               setProfessionalDetails(prevState => ({
                 ...prevState,
-                joiningDate: date // Store in yyyy-mm-dd format for server
+                joiningDate: date, // Store in yyyy-mm-dd format for server
               }));
               setOpenJoiningDatePicker(false);
             }}
             initialDate={formatDateToServer(reflectedJoiningDate)}
+          />
+
+          {/* Property Start Date Calendar Modal */}
+          <CalendarPicker
+            visible={openPropertyStartDatePicker}
+            onClose={() => setOpenPropertyStartDatePicker(false)}
+            onSelect={date => {
+              const formattedDate = formatDateToDisplay(date);
+              setReflectedPropertyStartDate(formattedDate);
+              setPropertyDetails(prevState => ({
+                ...prevState,
+                startDate: date, // Store in yyyy-mm-dd format for server
+              }));
+              setOpenPropertyStartDatePicker(false);
+            }}
+            initialDate={formatDateToServer(reflectedPropertyStartDate)}
+          />
+
+          {/* Company Start Date Calendar Modal */}
+          <CalendarPicker
+            visible={openCompanyStartDatePicker}
+            onClose={() => setOpenCompanyStartDatePicker(false)}
+            onSelect={date => {
+              const formattedDate = formatDateToDisplay(date);
+              setReflectedCompanyStartDate(formattedDate);
+              setCompanyDetails(prevState => ({
+                ...prevState,
+                startDate: date, // Store in yyyy-mm-dd format for server
+              }));
+              setOpenCompanyStartDatePicker(false);
+            }}
+            initialDate={formatDateToServer(reflectedCompanyStartDate)}
           />
         </Container>
       </TouchableWithoutFeedback>

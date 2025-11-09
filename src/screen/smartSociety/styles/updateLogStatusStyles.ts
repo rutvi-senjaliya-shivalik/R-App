@@ -1,0 +1,171 @@
+import { StyleSheet } from 'react-native';
+import { COLORS, FF, FS, LH } from '../../../constants';
+
+const UpdateLogStatusStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.WHITE,
+  },
+  tabContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 12,
+    backgroundColor: COLORS.WHITE,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.BORDER_GREY,
+  },
+  tab: {
+    flex: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+    marginHorizontal: 4,
+    backgroundColor: COLORS.LIGHT_GRAY,
+  },
+  tabActive: {
+    backgroundColor: COLORS.OCEAN_BLUE_BG,
+    borderWidth: 1,
+    borderColor: COLORS.OCEAN_BLUE_BORDER,
+  },
+  tabText: {
+    fontSize: FS.FS14,
+    fontFamily: FF[600],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH20,
+  },
+  tabTextActive: {
+    color: COLORS.OCEAN_BLUE_TEXT,
+  },
+  searchSection: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 12,
+    backgroundColor: COLORS.WHITE,
+  },
+  listSection: {
+    flex: 1,
+    paddingHorizontal: 16,
+  },
+  sectionTitle: {
+    fontSize: FS.FS16,
+    fontFamily: FF[700],
+    color: COLORS.BLACK_TEXT,
+    marginBottom: 12,
+    lineHeight: LH.LH22,
+  },
+  listContent: {
+    paddingBottom: 20,
+  },
+  logCard: {
+    backgroundColor: COLORS.WHITE,
+    borderRadius: 12,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
+    shadowColor: COLORS.BLACK,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 2,
+    overflow: 'hidden',
+  },
+  logCardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: COLORS.OCEAN_BLUE_BG,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.OCEAN_BLUE_BORDER,
+  },
+  logCardHeaderLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  logTitle: {
+    fontSize: FS.FS16,
+    fontFamily: FF[700],
+    color: COLORS.BLACK_TEXT,
+    lineHeight: LH.LH22,
+    flex: 1,
+  },
+  statusBadge: {
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 12,
+    marginLeft: 12,
+  },
+  statusText: {
+    fontSize: FS.FS11,
+    fontFamily: FF[600],
+    lineHeight: LH.LH16,
+  },
+  logCardContent: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  logDetailRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 6,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.BORDER_GREY,
+  },
+  logDetailLabel: {
+    fontSize: FS.FS13,
+    fontFamily: FF[500],
+    color: COLORS.GREY_TEXT,
+    width: 100,
+    lineHeight: LH.LH18,
+  },
+  logDetailValue: {
+    fontSize: FS.FS13,
+    fontFamily: FF[400],
+    color: COLORS.BLACK_TEXT,
+    flex: 1,
+    textAlign: 'right',
+    lineHeight: LH.LH18,
+  },
+  statusButtonsContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 16,
+    paddingBottom: 12,
+    paddingTop: 8,
+  },
+  statusButton: {
+    flex: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    borderWidth: 1.5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: COLORS.WHITE,
+  },
+  statusButtonText: {
+    fontSize: FS.FS13,
+    fontFamily: FF[600],
+    lineHeight: LH.LH18,
+  },
+  emptyState: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 60,
+  },
+  emptyStateText: {
+    fontSize: FS.FS16,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH24,
+  },
+});
+
+export default UpdateLogStatusStyles;
+

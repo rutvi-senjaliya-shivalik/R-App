@@ -4,9 +4,11 @@ import { LandingStyles } from './styles';
 import { Container, CustomButton } from '../../components/common';
 import { Image } from 'react-native';
 import { COLORS, FF, FS, IMAGES } from '../../constants';
+import { useTranslation } from '../../context/LanguageContext';
 
 // create a component
 const Landing = (props: any) => {
+  const { t } = useTranslation();
   return (
     <Container>
       <View style={LandingStyles.container}>
@@ -14,11 +16,11 @@ const Landing = (props: any) => {
           <Image source={IMAGES.UNIVERSAL} style={{ width: 220, height: 188 }} />
         </View>
         <View style={{ paddingHorizontal: 30, marginTop: 50 }}>
-          <Text style={{ fontSize: FS.FS24, fontFamily: FF[400], color: COLORS.BLACK, textAlign: 'center' ,lineHeight:36}}>The Real Estate {'\n'} Operating System</Text>
+          <Text style={{ fontSize: FS.FS24, fontFamily: FF[400], color: COLORS.BLACK, textAlign: 'center' ,lineHeight:36}}>{t('auth.theRealEstateOperatingSystem')}</Text>
         </View>
 
         <View style={[LandingStyles.loginButtonContainer]}>
-          <CustomButton title='Get started' onPress={() => props.navigation.navigate('Login')} />
+          <CustomButton title={t('auth.getStarted')} onPress={() => props.navigation.navigate('Login')} />
         </View>
       </View>
     </Container>

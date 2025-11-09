@@ -36,6 +36,21 @@ import { getProfessionalListReducer } from "./profile/getProfessionalListReducer
 import { createProfessionalReducer } from "./profile/createProfessionalReducer";
 import feedbackReducer from "./feedback/feedbackReducer";
 import getFeedbackModuleListReducer from "./feedback/getFeedbackModuleReducer";
+import languageReducer from "./language/languageReducer";
+import addVisitorEntryReducer from "./smartSociety/addVisitorEntryReducer";
+import getVisitorsReducer from "./smartSociety/getVisitorsReducer";
+import getEmergencyContactsReducer from "./smartSociety/getEmergencyContactsReducer";
+import getNoticesListReducer from "./smartSociety/getNoticesListReducer";
+import createNoticeReducer from "./smartSociety/createNoticeReducer";
+import getNoticeDetailReducer from "./smartSociety/getNoticeDetailReducer";
+import acknowledgeNoticeReducer from "./smartSociety/acknowledgeNoticeReducer";
+import publishNoticeReducer from "./smartSociety/publishNoticeReducer";
+import archiveNoticeReducer from "./smartSociety/archiveNoticeReducer";
+import getEventsListReducer from "./smartSociety/getEventsListReducer";
+import createEventReducer from "./smartSociety/createEventReducer";
+import getEventDetailReducer from "./smartSociety/getEventDetailReducer";
+import updateEventRsvpReducer from "./smartSociety/updateEventRsvpReducer";
+import cancelEventRegistrationReducer from "./smartSociety/cancelEventRegistrationReducer";
 import { RESET_STORE } from "../actionType";
 
 
@@ -75,6 +90,21 @@ const appReducer = combineReducers({
   getFeedbackModuleList: getFeedbackModuleListReducer,
   getProfessionalList: getProfessionalListReducer,
   createProfessional: createProfessionalReducer,
+  language: languageReducer,
+  addVisitorEntry: addVisitorEntryReducer,
+  getVisitors: getVisitorsReducer,
+  getEmergencyContacts: getEmergencyContactsReducer,
+  getNoticesList: getNoticesListReducer,
+  createNotice: createNoticeReducer,
+  getNoticeDetail: getNoticeDetailReducer,
+  acknowledgeNotice: acknowledgeNoticeReducer,
+  publishNotice: publishNoticeReducer,
+  archiveNotice: archiveNoticeReducer,
+  getEventsList: getEventsListReducer,
+  createEvent: createEventReducer,
+  getEventDetail: getEventDetailReducer,
+  updateEventRsvp: updateEventRsvpReducer,
+  cancelEventRegistration: cancelEventRegistrationReducer,
 });
 
 export type RootState = ReturnType<typeof appReducer>;

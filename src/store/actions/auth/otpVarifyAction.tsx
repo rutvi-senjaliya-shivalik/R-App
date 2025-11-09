@@ -3,7 +3,7 @@ import { MakeApiRequest } from "../../../services/apiService";
 import { OTP_VERIFY } from "../../../services/httpService";
 import * as types from "../../actionType";
 
-export const otpVarifyAction = (credentials: { countryCode: string; phoneNumber: string, otp : string,type:string,newCounrtryCode:string,newPhoneNumber:string }) => {
+export const otpVarifyAction = (credentials: { mobileNumber: string; otp: string; countryCode: string }) => {
     return async (dispatch: any) => {
 
       try {
@@ -22,7 +22,7 @@ export const otpVarifyAction = (credentials: { countryCode: string; phoneNumber:
     };
   };
 
-export const otpVarifyRequest = (credentials: { countryCode: string; phoneNumber: string,otp:string,type:string,newCounrtryCode:string,newPhoneNumber:string }) => ({
+export const otpVarifyRequest = (credentials: { mobileNumber: string; otp: string; countryCode: string }) => ({
     type: types.OTP_VARIFY_REQUEST,
     payload: credentials,
 });

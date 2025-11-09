@@ -7,9 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { COLORS, IMAGES } from '../../constants';
 import { Menu, MenuOption, MenuOptions, MenuTrigger } from 'react-native-popup-menu';
 import AddLeadModal from '../../components/individual/addLeadModal';
+import { useTranslation } from '../../context/LanguageContext';
 let user = null;
 
 const Desk = (props: any) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch() as any;
   const { userData } = useSelector((state: any) => state.otp);
   // State management for pagination
@@ -148,7 +150,7 @@ const Desk = (props: any) => {
         console.log('❌ API returned 404 - stopping retries');
         setHasMoreData(false);
         setHasError(true);
-        setErrorMessage('Something went wrong. Please try again later.');
+        setErrorMessage(t('errors.somethingWentWrong'));
         if (!isLoadMore) {
           setLeadList([]);
         }
@@ -188,7 +190,7 @@ const Desk = (props: any) => {
         // console.log('❌ API returned 404 - stopping retries');
         setHasMoreData(false);
         setHasError(true);
-        setErrorMessage('Something went wrong. Please try again later.');
+        setErrorMessage(t('errors.somethingWentWrong'));
         if (!isLoadMore) {
           setLeadList([]);
         }
@@ -286,7 +288,7 @@ const Desk = (props: any) => {
         console.log('❌ API returned 404 - stopping retries');
         setHasMoreData(false);
         setHasError(true);
-        setErrorMessage('Something went wrong. Please try again later.');
+        setErrorMessage(t('errors.somethingWentWrong'));
         if (!isLoadMore) {
           setLeadList([]);
         }
@@ -318,7 +320,7 @@ const Desk = (props: any) => {
       } else {
         console.log('❌ API Error:', response);
         setHasError(true);
-        setErrorMessage('Failed to load data. Please try again.');
+        setErrorMessage(t('errors.failedToLoadData'));
         if (!isLoadMore) {
           setLeadList([]);
         }
@@ -326,7 +328,7 @@ const Desk = (props: any) => {
     } catch (error) {
       console.error('❌ Error fetching data with filters:', error);
       setHasError(true);
-      setErrorMessage('Network error. Please check your connection.');
+      setErrorMessage(t('errors.networkError'));
       if (!isLoadMore) {
         setLeadList([]);
       }
@@ -600,7 +602,7 @@ const Desk = (props: any) => {
       <View style={{ paddingVertical: 20, alignItems: 'center' }}>
         <ActivityIndicator size="small" color={COLORS.BLACK} />
         <Text style={{ marginTop: 8, color: COLORS.GREY_TEXT, fontSize: 12 }}>
-          Loading more data...
+          {t('common.loadingMoreData')}
         </Text>
       </View>
     );
@@ -632,7 +634,7 @@ const Desk = (props: any) => {
               loadModuleData(1, false, searchTerm, selectedLeadType, selectedModule);
             }}
           >
-            <Text style={{ color: COLORS.WHITE, fontSize: 14 }}>Try Again</Text>
+            <Text style={{ color: COLORS.WHITE, fontSize: 14 }}>{t('common.tryAgain')}</Text>
           </TouchableOpacity>
         </View>
       );
@@ -643,7 +645,7 @@ console.log("userData?.userRoles",userData?.userRoles);
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 70 }}>
         <Image source={IMAGES.NO_DATA} style={{ width: 100, height: 100 }} />
         <Text style={{ color: COLORS.GREY_TEXT, fontSize: 16 }}>
-          No leads found
+          {t('desk.noLeadsFound')}
         </Text>
       </View>
     );
@@ -665,7 +667,7 @@ console.log("userData?.userRoles",userData?.userRoles);
       <View style={DeskStyles.container}>
         {/* Header */}
         <View style={DeskStyles.headerContainer}>
-          <HeaderComponent Title={`${selectedModuleTitle} Desk`} onPress={() => props.navigation.goBack()} />
+          <HeaderComponent Title={`${selectedModuleTitle} ${t('desk.desk')}`} onPress={() => props.navigation.goBack()} />
           <View style={DeskStyles.headerRightContainer}>
             <View>
               <Menu>
@@ -729,7 +731,7 @@ console.log("userData?.userRoles",userData?.userRoles);
         {/* Search */}
         <View style={DeskStyles.searchContainer}>
           <SearchInput
-            placeholder='Search Name, number'
+            placeholder={t('desk.searchNameNumber')}
             value={searchTerm}
             onChangeText={handleSearch}
           />

@@ -6,8 +6,10 @@ import { getInitials } from '../../utils/method';
 import { COLORS, IMAGES } from '../../constants';
 import { Container, HeaderComponent } from '../../components/common';
 import { useSelector } from 'react-redux';
+import { useTranslation } from '../../context/LanguageContext';
 
 const Setting = (props: any) => {
+  const { t } = useTranslation();
   const { userData } = useSelector((state: any) => state.otp);
 
   // Static display data
@@ -21,7 +23,7 @@ const Setting = (props: any) => {
     <Container>
       <View style={SettingStyles.container}>
         <HeaderComponent
-          Title="Profiles"
+          Title={t('settings.profiles')}
           onPress={() => {
             props.navigation.goBack();
           }}
@@ -65,7 +67,7 @@ const Setting = (props: any) => {
               <TouchableOpacity
                 style={SettingStyles.menuItem}
                 onPress={() => { props.navigation.navigate('PersonalDetails') }}>
-                <Text style={SettingStyles.menuText}>Personal Details</Text>
+                <Text style={SettingStyles.menuText}>{t('settings.personalDetails')}</Text>
                 <Image source={IMAGES.BACK} style={SettingStyles.chevron} />
               </TouchableOpacity>
 
@@ -74,7 +76,7 @@ const Setting = (props: any) => {
               <TouchableOpacity
                 style={SettingStyles.menuItem}
                 onPress={() => { props.navigation.navigate('ProfessionalDetails') }}>
-                <Text style={SettingStyles.menuText}>Professional Details</Text>
+                <Text style={SettingStyles.menuText}>{t('settings.professionalDetails')}</Text>
                 <Image source={IMAGES.BACK} style={SettingStyles.chevron} />
               </TouchableOpacity>
             </View>
@@ -84,7 +86,7 @@ const Setting = (props: any) => {
               <TouchableOpacity
                 style={SettingStyles.menuItem}
                 onPress={() => { props.navigation.navigate('ProfileSetting') }}>
-                <Text style={SettingStyles.menuText}>Settings</Text>
+                <Text style={SettingStyles.menuText}>{t('settings.settings')}</Text>
                 <Image source={IMAGES.BACK} style={SettingStyles.chevron} />
               </TouchableOpacity>
             </View>

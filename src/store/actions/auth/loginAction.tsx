@@ -1,17 +1,25 @@
 import { POST } from "../../../constants/api";
 import { MakeApiRequest } from "../../../services/apiService";
-import { LOGIN } from "../../../services/httpService";
+import { LOGIN_SEND_OTP } from "../../../services/httpService";
 import * as types from "../../actionType";
 
-export const loginAction = (credentials: { countryCode: string; phoneNumber: string }) => {
+export const loginAction = (credentials: { countryCode: string; phoneNumber: string; userLoginType?: number }) => {
     return async (dispatch: any) => {
       console.log("credentials",credentials);
       try {
         dispatch(loginRequest(credentials));
+        
+        // Prepare payload according to new API structure
+        const payload = {
+          userLoginType: credentials.userLoginType || 2,
+          mobileNumber: credentials.phoneNumber,
+          countryCode: credentials.countryCode,
+        };
+        
         const response = await MakeApiRequest({
-          apiUrl: LOGIN,
+          apiUrl: LOGIN_SEND_OTP,
           apiMethod: POST,
-          apiData: credentials,
+          apiData: payload,
         });
         dispatch(loginSuccess(response));
         return response

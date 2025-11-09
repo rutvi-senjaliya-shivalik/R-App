@@ -3,10 +3,9 @@ import { View, Text, Image, TouchableOpacity, ScrollView, KeyboardAvoidingView, 
 import { useSelector } from 'react-redux';
 import { selectGetBranchesListData, selectGetBranchesListLoading, selectGetBranchesListCurrentPage, selectGetBranchesListHasMore, selectGetShiftManagementsListData, selectGetShiftManagementsListLoading, selectGetShiftManagementsListCurrentPage, selectGetShiftManagementsListHasMore, selectGetDesignationsListData, selectGetDesignationsListLoading, selectGetDesignationsListCurrentPage, selectGetDesignationsListHasMore, selectGetDepartmentsListData, selectGetDepartmentsListLoading, selectGetProfessionalListData, selectGetProfessionalListHasMore } from '../../store/selectors/profile';
 import { ProfileScreenStyles } from './styles';
-import { Container, HeaderComponent, TextInputField, CalendarPicker } from '../../components/common';
+import { Container, HeaderComponent, TextInputField, CalendarPicker, Dropdowns } from '../../components/common';
 import { COLORS, IMAGES } from '../../constants';
 import { OCCUPATION_OPTIONS } from '../../constants/arrays';
-import Dropdowns from '../../components/common/dropDown';
 import { useDispatch } from 'react-redux';
 import { getBranchesListAction } from '../../store/actions/profile/getBranchesListAction';
 import { getShiftManagementsListAction } from '../../store/actions/profile/getShiftManagementsListAction';

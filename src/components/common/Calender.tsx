@@ -1,5 +1,5 @@
 // CalendarModalPicker.tsx
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import {
   Modal,
   View,
@@ -12,13 +12,10 @@ import {
 import { Calendar } from 'react-native-calendars';
 import LinearGradient from 'react-native-linear-gradient';
 import { COLORS, FF, FS } from '../../constants';
+import { useTranslation } from '../../context/LanguageContext';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const months = [
-  'January','February','March','April','May','June',
-  'July','August','September','October','November','December',
-];
 const years = Array.from({ length: 200 }, (_, i) => 1900 + i);
 
 type Props = {
@@ -38,6 +35,7 @@ const CalendarPicker = ({
   minDate,
   maxDate,
 }: Props) => {
+  const { t, language } = useTranslation();
   const ITEM_HEIGHT = 44;
   const VISIBLE_ROWS = 5;
   const PICKER_HEIGHT = ITEM_HEIGHT * VISIBLE_ROWS;
@@ -52,6 +50,18 @@ const CalendarPicker = ({
   const monthListRef = useRef<FlatList<string>>(null);
   const yearListRef = useRef<FlatList<number>>(null);
 
+  // Get localized month names - updates when language changes
+  const localizedMonths = useMemo(() => {
+    const date = new Date(2024, 0, 1); // Use a fixed year for consistency
+    const months: string[] = [];
+    const locale = language === 'hi' ? 'hi-IN' : language === 'gu' ? 'gu-IN' : 'en-US';
+    for (let i = 0; i < 12; i++) {
+      date.setMonth(i);
+      months.push(date.toLocaleString(locale, { month: 'long' }));
+    }
+    return months;
+  }, [language]);
+
   useEffect(() => {
     setTempMonth(currentMonth.getMonth());
     setTempYear(currentMonth.getFullYear());
@@ -63,16 +73,24 @@ const CalendarPicker = ({
       const monthIndex = tempMonth;
       const yearIndex = years.indexOf(tempYear);
 
-      monthListRef.current?.scrollToOffset({ offset: monthIndex * ITEM_HEIGHT, animated: false });
+      monthListRef.current?.scrollToOffset({
+        offset: monthIndex * ITEM_HEIGHT,
+        animated: false,
+      });
       if (yearIndex !== -1) {
-        yearListRef.current?.scrollToOffset({ offset: yearIndex * ITEM_HEIGHT, animated: false });
+        yearListRef.current?.scrollToOffset({
+          offset: yearIndex * ITEM_HEIGHT,
+          animated: false,
+        });
       }
     }, 100);
     return () => clearTimeout(timer);
   }, [modalVisible, tempMonth, tempYear]);
 
-  const formatMonthYear = (date: Date) =>
-    date.toLocaleString('default', { month: 'long', year: 'numeric' });
+  const formatMonthYear = (date: Date) => {
+    const locale = language === 'hi' ? 'hi-IN' : language === 'gu' ? 'gu-IN' : 'en-US';
+    return date.toLocaleString(locale, { month: 'long', year: 'numeric' });
+  };
 
   const formatLocalDate = (date: Date) => {
     const y = date.getFullYear();
@@ -86,25 +104,43 @@ const CalendarPicker = ({
 
   const onMonthMomentumEnd = (e: any) => {
     const idx = getCenteredItemIndex(e.nativeEvent.contentOffset.y);
-    const clamped = Math.max(0, Math.min(idx, months.length - 1));
+    const clamped = Math.max(0, Math.min(idx, localizedMonths.length - 1));
     setTempMonth(clamped);
-    monthListRef.current?.scrollToOffset({ offset: clamped * ITEM_HEIGHT, animated: true });
+    monthListRef.current?.scrollToOffset({
+      offset: clamped * ITEM_HEIGHT,
+      animated: true,
+    });
   };
 
   const onYearMomentumEnd = (e: any) => {
     const idx = getCenteredItemIndex(e.nativeEvent.contentOffset.y);
     const clamped = Math.max(0, Math.min(idx, years.length - 1));
     setTempYear(years[clamped]);
-    yearListRef.current?.scrollToOffset({ offset: clamped * ITEM_HEIGHT, animated: true });
+    yearListRef.current?.scrollToOffset({
+      offset: clamped * ITEM_HEIGHT,
+      animated: true,
+    });
   };
 
   return (
-    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose} >
+    <Modal
+      visible={visible}
+      transparent
+      animationType="fade"
+      onRequestClose={onClose}
+    >
       <View style={styles.modalOverlay}>
         <View style={styles.modalContent}>
-          <View style={{ paddingTop: 10, backgroundColor: COLORS.WHITE, borderRadius: 16, height: 360 }}>
+          <View
+            style={{
+              paddingTop: 10,
+              backgroundColor: COLORS.WHITE,
+              borderRadius: 16,
+              height: 360,
+            }}
+          >
             <Calendar
-              key={currentMonth.toISOString()}
+              key={`${currentMonth.toISOString()}-${language}`}
               dayComponent={modalVisible ? () => null : undefined}
               current={formatLocalDate(currentMonth)}
               onDayPress={day => setSelected(day.dateString)}
@@ -113,11 +149,23 @@ const CalendarPicker = ({
               markedDates={{
                 [selected]: { selected: true, selectedColor: COLORS.DARK_BLUE },
               }}
-              theme={{ todayTextColor: COLORS.DARK_BLUE, arrowColor: COLORS.DARK_BLUE }}
+              theme={{
+                todayTextColor: COLORS.DARK_BLUE,
+                arrowColor: COLORS.DARK_BLUE,
+              }}
               hideExtraDays
               hideArrows
+              monthFormat="MMMM yyyy"
+              firstDay={1}
+              enableSwipeMonths={true}
               renderHeader={() => (
-                <View style={{ flexDirection: 'row', marginBottom: 10, width: screenWidth - 40 }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    marginBottom: 10,
+                    width: screenWidth - 40,
+                  }}
+                >
                   <TouchableOpacity
                     style={{ flexDirection: 'row', alignItems: 'center' }}
                     onPress={() => {
@@ -126,10 +174,23 @@ const CalendarPicker = ({
                       setModalVisible(!modalVisible);
                     }}
                   >
-                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: COLORS.BLACK, marginRight: 10 }}>
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        fontWeight: 'bold',
+                        color: COLORS.BLACK,
+                        marginRight: 10,
+                      }}
+                    >
                       {formatMonthYear(currentMonth)}
                     </Text>
-                    <Text style={{ fontSize: 30, color: COLORS.DARK_BLUE, transform: [{ rotate: '-90deg' }] }}>
+                    <Text
+                      style={{
+                        fontSize: 30,
+                        color: COLORS.DARK_BLUE,
+                        transform: [{ rotate: '-90deg' }],
+                      }}
+                    >
                       ‹
                     </Text>
                   </TouchableOpacity>
@@ -138,7 +199,14 @@ const CalendarPicker = ({
             />
 
             {modalVisible && (
-              <View style={{ justifyContent: 'center', alignItems: 'center', position: 'absolute', top: 60 }}>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  position: 'absolute',
+                  top: 60,
+                }}
+              >
                 <View
                   style={{
                     width: screenWidth - 40,
@@ -151,14 +219,28 @@ const CalendarPicker = ({
                     <LinearGradient
                       pointerEvents="none"
                       colors={[COLORS.WHITE, '#ffffff30']}
-                      style={{ position: 'absolute', top: 0, left: 0, right: 0, height: CENTER_PADDING + 20, zIndex: 2 }}
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: CENTER_PADDING + 20,
+                        zIndex: 2,
+                      }}
                     />
                     <LinearGradient
                       pointerEvents="none"
                       colors={[COLORS.WHITE, '#ffffff30']}
                       start={{ x: 0.5, y: 1 }}
                       end={{ x: 0.5, y: 0 }}
-                      style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: CENTER_PADDING + 20, zIndex: 2 }}
+                      style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: CENTER_PADDING + 20,
+                        zIndex: 2,
+                      }}
                     />
                     <View
                       pointerEvents="none"
@@ -178,17 +260,36 @@ const CalendarPicker = ({
                     <View style={{ flexDirection: 'row', flex: 1 }}>
                       <FlatList
                         ref={monthListRef}
-                        data={months}
+                        data={localizedMonths}
                         keyExtractor={(_, i) => 'month' + i}
                         showsVerticalScrollIndicator={false}
-                        getItemLayout={(_, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index })}
+                        getItemLayout={(_, index) => ({
+                          length: ITEM_HEIGHT,
+                          offset: ITEM_HEIGHT * index,
+                          index,
+                        })}
                         snapToInterval={ITEM_HEIGHT}
                         decelerationRate="fast"
                         onMomentumScrollEnd={onMonthMomentumEnd}
-                        contentContainerStyle={{ paddingTop: CENTER_PADDING, paddingBottom: CENTER_PADDING }}
+                        contentContainerStyle={{
+                          paddingTop: CENTER_PADDING,
+                          paddingBottom: CENTER_PADDING,
+                        }}
                         renderItem={({ item, index }) => (
-                          <View style={{ height: ITEM_HEIGHT, justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ fontSize: 18, color: index === tempMonth ? COLORS.BLACK : '#999' }}>
+                          <View
+                            style={{
+                              height: ITEM_HEIGHT,
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                            }}
+                          >
+                            <Text
+                              style={{
+                                fontSize: 18,
+                                color:
+                                  index === tempMonth ? COLORS.BLACK : '#999',
+                              }}
+                            >
                               {item}
                             </Text>
                           </View>
@@ -199,14 +300,33 @@ const CalendarPicker = ({
                         data={years}
                         keyExtractor={(_, i) => 'year' + i}
                         showsVerticalScrollIndicator={false}
-                        getItemLayout={(_, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index })}
+                        getItemLayout={(_, index) => ({
+                          length: ITEM_HEIGHT,
+                          offset: ITEM_HEIGHT * index,
+                          index,
+                        })}
                         snapToInterval={ITEM_HEIGHT}
                         decelerationRate="fast"
                         onMomentumScrollEnd={onYearMomentumEnd}
-                        contentContainerStyle={{ paddingTop: CENTER_PADDING, paddingBottom: CENTER_PADDING }}
+                        contentContainerStyle={{
+                          paddingTop: CENTER_PADDING,
+                          paddingBottom: CENTER_PADDING,
+                        }}
                         renderItem={({ item }) => (
-                          <View style={{ height: ITEM_HEIGHT, justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ fontSize: 18, color: item === tempYear ? COLORS.BLACK : '#999' }}>
+                          <View
+                            style={{
+                              height: ITEM_HEIGHT,
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                            }}
+                          >
+                            <Text
+                              style={{
+                                fontSize: 18,
+                                color:
+                                  item === tempYear ? COLORS.BLACK : '#999',
+                              }}
+                            >
                               {item}
                             </Text>
                           </View>
@@ -214,9 +334,25 @@ const CalendarPicker = ({
                       />
                     </View>
                   </View>
-                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 15, borderTopWidth: 0.5, borderTopColor: '#ddd' }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      padding: 15,
+                      borderTopWidth: 0.5,
+                      borderTopColor: '#ddd',
+                    }}
+                  >
                     <TouchableOpacity onPress={() => setModalVisible(false)}>
-                      <Text style={{ fontSize: 16, color: '#FF3B30', fontWeight: '600' }}>Cancel</Text>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          color: '#FF3B30',
+                          fontWeight: '600',
+                        }}
+                      >
+                        {t('common.cancel')}
+                      </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       onPress={() => {
@@ -225,18 +361,43 @@ const CalendarPicker = ({
                         setModalVisible(false);
                       }}
                     >
-                      <Text style={{ fontSize: 16, color: COLORS.DARK_BLUE, fontWeight: '600' }}>Done</Text>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          color: COLORS.DARK_BLUE,
+                          fontWeight: '600',
+                        }}
+                      >
+                        {t('common.done')}
+                      </Text>
                     </TouchableOpacity>
                   </View>
                 </View>
               </View>
             )}
           </View>
-          <TouchableOpacity style={{   padding: 12,alignSelf:'flex-end',bottom:0,marginRight:20,paddingBottom:20}} onPress={() => {
-            onSelect(selected);
-            onClose();
-          }}>
-            <Text style={{ fontSize: FS.FS16, color: COLORS.DARK_BLUE, fontFamily:FF[500] }}>Done</Text>
+          <TouchableOpacity
+            style={{
+              padding: 12,
+              alignSelf: 'flex-end',
+              bottom: 0,
+              marginRight: 20,
+              paddingBottom: 20,
+            }}
+            onPress={() => {
+              onSelect(selected);
+              onClose();
+            }}
+          >
+            <Text
+              style={{
+                fontSize: FS.FS16,
+                color: COLORS.DARK_BLUE,
+                fontFamily: FF[500],
+              }}
+            >
+              {t('common.done')}
+            </Text>
           </TouchableOpacity>
 
           {/* <TouchableOpacity
@@ -270,6 +431,5 @@ const styles = StyleSheet.create({
     width: screenWidth - 40,
   },
 });
-
 
 export default CalendarPicker;

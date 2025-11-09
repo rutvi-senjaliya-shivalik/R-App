@@ -33,14 +33,17 @@ const CustomSwitch = ({ value, onValueChange, disabled }: switchProps) => {
   }, [value]);
 
   const handleSwitch = () => {
+    if (disabled) return;
+    const newValue = !value;
+    // Call onValueChange immediately to update the state
+    onValueChange(newValue);
+    // Animate the switch visual
     Animated.timing(switchAnim, {
-      toValue: value ? 1 : 0,
-      duration: 40,
+      toValue: newValue ? 1 : 0,
+      duration: 200,
       easing: Easing.linear,
       useNativeDriver: false,
-    }).start(() => {
-      onValueChange(value);
-    });
+    }).start();
   };
 
   const switchInterpolated = switchAnim.interpolate({

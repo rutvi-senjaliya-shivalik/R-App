@@ -11,17 +11,18 @@ import {
   ActivityIndicator
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, HeaderComponent, CustomButton } from '../../components/common';
+import { Container, HeaderComponent, CustomButton, Dropdowns } from '../../components/common';
 import feedbackStyle from './styles/feedbackStyle';
 import { feedbackAction, feedbackClear } from '../../store/actions/feedback/feedbackAction';
 import { getFeedbackModuleListAction } from '../../store/actions/feedback/getFeedbackModuleAction';
 import { commonImageAction } from '../../store/actions/commonImage/imageAction';
-import Dropdowns from '../../components/common/dropDown';
 import ImagePicker from 'react-native-image-crop-picker';
 import { getImageNameFromUri } from '../../utils/helper';
 import { height, width } from '../../utils/responsiveStyle';
+import { useTranslation } from '../../context/LanguageContext';
 
 const Feedback = (props: any) => {
+  const { t } = useTranslation();
   const [message, setMessage] = useState('');
   const [title, setTitle] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -159,11 +160,11 @@ const Feedback = (props: any) => {
 
   const handleSubmit = async () => {
     if (!title) {
-      Alert.alert('Error', 'Please select a feedback title');
+      Alert.alert(t('common.error'), t('feedback.pleaseSelectFeedbackTitle'));
       return;
     }
     else if (!message.trim()) {
-      Alert.alert('Error', 'Please fill in the feedback message');
+      Alert.alert(t('common.error'), t('feedback.pleaseFillFeedbackMessage'));
       return;
     }
 
@@ -196,13 +197,13 @@ const Feedback = (props: any) => {
             console.log('Image upload successful:', uploadedFileName);
           } else {
             setIsSubmitting(false);
-            Alert.alert('Error', 'Failed to upload image. Please try again.');
+            Alert.alert(t('common.error'), t('common.failedToUploadImage'));
             return;
           }
         } catch (uploadError: any) {
           console.log('Image upload error:', uploadError);
           setIsSubmitting(false);
-          Alert.alert('Error', 'Failed to upload image. Please try again.');
+          Alert.alert(t('common.error'), t('common.failedToUploadImage'));
           return;
         }
       }
@@ -227,11 +228,11 @@ const Feedback = (props: any) => {
       setIsSubmitting(false);
       if (res.status === 200) {
         Alert.alert(
-          'Success!',
-          'Thank you for your feedback. We will get back to you soon.',
+          t('common.success'),
+          t('feedback.thankYouForFeedback'),
           [
             {
-              text: 'OK',
+              text: t('common.ok'),
               onPress: () => {
                 // Reset form
                 setTitle('');
@@ -244,19 +245,19 @@ const Feedback = (props: any) => {
           ]
         );
       } else {
-        Alert.alert('Error', (res as any).data?.message || 'Something went wrong. Please try again.');
+        Alert.alert(t('common.error'), (res as any).data?.message || t('errors.somethingWentWrong'));
       }
     } catch (err: any) {
       console.log('Feedback API Error', err);
       setIsSubmitting(false);
-      Alert.alert('Error', err.message || 'Something went wrong. Please try again.');
+      Alert.alert(t('common.error'), err.message || t('errors.somethingWentWrong'));
     }
   };
 
   return (
     <Container>
       <HeaderComponent
-        Title="Feedback"
+        Title={t('feedback.feedback')}
         onPress={() => props.navigation.goBack()}
       />
       <KeyboardAvoidingView
@@ -270,7 +271,7 @@ const Feedback = (props: any) => {
           {/* Contact Form */}
           <View style={feedbackStyle.section}>
             <View style={feedbackStyle.inputContainer}>
-              <Text style={feedbackStyle.inputLabel}>Add your Valuable Feedback </Text>
+              <Text style={feedbackStyle.inputLabel}>{t('feedback.addYourValuableFeedback')} </Text>
               {/* <TextInput
                 style={[feedbackStyle.textInput ]}
                 value={title}
@@ -283,7 +284,7 @@ const Feedback = (props: any) => {
                 <Dropdowns
                   data={feedbackModuleList}
                   value={title}
-                  placeholder="Title *"
+                  placeholder={`${t('feedback.title')} *`}
                   onChange={(value: string) => setTitle(value)}
                   dropdownStyle={{borderWidth:1}}
                   flatListProps={{
@@ -301,7 +302,7 @@ const Feedback = (props: any) => {
                 style={[feedbackStyle.textInput, feedbackStyle.messageInput]}
                 value={message}
                 onChangeText={setMessage}
-                placeholder="Description *"
+                placeholder={`${t('feedback.description')} *`}
                 placeholderTextColor="#999"
                 multiline
                 numberOfLines={6}
@@ -310,14 +311,14 @@ const Feedback = (props: any) => {
 
               {/* Upload Image Section */}
               <View style={{ marginTop: 16 }}>
-                <Text style={feedbackStyle.inputLabel}>Upload Image (Optional)</Text>
+                <Text style={feedbackStyle.inputLabel}>{t('feedback.uploadImageOptional')}</Text>
 
                 {!selectedImage ? (
                   <TouchableOpacity
                     style={feedbackStyle.uploadButton}
                     onPress={openGallery}
                   >
-                    <Text style={feedbackStyle.uploadButtonText}>+ Select Image</Text>
+                    <Text style={feedbackStyle.uploadButtonText}>+ {t('feedback.selectImage')}</Text>
                   </TouchableOpacity>
                 ) : (
                   <View style={feedbackStyle.imageNameContainer}>
@@ -339,7 +340,7 @@ const Feedback = (props: any) => {
           {/* Submit Button */}
           <View style={feedbackStyle.submitSection}>
             <CustomButton
-              title={loading || isSubmitting ? "Submitting..." : "Submit"}
+              title={loading || isSubmitting ? t('common.submitting') : t('common.submit')}
               onPress={handleSubmit}
               disabled={loading || isSubmitting}
             />

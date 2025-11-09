@@ -1,0 +1,195 @@
+import { StyleSheet } from 'react-native';
+import { COLORS, FF, FS, LH } from '../../../../../constants';
+
+const LostFoundListStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.WHITE,
+  },
+  searchContainer: {
+    paddingHorizontal: 20,
+    paddingTop: 16,
+    paddingBottom: 12,
+  },
+  searchInput: {
+    backgroundColor: COLORS.LIGHT_GRAY,
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
+    color: COLORS.BLACK_TEXT,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
+  },
+  filterContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 20,
+    marginBottom: 12,
+    gap: 8,
+  },
+  filterLabel: {
+    fontSize: FS.FS12,
+    fontFamily: FF[600],
+    color: COLORS.BLACK_TEXT,
+  },
+  filterTab: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    backgroundColor: COLORS.LIGHT_GRAY,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
+  },
+  filterTabActive: {
+    backgroundColor: COLORS.OCEAN_BLUE_BG,
+    borderColor: COLORS.OCEAN_BLUE_BORDER,
+  },
+  filterTabText: {
+    fontSize: FS.FS12,
+    fontFamily: FF[500],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH16,
+  },
+  filterTabTextActive: {
+    color: COLORS.OCEAN_BLUE_TEXT,
+    fontFamily: FF[600],
+  },
+  itemsList: {
+    paddingHorizontal: 20,
+    paddingBottom: 100,
+    gap: 16,
+  },
+  itemCard: {
+    backgroundColor: COLORS.WHITE,
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 1.5,
+    borderColor: COLORS.BORDER_GREY,
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: 12,
+  },
+  cardHeaderLeft: {
+    flex: 1,
+  },
+  typeBadge: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 6,
+    alignSelf: 'flex-start',
+    marginBottom: 6,
+    borderWidth: 1,
+  },
+  typeBadgeText: {
+    fontSize: FS.FS12,
+    fontFamily: FF[600],
+    lineHeight: LH.LH16,
+  },
+  itemName: {
+    fontSize: FS.FS18,
+    fontFamily: FF[600],
+    color: COLORS.BLACK_TEXT,
+    lineHeight: LH.LH24,
+    marginBottom: 8,
+  },
+  statusBadge: {
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 12,
+    borderWidth: 1,
+  },
+  statusText: {
+    fontSize: FS.FS11,
+    fontFamily: FF[600],
+    lineHeight: LH.LH14,
+  },
+  itemImage: {
+    width: '100%',
+    height: 200,
+    borderRadius: 8,
+    marginBottom: 12,
+    backgroundColor: COLORS.LIGHT_GRAY,
+  },
+  description: {
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
+    color: COLORS.BLACK_TEXT,
+    lineHeight: LH.LH20,
+    marginBottom: 12,
+  },
+  locationRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  locationLabel: {
+    fontSize: FS.FS14,
+    marginRight: 6,
+  },
+  locationText: {
+    fontSize: FS.FS13,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH18,
+  },
+  cardFooter: {
+    paddingTop: 12,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.BORDER_GREY,
+  },
+  dateText: {
+    fontSize: FS.FS12,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH16,
+    marginBottom: 4,
+  },
+  reportedByText: {
+    fontSize: FS.FS12,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH16,
+  },
+  emptyState: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 60,
+  },
+  emptyStateText: {
+    fontSize: FS.FS16,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    textAlign: 'center',
+    lineHeight: LH.LH24,
+  },
+  fab: {
+    position: 'absolute',
+    right: 20,
+    bottom: 20,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: COLORS.OCEAN_BLUE_TEXT,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 4,
+    shadowColor: COLORS.BLACK,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  fabText: {
+    fontSize: FS.FS28,
+    fontFamily: FF[400],
+    color: COLORS.WHITE,
+    lineHeight: LH.LH30,
+  },
+});
+
+export default LostFoundListStyles;
+

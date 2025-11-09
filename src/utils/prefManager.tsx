@@ -3,6 +3,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const PrefManager = {
   setValue: async (key: string, value: any) => {
     try {
+      // Check if value is null or undefined
+      if (value === null || value === undefined) {
+        console.warn(`⚠️ Attempted to save null/undefined value for key "${key}". Use removeValue() instead.`);
+        return;
+      }
       const serialized = JSON.stringify(value);
       await AsyncStorage.setItem(key, serialized);
     } catch (error) {
@@ -34,7 +39,7 @@ const PrefManager = {
     } catch (error) {
       console.error('Error clearing storage:', error);
     }
-  }
+  },
 };
 
 export default PrefManager;

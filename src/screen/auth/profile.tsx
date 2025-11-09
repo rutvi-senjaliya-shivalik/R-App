@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
+import { View, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import { ProfileStyles } from './styles';
 import {
   Container,
@@ -19,11 +13,11 @@ import ImagePicker from 'react-native-image-crop-picker';
 import { useDispatch } from 'react-redux';
 import { profileAction } from '../../store/actions/auth/profileAction';
 import { commonImageAction } from '../../store/actions/commonImage/imageAction';
-import {
-  getImageNameFromUri,
-} from '../../utils/helper';
+import { getImageNameFromUri } from '../../utils/helper';
+import { useTranslation } from '../../context/LanguageContext';
 
-const Profile = ({ route, navigation }: any) => {
+const Profile = ({ navigation }: any) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch() as any;
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -54,12 +48,15 @@ const Profile = ({ route, navigation }: any) => {
   // Function to validate individual fields
   const validateField = (fieldName: string, value: string) => {
     if (!value.trim()) {
+      if (fieldName === 'First Name') return t('auth.firstNameRequired');
+      if (fieldName === 'Last Name') return t('auth.lastNameRequired');
+      if (fieldName === 'Email') return t('auth.emailRequired');
       return `${fieldName} is required`;
     }
     if (fieldName === 'Email' && value.trim()) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(value.trim())) {
-        return 'Please enter a valid email address';
+        return t('auth.pleaseEnterValidEmail');
       }
     }
     return '';
@@ -186,7 +183,7 @@ const Profile = ({ route, navigation }: any) => {
           );
         } else {
           console.log('Image upload failed');
-          Alert.alert('Error', 'Failed to upload image. Please try again.');
+          Alert.alert(t('common.error'), t('auth.failedToUploadImage'));
         }
       } else {
         // No image selected, submit profile without image
@@ -196,9 +193,9 @@ const Profile = ({ route, navigation }: any) => {
     } catch (error: any) {
       console.log('Profile submission error:', error.response);
       Alert.alert(
-        'Error',
+        t('common.error'),
         error.response?.data?.message ||
-          'Failed to submit profile. Please try again.',
+          t('auth.failedToSubmitProfile'),
       );
     } finally {
       setIsProfileSubmitting(false);
@@ -233,8 +230,8 @@ const Profile = ({ route, navigation }: any) => {
           // Both profile and territory are completed - login successful
           console.log('✅ Profile and Territory both completed - logging in');
           // Navigate to main app or show success
-          Alert.alert('Success', 'Profile updated successfully!', [
-            { text: 'OK', onPress: () => navigation.goBack() },
+          Alert.alert(t('common.success'), t('auth.profileUpdatedSuccessfully'), [
+            { text: t('common.ok'), onPress: () => navigation.goBack() },
           ]);
         } else {
           // Profile submitted but territory not submitted - move to territory step
@@ -244,7 +241,7 @@ const Profile = ({ route, navigation }: any) => {
       }
     } else {
       console.log('Profile submission failed');
-      Alert.alert('Error', 'Failed to submit profile. Please try again.');
+      Alert.alert(t('common.error'), t('auth.failedToSubmitProfile'));
     }
   };
 
@@ -317,13 +314,13 @@ const Profile = ({ route, navigation }: any) => {
         </View>
 
         <View style={{ alignSelf: 'center', marginTop: '10%' }}>
-          <Text style={ProfileStyles.setupProfile}>Setup Profile</Text>
+          <Text style={ProfileStyles.setupProfile}>{t('auth.setupProfile')}</Text>
         </View>
 
         <View style={{ marginTop: '10%' }}>
           <View style={{ marginTop: 16 }}>
             <InputField
-              placeholder="First Name*"
+              placeholder={`${t('auth.firstName')}*`}
               value={firstName}
               onChangeText={handleFirstNameChange}
               error={firstNameError}
@@ -331,7 +328,7 @@ const Profile = ({ route, navigation }: any) => {
           </View>
           <View style={{ marginTop: 16 }}>
             <InputField
-              placeholder="Last Name*"
+              placeholder={`${t('auth.lastName')}*`}
               value={lastName}
               onChangeText={handleLastNameChange}
               error={lastNameError}
@@ -339,7 +336,7 @@ const Profile = ({ route, navigation }: any) => {
           </View>
           <View style={{ marginTop: 16 }}>
             <InputField
-              placeholder="Email*"
+              placeholder={`${t('auth.email')}*`}
               value={email}
               onChangeText={handleEmailChange}
               keyboardType="email-address"
@@ -351,7 +348,7 @@ const Profile = ({ route, navigation }: any) => {
 
         <View style={{ marginTop: '20%', alignSelf: 'center' }}>
           <CustomButton
-            title={isProfileSubmitting ? 'Submitting...' : 'Continue'}
+            title={isProfileSubmitting ? t('auth.submitting') : t('auth.continue')}
             onPress={handleProfile}
             // disabled={isProfileSubmitting || !firstName.trim() || !lastName.trim() || !email.trim()}
             loading={isProfileSubmitting}
@@ -364,7 +361,7 @@ const Profile = ({ route, navigation }: any) => {
           onClose={() => setIsImagePickerModalVisible(false)}
           onCameraPress={openCamera}
           onGalleryPress={openGallery}
-          title="Choose Profile Photo"
+          title={t('auth.chooseProfilePhoto')}
         />
 
         <FullScreenImageModal

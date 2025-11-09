@@ -14,6 +14,7 @@ import contactUploadWatcherSaga from "./contacts/contactUploadSaga";
 import getContactListWatcherSaga from "./contacts/getContactListSaga";
 import myContactListWatcherSaga from "./contacts/myContactListSaga";
 import addContactWatcherSaga from "./contacts/addContactSaga";
+import inviteContactListWatcherSaga from "./contacts/inviteContactListSaga";
 import pulsesListWatcherSaga from "./pulses/pulsesListSaga";
 import editProfileWatcherSaga from "./profile/editProfileSaga";
 import changePhoneNumberWatcherSaga from "./profile/changePhoneNumberSaga";
@@ -28,6 +29,9 @@ import createPropertyWatcherSaga from "./profile/createPropertySaga";
 import getPropertyListWatcherSaga from "./profile/getPropertyListSaga";
 import getProfessionalListWatcherSaga from "./profile/getProfessionalListSaga";
 import createProfessionalWatcherSaga from "./profile/createProfessionalSaga";
+import getFeedbackModuleListWatcherSaga from "./feedback/getFeedbackModuleListSaga";
+import feedbackWatcherSaga from "./feedback/feedbackSaga";
+import addVisitorEntryWatcherSaga from "./smartSociety/addVisitorEntrySaga";
 
 
 export default function* rootSaga() {
@@ -48,6 +52,7 @@ export default function* rootSaga() {
     getContactListWatcherSaga(),
     myContactListWatcherSaga(),
     addContactWatcherSaga(),
+    inviteContactListWatcherSaga(),
 
     pulsesListWatcherSaga(),
     editProfileWatcherSaga(),
@@ -64,6 +69,9 @@ export default function* rootSaga() {
 
     getProfessionalListWatcherSaga(),
     createProfessionalWatcherSaga(),
+    getFeedbackModuleListWatcherSaga(),
+    feedbackWatcherSaga(),
+    addVisitorEntryWatcherSaga(),
     // memberListWatcherSaga(),
 
   ]);
