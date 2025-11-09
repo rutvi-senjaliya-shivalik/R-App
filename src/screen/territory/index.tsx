@@ -70,7 +70,7 @@ const Territory = () => {
           console.log('handleWebViewMessage');
 
           PrefManager.setValue(STRING.TOKEN, token);
-          PrefManager.setValue('userData', userInfo);
+          // PrefManager.setValue('userData', userInfo);
           dispatch(setAuthToken({ accessToken: token, userData }));
           injectionAttempts.current = 0;
         }

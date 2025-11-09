@@ -1,18 +1,29 @@
-let API_URL = "";
+let API_URL = 'https://shivalikbackend-1.onrender.com/api/v1/';
 
 export const GOOGLE_PLACES_API = '';
 
 // AUTH FLOW
-export const LOGIN = API_URL + 'users/send-phone-otp';
-export const OTP_VERIFY = API_URL + 'users/verify-phone-otp';
+export const LOGIN = API_URL + 'users/login';
+export const OTP_VERIFY = API_URL + 'users/verify-otp';
+export const HOLIDAY_LIST = API_URL + 'users/holiday-list';
+export const LEAVE_TYPE_LIST = API_URL + 'users/my-available-leaves';
+export const MY_LEAVE_BALANCE = API_URL + 'users/my-leave-balances';
+export const LOGOUT = API_URL + 'users/logout';
+export const my_LEAVE_REQUEST = API_URL + 'users/my-leave-requests';
+export const APPLY_LEAVE = API_URL + 'users/request-leave';
+export const MANAGER_LEAVE_REQUEST = API_URL + 'users/manager-leave-requests';
+export const APPROVE_LEAVE = API_URL + 'users/approve-leave';
+export const REJECT_LEAVE = API_URL + 'users/reject-leave';
+
 export const RESEND_OTP = API_URL + 'users/resend-otp';
 export const IMAGE = API_URL + 'common/upload-file-auth';
 export const PROFILE = API_URL + 'users/registrations';
 export const TERRITORYLIST = API_URL + 'territory/list?page=1';
 
 export const TERRITORY = API_URL + 'users/submit-territory-details';
-export const FEEDBACK_MODULE_LIST = (params: { page?: number }) => API_URL + `feedbackmodules/list?page=${params.page}`;
-export const FEEDBACK = API_URL + "feedbacks/user/create";
+export const FEEDBACK_MODULE_LIST = (params: { page?: number }) =>
+  API_URL + `feedbackmodules/list?page=${params.page}`;
+export const FEEDBACK = API_URL + 'feedbacks/user/create';
 
 //  contact
 export const CONTACT_UPLOAD = API_URL + 'users/sync-contact-data';
@@ -38,7 +49,6 @@ export const PROJECT_LIST = (params?: { page?: number; search?: string }) => {
 export const ADD_PROJECT_LEAD = API_URL + `project-leads/create-app`;
 
 export const PROJECT_LEAD = API_URL + `project-leads/create-new`;
-
 
 export const DELETE_USER = API_URL + `users/delete-account`;
 
@@ -66,7 +76,6 @@ export const PULSES_LIST = (params?: { page?: number; search?: string }) => {
   return API_URL + `knowledges/get-list?page=${page}${searchParam}`;
 };
 
-
 // Project User List
 export const PROJECT_USER_LIST = (params: {
   page: number;
@@ -82,7 +91,6 @@ export const PROJECT_USER_LIST = (params: {
   );
 };
 
-
 // User Detail
 export const USER_DETAIL = API_URL + `users/user-detail`;
 
@@ -90,7 +98,6 @@ export const USER_DETAIL = API_URL + `users/user-detail`;
 export const EMPLOYEE_DETAILS = (userId: string) => {
   return API_URL + `employees/detail/${userId}`;
 };
-
 
 // Professional List
 export const GET_PROFESSIONAL_LIST = (page: number = 1) =>

@@ -13,7 +13,7 @@ const PrefManager = {
   getValue: async (key: string): Promise<any> => {
     try {
       const value = await AsyncStorage.getItem(key);
-      return value ? JSON.parse(value) : null;
+      return value;
     } catch (error) {
       console.error('Error getting value:', error);
       return null;
@@ -34,7 +34,7 @@ const PrefManager = {
     } catch (error) {
       console.error('Error clearing storage:', error);
     }
-  }
+  },
 };
 
 export default PrefManager;

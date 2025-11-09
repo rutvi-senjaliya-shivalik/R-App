@@ -41,7 +41,7 @@ export const editProfileAction = (userId: string, profileData: any, originalUser
             dispatch({ type: types.UPDATE_USER_DATA, payload: updatedUserData });
 
             // Also update the AsyncStorage to persist the updated user data
-            await PrefManager.setValue('userData', updatedUserData);
+            // await PrefManager.setValue('userData', updatedUserData);
           }
         } catch (profileError) {
           console.error('Failed to fetch updated user profile:', profileError);

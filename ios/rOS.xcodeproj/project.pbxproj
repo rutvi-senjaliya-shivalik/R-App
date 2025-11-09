@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AEED647D74D0C30354F4A4D /* libPods-rOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91C5ED42FF0A7C6E049AAA5A /* libPods-rOS.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		21B8848A2A114056AFAEE053 /* BricolageGrotesque-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E1CBB0201454FB89668ECC7 /* BricolageGrotesque-Medium.ttf */; };
 		4392CA735A86C167B72B4DCF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
@@ -16,7 +17,6 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		93F3103DE98F4C9891A91CEC /* BricolageGrotesque-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31E60172F4CC4B6D8D4C2EF4 /* BricolageGrotesque-Bold.ttf */; };
 		97CFD1D32F0040D9A2EAEAA7 /* BricolageGrotesque-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D06D76DB8B294F79AD46E507 /* BricolageGrotesque-ExtraBold.ttf */; };
-		AC04BEEB41A4B673EA314954 /* libPods-rOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 583E9EEA0846B629604060F3 /* libPods-rOS.a */; };
 		E891673A730D439AB1B164A8 /* BricolageGrotesque-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A501583EFB4E44D2903D1F31 /* BricolageGrotesque-Light.ttf */; };
 		EBD230426AB2477EB02ECE9A /* BricolageGrotesque-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54A3784D31354EF6A8404B16 /* BricolageGrotesque-Regular.ttf */; };
 /* End PBXBuildFile section */
@@ -26,18 +26,18 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = rOS/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = rOS/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = rOS/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		21BA512BC822666C7566EE7C /* Pods-rOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rOS.release.xcconfig"; path = "Target Support Files/Pods-rOS/Pods-rOS.release.xcconfig"; sourceTree = "<group>"; };
+		255D5E2A1EAB80F596800399 /* Pods-rOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rOS.debug.xcconfig"; path = "Target Support Files/Pods-rOS/Pods-rOS.debug.xcconfig"; sourceTree = "<group>"; };
 		279CE92D642F4FF69AD750AB /* BricolageGrotesque-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BricolageGrotesque-ExtraLight.ttf"; path = "../src/assets/fonts/BricolageGrotesque-ExtraLight.ttf"; sourceTree = "<group>"; };
 		31E60172F4CC4B6D8D4C2EF4 /* BricolageGrotesque-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BricolageGrotesque-Bold.ttf"; path = "../src/assets/fonts/BricolageGrotesque-Bold.ttf"; sourceTree = "<group>"; };
 		54A3784D31354EF6A8404B16 /* BricolageGrotesque-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BricolageGrotesque-Regular.ttf"; path = "../src/assets/fonts/BricolageGrotesque-Regular.ttf"; sourceTree = "<group>"; };
-		583E9EEA0846B629604060F3 /* libPods-rOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6898FF937DD9E4A6F56045A1 /* Pods-rOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rOS.release.xcconfig"; path = "Target Support Files/Pods-rOS/Pods-rOS.release.xcconfig"; sourceTree = "<group>"; };
 		73ADD4E127BE48B0861B69DB /* BricolageGrotesque-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BricolageGrotesque-SemiBold.ttf"; path = "../src/assets/fonts/BricolageGrotesque-SemiBold.ttf"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = rOS/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = rOS/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		91C5ED42FF0A7C6E049AAA5A /* libPods-rOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E1CBB0201454FB89668ECC7 /* BricolageGrotesque-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BricolageGrotesque-Medium.ttf"; path = "../src/assets/fonts/BricolageGrotesque-Medium.ttf"; sourceTree = "<group>"; };
 		A501583EFB4E44D2903D1F31 /* BricolageGrotesque-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BricolageGrotesque-Light.ttf"; path = "../src/assets/fonts/BricolageGrotesque-Light.ttf"; sourceTree = "<group>"; };
 		D06D76DB8B294F79AD46E507 /* BricolageGrotesque-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BricolageGrotesque-ExtraBold.ttf"; path = "../src/assets/fonts/BricolageGrotesque-ExtraBold.ttf"; sourceTree = "<group>"; };
-		D280144805BAC000DCACFEBB /* Pods-rOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rOS.debug.xcconfig"; path = "Target Support Files/Pods-rOS/Pods-rOS.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -46,7 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC04BEEB41A4B673EA314954 /* libPods-rOS.a in Frameworks */,
+				0AEED647D74D0C30354F4A4D /* libPods-rOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,7 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				583E9EEA0846B629604060F3 /* libPods-rOS.a */,
+				91C5ED42FF0A7C6E049AAA5A /* libPods-rOS.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -107,8 +107,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D280144805BAC000DCACFEBB /* Pods-rOS.debug.xcconfig */,
-				6898FF937DD9E4A6F56045A1 /* Pods-rOS.release.xcconfig */,
+				255D5E2A1EAB80F596800399 /* Pods-rOS.debug.xcconfig */,
+				21BA512BC822666C7566EE7C /* Pods-rOS.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -134,14 +134,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "rOS" */;
 			buildPhases = (
-				721B96E1BB9332464E2AC139 /* [CP] Check Pods Manifest.lock */,
+				735B41A218F410B679479C4B /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				21AE4BC08DDE4B0DB78EC4BC /* Upload Debug Symbols to Sentry */,
-				704B54A78224CC6AAD4A6B5F /* [CP] Embed Pods Frameworks */,
-				CDC86714245910915E47F649 /* [CP] Copy Pods Resources */,
+				995A39137A538D76EF587E93 /* [CP] Embed Pods Frameworks */,
+				EFA6012F82401A9D890677B4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -234,24 +234,7 @@
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh ../node_modules/@sentry/react-native/scripts/sentry-xcode-debug-files.sh";
 		};
-		704B54A78224CC6AAD4A6B5F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-rOS/Pods-rOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-rOS/Pods-rOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-rOS/Pods-rOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		721B96E1BB9332464E2AC139 /* [CP] Check Pods Manifest.lock */ = {
+		735B41A218F410B679479C4B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -273,7 +256,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CDC86714245910915E47F649 /* [CP] Copy Pods Resources */ = {
+		995A39137A538D76EF587E93 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-rOS/Pods-rOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-rOS/Pods-rOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-rOS/Pods-rOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EFA6012F82401A9D890677B4 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -306,7 +306,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D280144805BAC000DCACFEBB /* Pods-rOS.debug.xcconfig */;
+			baseConfigurationReference = 255D5E2A1EAB80F596800399 /* Pods-rOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -342,7 +342,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6898FF937DD9E4A6F56045A1 /* Pods-rOS.release.xcconfig */;
+			baseConfigurationReference = 21BA512BC822666C7566EE7C /* Pods-rOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -443,7 +443,10 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -512,7 +515,10 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

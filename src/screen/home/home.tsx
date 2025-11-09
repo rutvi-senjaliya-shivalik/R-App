@@ -1,5 +1,15 @@
-import React, { useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert, Linking, StatusBar, Platform, PermissionsAndroid } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Alert,
+  Linking,
+  StatusBar,
+  Platform,
+  PermissionsAndroid,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { HomeStyles } from './styles';
 import Container from '../../components/common/container';
@@ -10,6 +20,8 @@ import { userDetailAction } from '../../store/actions/auth/userDetailAction';
 import { selectUserDetailData } from '../../store/selectors/auth';
 import { Camera } from 'react-native-vision-camera';
 import Geolocation from 'react-native-geolocation-service';
+import PrefManager from '../../utils/prefManager';
+import { managerleavereqAction } from '../LeaveandHolidays/Actions/ManagerLeaveRequests';
 
 const Home = (props: any) => {
   const dispatch = useDispatch() as any;
@@ -17,32 +29,46 @@ const Home = (props: any) => {
   const userName = userData?.firstName;
   const userDetailData = useSelector(selectUserDetailData);
   const user = userDetailData?.data?.result;
-
+  const [managerPendingCount, setManagerPendingCount] = useState<number>(0);
 
   const userDetailsApi = () => {
     dispatch(userDetailAction()).then((res: any) => {
       console.log('User Details API Response', res);
     });
-  }
+  };
 
   useEffect(() => {
-    if(user == undefined){
+    if (user == undefined) {
       userDetailsApi();
     }
   }, []);
 
   useEffect(() => {
-    console.log('User is Employee', user?.isEmployee);
-    console.log('User ID', user?._id);
+    const fetchUserData = async () => {
+      // const user = await PrefManager.getValue('userData');
+      // console.log('User is Employee', user);
+      // console.log('User ID', user?._id);
 
-
-    if (user?.isEmployee && user?._id) {
-      // employeeDetailsApi();
-      console.log('Employee Details API Called');
-
-    }
-
-  }, [user?.isEmployee, user?._id]);
+      if (user && user._id) {
+        // If current user is a manager (not Employee), fetch manager leave requests
+        try {
+          const raw = await PrefManager.getValue('userData');
+          const parsed = raw ? JSON.parse(raw) : null;
+          const userId = parsed?._id || user._id;
+          if (userId) {
+            const payload = { id: userId };
+            const response = await dispatch(managerleavereqAction(payload));
+            const messages = response?.data?.message || [];
+            const count = Array.isArray(messages) ? messages.length : 0;
+            setManagerPendingCount(count);
+          }
+        } catch (err) {
+          console.log('Error fetching manager leave requests on Home:', err);
+        }
+      }
+    };
+    fetchUserData();
+  }, [user]);
 
   // Function to request camera permission
   const requestCameraPermission = async (): Promise<boolean> => {
@@ -54,7 +80,7 @@ const Home = (props: any) => {
         Alert.alert(
           'Camera Permission Required',
           'Camera access is required for attendance. Please grant camera permission.',
-          [{ text: 'OK' }]
+          [{ text: 'OK' }],
         );
         return false;
       }
@@ -76,11 +102,12 @@ const Home = (props: any) => {
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
           {
             title: 'Location Permission',
-            message: 'This app needs access to your location for attendance verification.',
+            message:
+              'This app needs access to your location for attendance verification.',
             buttonNeutral: 'Ask Me Later',
             buttonNegative: 'Cancel',
             buttonPositive: 'OK',
-          }
+          },
         );
         granted = permission === PermissionsAndroid.RESULTS.GRANTED;
       } else if (Platform.OS === 'ios') {
@@ -92,7 +119,7 @@ const Home = (props: any) => {
         Alert.alert(
           'Location Permission Required',
           'Location access is required for attendance. Please grant location permission.',
-          [{ text: 'OK' }]
+          [{ text: 'OK' }],
         );
       }
 
@@ -108,22 +135,27 @@ const Home = (props: any) => {
     {
       label: 'Desk',
       image: Images.FOLLOW_UP,
+      is_visible: true
     },
     {
       label: 'Project',
       image: Images.PROJECT,
+      is_visible: true
     },
     {
       label: 'Pulses',
       image: Images.PLUSES,
+      is_visible: true
     },
     {
       label: 'Feedback',
       image: Images.FEEDBACK,
+      is_visible: true
     },
     {
       label: 'Network',
       image: Images.CONTACT,
+      is_visible: true
     },
     // {
     //   label: 'Terrotory',
@@ -148,12 +180,27 @@ const Home = (props: any) => {
     {
       label: 'Territory',
       image: Images.TERRITORY,
+      is_visible: true
+    },
+    {
+      label: 'Leave',
+      image: Images.PUNCH_SYSTEM,
+      is_visible: true
+    },
+    // {
+    //   label: 'Holidays',
+    //   image: Images.PUNCH_SYSTEM,
+    // },
+    {
+      label: 'Leave request',
+      image: Images.SETTINGS,
+      is_visible: userData?.role != "Employee"
     },
   ];
 
   const renderItem = ({ item }: any) => {
     return (
-      <TouchableOpacity
+      item.is_visible && <TouchableOpacity
         activeOpacity={0.8}
         style={[HomeStyles.menuItem]}
         onPress={() => {
@@ -161,47 +208,84 @@ const Home = (props: any) => {
             props.navigation.navigate('Setting');
           } else if (item.label === 'Network') {
             props.navigation.navigate('Contact');
-          }
-          else if (item.label === 'Pulses') {
+          } else if (item.label === 'Pulses') {
             props.navigation.navigate('Pluses');
           } else if (item.label === 'Feedback') {
             props.navigation.navigate('Feedback');
           } else if (item.label === 'Project') {
             props.navigation.navigate('Project');
-          }
-          else if (item.label === 'R - ID') {
+          } else if (item.label === 'R - ID') {
             props.navigation.navigate('Profile');
-          }
-          else if (item.label === 'Punch System') {
+          } else if (item.label === 'Punch System') {
             props.navigation.navigate('PunchSystem');
-          }
-          else if (item.label === 'Desk') {
+          } else if (item.label === 'Desk') {
             props.navigation.navigate('Desk');
-          }
-
-          else {
+          } else if (item.label === 'Leave') {
+            props.navigation.navigate('LeaveDashboard');
+          } else if (item.label === 'Holidays') {
+            props.navigation.navigate('HolidayListScreen');
+          } else if (item.label === 'Leave request') {
+            props.navigation.navigate('LeaveRequest');
+          } else {
             Alert.alert(
               'Coming Soon',
               'We’ll be introducing this feature soon.',
-              [{ text: 'OK' }]
+              [{ text: 'OK' }],
             );
           }
         }}
       >
-        <Image source={item.image} style={[HomeStyles.menuIcon]} />
+        <View style={{ width: 70, height: 70, alignItems: 'center', justifyContent: 'center' }}>
+          <Image source={item.image} style={[HomeStyles.menuIcon]} />
+          {item.label === 'Leave request' && managerPendingCount > 0 && (
+            <View style={{
+              position: 'absolute',
+              right: -6,
+              top: -6,
+            }}>
+              <View style={{
+                minWidth: 20,
+                height: 20,
+                borderRadius: 10,
+                backgroundColor: '#E53935',
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingHorizontal: 5,
+              }}>
+                <Text style={{ color: '#fff', fontSize: 12, fontFamily: FF[600] }}>{managerPendingCount}</Text>
+              </View>
+            </View>
+          )}
+        </View>
         <Text style={HomeStyles.menuLabel}>{item.label}</Text>
       </TouchableOpacity>
     );
   };
 
-
-
   return (
     <Container>
-
       <View>
-        <Text style={{ fontSize: FS.FS22, color: COLORS.BLACK, fontFamily: FF[500],marginTop:40 }}>Hello, {userName}</Text>
-        <Text style={{ fontSize: FS.FS16, color: COLORS.GREY_TEXT, fontFamily: FF[400],marginTop:16,letterSpacing:0.1 }}>Welcome to R</Text>
+        <Text
+          style={{
+            fontSize: FS.FS22,
+            color: COLORS.BLACK,
+            fontFamily: FF[500],
+            marginTop: 40,
+          }}
+        >
+          Hello, {userName}
+        </Text>
+        <Text
+          style={{
+            fontSize: FS.FS16,
+            color: COLORS.GREY_TEXT,
+            fontFamily: FF[400],
+            marginTop: 16,
+            letterSpacing: 0.1,
+          }}
+        >
+          Welcome to R
+        </Text>
       </View>
       <View
         style={{
@@ -219,17 +303,17 @@ const Home = (props: any) => {
           columnWrapperStyle={{}}
           showsVerticalScrollIndicator={false}
         />
-
-
-
       </View>
     </Container>
   );
 };
 
 export default Home;
-{/* paste here */ }
-{/*
+{
+  /* paste here */
+}
+{
+  /*
           <CustomDropdownInput
           placeholder="Select Fruit"
           data={fruitArray}
@@ -248,5 +332,5 @@ export default Home;
           isActive={activeIndex === 1}
           onFocus={() => setActiveIndex(1)}
           onClose={() => setActiveIndex(null)}
-        /> */}
-
+        /> */
+}

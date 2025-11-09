@@ -16,7 +16,7 @@ const HeaderComponentStyles = StyleSheet.create({
     fontSize: FS.FS22,
     fontFamily: FF[500],
     marginLeft: 15,
-    marginTop: Platform.OS == 'android' ? 5 : undefined,
+    // marginTop: Platform.OS == 'android' ? 5 : undefined,
   },
 });
 

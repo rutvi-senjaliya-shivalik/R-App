@@ -182,7 +182,7 @@ const WhoAmI = ({ route, navigation }: any) => {
             '✅ Territory already submitted - navigating to AppStack',
           );
           // Navigate to AppStack (main app)
-          PrefManager.setValue('userData', userData);
+          // PrefManager.setValue('userData', userData);
           dispatch(
             setAuthToken({
               accessToken: userData.accessToken,

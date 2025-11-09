@@ -3,7 +3,7 @@ import { MakeApiRequest } from "../../../services/apiService";
 import { LOGIN } from "../../../services/httpService";
 import * as types from "../../actionType";
 
-export const loginAction = (credentials: { countryCode: string; phoneNumber: string }) => {
+export const loginAction = (credentials: { phone: string }) => {
     return async (dispatch: any) => {
       console.log("credentials",credentials);
       try {

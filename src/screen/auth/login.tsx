@@ -108,12 +108,12 @@ const Login = ({ navigation }: any) => {
 
       // Original API flow for other numbers
       const payload = {
-        countryCode: countryCode,
-        phoneNumber: mobileNumber,
+        // countryCode: countryCode,
+        phone: mobileNumber,
       };
 
       const response = await dispatch(loginAction(payload));
-
+      console.log("LOG response", response)
       if (response.status === 200) {
         console.log('Login Success', response.data);
         // Navigate to OTP screen with phone number

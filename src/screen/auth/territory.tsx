@@ -144,7 +144,7 @@ const Territory = ({ route, navigation }: any) => {
                 };
 
                 // Store complete user data with updated territory information
-                PrefManager.setValue('userData', completeUserData);
+                // PrefManager.setValue('userData', completeUserData);
 
                 // Set authentication token with updated user data
                 dispatch(
