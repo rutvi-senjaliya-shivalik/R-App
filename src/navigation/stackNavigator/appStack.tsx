@@ -21,6 +21,8 @@ import { ComplaintManagement, ComplaintDetails, AddComplaint } from '../../scree
 import AmenitiesList from '../../screen/amenity/AmenitiesList';
 import SimpleBookingScreen from '../../screen/amenity/SimpleBookingScreen';
 import MyBookings from '../../screen/amenity/MyBookings';
+import WarrantyManagement from '../../screen/warranty/warrantyManagement';
+import ServiceDirectory from '../../screen/services/serviceDirectory';
 
 const Stack = createStackNavigator();
 
@@ -55,6 +57,8 @@ const AppStack = () => {
   <Stack.Screen name="AmenitiesList" component={AmenitiesList} />
   <Stack.Screen name="SimpleBooking" component={SimpleBookingScreen} />
   <Stack.Screen name="MyBookings" component={MyBookings} />
+  <Stack.Screen name="WarrantyManagement" component={WarrantyManagement} />
+  <Stack.Screen name="ServiceDirectory" component={ServiceDirectory} />
     </Stack.Navigator>
   );
 }

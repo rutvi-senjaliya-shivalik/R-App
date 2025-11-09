@@ -119,7 +119,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
     }
   };
 
-  // Resident Quick Actions (8 items)
+  // Resident Quick Actions (10 items)
   const quickActions: QuickActionItem[] = [
     {
       id: '1',
@@ -153,18 +153,30 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
     },
     {
       id: '6',
+      label: 'Warranty',
+      icon: '📋',
+      image: Images.PROJECT,
+    },
+    {
+      id: '7',
+      label: 'Services',
+      icon: '🔧',
+      image: Images.CALL,
+    },
+    {
+      id: '8',
       label: 'Gallery',
       icon: '📸',
       image: Images.GALLARY,
     },
     {
-      id: '7',
+      id: '9',
       label: 'Gate Pass',
       icon: '🚪',
       image: Images.SCANNER,
     },
     {
-      id: '8',
+      id: '10',
       label: 'Help',
       icon: '📞',
       image: Images.CALL,
@@ -183,6 +195,12 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
         navigation.navigate('ComplaintManagement');
       } else if (item.label === 'Amenities') {
         navigation.navigate('AmenitiesList');
+      } else if (item.label === 'Warranty') {
+        navigation.navigate('WarrantyManagement');
+      } else if (item.label === 'Services') {
+        navigation.navigate('ServiceDirectory');
+      } else if (item.label === 'Help') {
+        navigation.navigate('SosEmergency');
       } else {
         Alert.alert(
           'Coming Soon',

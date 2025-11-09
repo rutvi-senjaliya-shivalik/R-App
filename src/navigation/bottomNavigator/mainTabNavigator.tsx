@@ -40,11 +40,11 @@ const renderProfileIcon = ({ focused }: { focused: boolean }) => (
 
 const MainTabNavigator: React.FC = () => {
     return (
-        <Tab.Navigator 
-            screenOptions={{ 
+        <Tab.Navigator
+            screenOptions={{
                 headerShown: false,
                 tabBarStyle: styles.tabBar,
-            }} 
+            }}
         >
             <Tab.Screen
                 name="Home"
