@@ -68,18 +68,18 @@ const Login = ({ navigation }: any) => {
     }
 
     // Special validation for Indian phone numbers (+91)
-    if (countryCode === '+91') {
-      const validationResult = validateIndianPhoneNumber(
-        mobileNumber,
-        countryCode,
-      );
-      if (!validationResult.isValid) {
-        setPhoneError(
-          validationResult.fieldErrors.phoneNumber || 'Invalid phone number',
-        );
-        return;
-      }
-    }
+    // if (countryCode === '+91') {
+    //   const validationResult = validateIndianPhoneNumber(
+    //     mobileNumber,
+    //     countryCode,
+    //   );
+    //   if (!validationResult.isValid) {
+    //     setPhoneError(
+    //       validationResult.fieldErrors.phoneNumber || 'Invalid phone number',
+    //     );
+    //     return;
+    //   }
+    // }
 
     // If validation passes, clear error and proceed with login
     setPhoneError('');
@@ -127,7 +127,6 @@ const Login = ({ navigation }: any) => {
       }
     } catch (error: any) {
       console.log('Login error:', error);
-      Alert.alert('Login Failed', error.message || 'Please try again');
     } finally {
       setIsLoading(false);
     }

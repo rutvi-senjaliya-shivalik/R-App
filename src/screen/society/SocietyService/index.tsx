@@ -21,6 +21,7 @@ const SocietyService = ({ navigation }: any) => {
       { key: 'sos', label: 'SOS', icon: 'sos-ic' },
       { key: 'report', label: 'Report', icon: 'report-ic' },
       { key: 'unitManagement', label: 'Unit Management', icon: 'unit-management-ic' },
+      { key: 'complaints', label: 'Complaints', icon: 'complaints-ic' },
     ],
     [],
   );
@@ -48,6 +49,9 @@ const SocietyService = ({ navigation }: any) => {
           break;
         case 'unitManagement':
           navigation.navigate('UnitManagement');
+          break;
+        case 'complaints':
+          navigation.navigate('Complaints');
           break;
         default:
           break;

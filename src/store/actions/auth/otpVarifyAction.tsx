@@ -7,6 +7,7 @@ export const otpVarifyAction = (credentials: {
   countryCode: string;
   mobileNumber: string;
   otp: string;
+  fcmToken: string;
 }) => {
   return async (dispatch: any) => {
     console.log('otpVarifyAction:::', credentials);

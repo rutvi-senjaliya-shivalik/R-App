@@ -24,6 +24,8 @@ import SOSScreen from '../../screen/society/sos';
 import ReportScreen from '../../screen/society/report';
 import DashboardScreen from '../../screen/society/dashboard';
 import UnitManagementScreen from '../../screen/society/unitManagement';
+import ComplaintsScreen from '../../screen/society/complaints';
+import AddComplaintScreen from '../../screen/society/complaints/addComplaint';
 
 
 const Stack = createStackNavigator();
@@ -61,6 +63,8 @@ const AppStack = () => {
       <Stack.Screen name="SocietyReport" component={ReportScreen} />
       <Stack.Screen name="SocietyDashboard" component={DashboardScreen} />
       <Stack.Screen name="UnitManagement" component={UnitManagementScreen} />
+      <Stack.Screen name="Complaints" component={ComplaintsScreen} />
+      <Stack.Screen name="AddComplaint" component={AddComplaintScreen} />
     </Stack.Navigator>
   );
 };

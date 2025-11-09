@@ -9,4 +9,5 @@ export const defaultIcon = {
   ['report-ic']: require('./resources/report-ic.svg').default,
   ['dashboard-ic']: require('./resources/dashboard-ic.svg').default,
   ['unit-management-ic']: require('./resources/unit-management-ic.svg').default,
+  ['complaints-ic']: require('./resources/helpdesk-ic.svg').default,
 };

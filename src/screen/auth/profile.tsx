@@ -197,11 +197,6 @@ const Profile = ({ route, navigation }: any) => {
       }
     } catch (error: any) {
       console.log('Profile submission error:', error.response);
-      Alert.alert(
-        'Error',
-        error.response?.data?.message ||
-          'Failed to submit profile. Please try again.',
-      );
     } finally {
       setIsProfileSubmitting(false);
     }
@@ -246,7 +241,6 @@ const Profile = ({ route, navigation }: any) => {
       }
     } else {
       console.log('Profile submission failed');
-      Alert.alert('Error', 'Failed to submit profile. Please try again.');
     }
   };
 

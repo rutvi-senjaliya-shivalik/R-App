@@ -4,7 +4,11 @@ import moment from "moment";
 import RNFS from "react-native-fs";
 import { Image as CompressorImage } from "react-native-compressor";
 import ImageResizer from '@bam.tech/react-native-image-resizer';
+import {getApp} from '@react-native-firebase/app';
+import {deleteToken, getMessaging, getToken} from '@react-native-firebase/messaging';
 
+const app = getApp();
+const messaging = getMessaging(app);
 
 export const getMaxPhoneLength = (CountryCode: string) => {
     const countryData = countryPhoneData;
@@ -411,4 +415,27 @@ export const formatDateToServer = (dateString: string) => {
 export const stripHtmlTags = (html: string) => {
   if (!html) return '';
   return html.replace(/<[^>]*>/g, '');
+};
+
+export const getDeviceToken = async (): Promise<string | null> => {
+  try {
+    const token = await getToken(messaging);
+    console.log('FCM Device Token:', token);
+    return token;
+  } catch (error) {
+    console.log('Error getting FCM token:', error);
+    return null;
+  }
+};
+
+/**
+ * Delete device token after logout API
+ */
+export const deleteDeviceToken = async (): Promise<boolean> => {
+  try {
+    await deleteToken(messaging);
+    return true;
+  } catch (error) {
+    return false;
+  }
 };

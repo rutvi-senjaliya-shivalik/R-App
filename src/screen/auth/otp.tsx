@@ -30,6 +30,7 @@ import STRING from '../../constants/strings';
 import { RegisterResponseModel } from '../../types/models';
 import { RootState } from '../../store/reducers';
 import { resendOTPAction } from '../../store/actions/auth/resendOTPAction';
+import { getDeviceToken } from '../../utils/helper';
 
 const OtpScreen = ({ route, navigation }: any) => {
   const dispatch = useDispatch() as any;
@@ -193,11 +194,14 @@ const OtpScreen = ({ route, navigation }: any) => {
         return;
       }
 
+      const fcmToken = await getDeviceToken();
+
       // Original API flow for other credentials
       const payload = {
         countryCode: loginData?.countryCode,
         mobileNumber: loginData?.mobileNumber,
         otp: otp,
+        fcmToken: fcmToken || '',
       };
 
       const response = await dispatch(otpVarifyAction(payload));
@@ -229,7 +233,7 @@ const OtpScreen = ({ route, navigation }: any) => {
           console.log(
             '🆔 Profile submitted but identity not selected - moving to WhoAmI screen',
           );
-          navigation.navigate('WhoAmI', { userData });
+          // navigation.navigate('WhoAmI', { userData });
         }
         // Step 3: If identity is selected, check territory submission
         else if (!isTerritorySubmit) {
@@ -255,10 +259,6 @@ const OtpScreen = ({ route, navigation }: any) => {
       }
     } catch (error: any) {
       console.log('OTP error:', error.response?.data?.message || error.message);
-      Alert.alert(
-        'OTP Verification Failed',
-        error.response?.data?.message || 'Please try again',
-      );
     } finally {
       setIsLoading(false);
     }

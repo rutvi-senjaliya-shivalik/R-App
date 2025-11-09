@@ -1,5 +1,15 @@
-import React, { useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert, Linking, StatusBar, Platform, PermissionsAndroid } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Alert,
+  Linking,
+  StatusBar,
+  Platform,
+  PermissionsAndroid,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { HomeStyles } from './styles';
 import Container from '../../components/common/container';
@@ -11,38 +21,37 @@ import { selectUserDetailData } from '../../store/selectors/auth';
 import { Camera } from 'react-native-vision-camera';
 import Geolocation from 'react-native-geolocation-service';
 import { Screens } from '../../types';
+import { getDeviceToken } from '../../utils/helper';
+import { usePushNotification } from '../../services/hooks/usePushNotification';
+import { isEmpty } from 'lodash';
 
 const Home = (props: any) => {
   const dispatch = useDispatch() as any;
   const { userData } = useSelector((state: any) => state.otp);
+  console.log('userData-Home::::', userData);
   const userName = userData?.firstName;
   const userDetailData = useSelector(selectUserDetailData);
   const user = userDetailData?.data?.result;
 
+  usePushNotification();
 
-  const userDetailsApi = () => {
-    dispatch(userDetailAction()).then((res: any) => {
-      console.log('User Details API Response', res);
-    });
-  }
+  const [fetched, setFetched] = useState(false);
 
   useEffect(() => {
-    if(user == undefined){
-      userDetailsApi();
+    if (!isEmpty(userData) && !fetched) {
+      dispatch(userDetailAction());
+      setFetched(true);
     }
-  }, []);
+  }, [userData, fetched, dispatch]);
 
   useEffect(() => {
     console.log('User is Employee', user?.isEmployee);
     console.log('User ID', user?._id);
 
-
     if (user?.isEmployee && user?._id) {
       // employeeDetailsApi();
       console.log('Employee Details API Called');
-
     }
-
   }, [user?.isEmployee, user?._id]);
 
   // Function to request camera permission
@@ -55,7 +64,7 @@ const Home = (props: any) => {
         Alert.alert(
           'Camera Permission Required',
           'Camera access is required for attendance. Please grant camera permission.',
-          [{ text: 'OK' }]
+          [{ text: 'OK' }],
         );
         return false;
       }
@@ -77,11 +86,12 @@ const Home = (props: any) => {
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
           {
             title: 'Location Permission',
-            message: 'This app needs access to your location for attendance verification.',
+            message:
+              'This app needs access to your location for attendance verification.',
             buttonNeutral: 'Ask Me Later',
             buttonNegative: 'Cancel',
             buttonPositive: 'OK',
-          }
+          },
         );
         granted = permission === PermissionsAndroid.RESULTS.GRANTED;
       } else if (Platform.OS === 'ios') {
@@ -93,7 +103,7 @@ const Home = (props: any) => {
         Alert.alert(
           'Location Permission Required',
           'Location access is required for attendance. Please grant location permission.',
-          [{ text: 'OK' }]
+          [{ text: 'OK' }],
         );
       }
 
@@ -166,30 +176,25 @@ const Home = (props: any) => {
             props.navigation.navigate('Setting');
           } else if (item.label === 'Network') {
             props.navigation.navigate('Contact');
-          }
-          else if (item.label === 'Pulses') {
+          } else if (item.label === 'Pulses') {
             props.navigation.navigate('Pluses');
           } else if (item.label === 'Feedback') {
             props.navigation.navigate('Feedback');
           } else if (item.label === 'Project') {
             props.navigation.navigate('Project');
-          }
-          else if (item.label === 'R - ID') {
+          } else if (item.label === 'R - ID') {
             props.navigation.navigate('Profile');
-          }
-          else if (item.label === 'Punch System') {
+          } else if (item.label === 'Punch System') {
             props.navigation.navigate('PunchSystem');
-          }
-          else if (item.label === 'Desk') {
+          } else if (item.label === 'Desk') {
             props.navigation.navigate('Desk');
-          }
-          else if (item.label === 'Society') {
+          } else if (item.label === 'Society') {
             props.navigation.navigate(Screens.societyService);
           } else {
             Alert.alert(
               'Coming Soon',
               'We’ll be introducing this feature soon.',
-              [{ text: 'OK' }]
+              [{ text: 'OK' }],
             );
           }
         }}
@@ -200,14 +205,30 @@ const Home = (props: any) => {
     );
   };
 
-
-
   return (
     <Container>
-
       <View>
-        <Text style={{ fontSize: FS.FS22, color: COLORS.BLACK, fontFamily: FF[500],marginTop:40 }}>Hello, {userName}</Text>
-        <Text style={{ fontSize: FS.FS16, color: COLORS.GREY_TEXT, fontFamily: FF[400],marginTop:16,letterSpacing:0.1 }}>Welcome to R</Text>
+        <Text
+          style={{
+            fontSize: FS.FS22,
+            color: COLORS.BLACK,
+            fontFamily: FF[500],
+            marginTop: 40,
+          }}
+        >
+          Hello, {userName}
+        </Text>
+        <Text
+          style={{
+            fontSize: FS.FS16,
+            color: COLORS.GREY_TEXT,
+            fontFamily: FF[400],
+            marginTop: 16,
+            letterSpacing: 0.1,
+          }}
+        >
+          Welcome to R
+        </Text>
       </View>
       <View
         style={{
@@ -225,17 +246,17 @@ const Home = (props: any) => {
           columnWrapperStyle={{}}
           showsVerticalScrollIndicator={false}
         />
-
-
-
       </View>
     </Container>
   );
 };
 
 export default Home;
-{/* paste here */ }
-{/*
+{
+  /* paste here */
+}
+{
+  /*
           <CustomDropdownInput
           placeholder="Select Fruit"
           data={fruitArray}
@@ -254,5 +275,5 @@ export default Home;
           isActive={activeIndex === 1}
           onFocus={() => setActiveIndex(1)}
           onClose={() => setActiveIndex(null)}
-        /> */}
-
+        /> */
+}
