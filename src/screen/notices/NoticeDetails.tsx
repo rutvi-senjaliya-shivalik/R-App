@@ -5,6 +5,7 @@ import Container from '../../components/common/container';
 import { RootState } from '../../store/reducers';
 import { fetchNoticeDetails, markNoticeRead } from '../../store/actions/notices/noticesAction';
 import { selectUserDetailData } from '../../store/selectors/auth';
+import { COLORS, FF, FS, LH, SPACING, BORDER_RADIUS } from '../../constants';
 
 interface NoticeDetailsProps {
   navigation: {
@@ -40,11 +41,11 @@ const NoticeDetails: React.FC<NoticeDetailsProps> = ({ navigation, route }) => {
   const getPriorityColor = (priority: string): string => {
     switch (priority) {
       case 'urgent':
-        return '#F44336';
+        return COLORS.ERROR_COLOR;
       case 'important':
-        return '#FF9800';
+        return COLORS.ORANGE_TEXT;
       default:
-        return '#4CAF50';
+        return COLORS.GREEN_TEXT;
     }
   };
 
@@ -71,7 +72,7 @@ const NoticeDetails: React.FC<NoticeDetailsProps> = ({ navigation, route }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.centerContainer}>
-          <ActivityIndicator size="large" color="#5773FF" />
+          <ActivityIndicator size="large" color={COLORS.BLACK} />
           <Text style={styles.loadingText}>Loading notice...</Text>
         </View>
       </Container>
@@ -170,7 +171,7 @@ const NoticeDetails: React.FC<NoticeDetailsProps> = ({ navigation, route }) => {
 
           <View style={styles.infoRow}>
             <Text style={styles.infoLabel}>Status:</Text>
-            <Text style={[styles.infoValue, { color: '#4CAF50' }]}>
+            <Text style={[styles.infoValue, { color: COLORS.GREEN_TEXT }]}>
               {noticeDetails.status || 'Published'}
             </Text>
           </View>
@@ -182,159 +183,180 @@ const NoticeDetails: React.FC<NoticeDetailsProps> = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   header: {
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    backgroundColor: '#fff',
+    paddingHorizontal: SPACING.XL,
+    paddingVertical: SPACING.LG,
+    backgroundColor: COLORS.WHITE,
     borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: COLORS.BORDER_GREY,
   },
   backButton: {
-    paddingVertical: 8,
+    paddingVertical: SPACING.SM,
   },
   backButtonText: {
-    fontSize: 16,
-    color: '#5773FF',
-    fontWeight: '600',
+    fontSize: FS.FS16,
+    fontFamily: FF[600],
+    color: COLORS.BLACK,
+    lineHeight: LH.LH22,
   },
   container: {
     flex: 1,
-    padding: 20,
+    padding: SPACING.XL,
   },
   metaContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: SPACING.LG,
   },
   priorityBadge: {
-    paddingHorizontal: 16,
-    paddingVertical: 6,
-    borderRadius: 16,
+    paddingHorizontal: SPACING.LG,
+    paddingVertical: SPACING.SM,
+    borderRadius: BORDER_RADIUS.LG,
   },
   priorityText: {
-    fontSize: 12,
-    fontWeight: '700',
+    fontSize: FS.FS12,
+    fontFamily: FF[700],
+    textTransform: 'uppercase',
   },
   dateText: {
-    fontSize: 13,
-    color: '#999',
+    fontSize: FS.FS13,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH18,
   },
   title: {
-    fontSize: 26,
-    fontWeight: '700',
-    color: '#1A1A1A',
-    marginBottom: 20,
-    lineHeight: 34,
+    fontSize: FS.FS26,
+    fontFamily: FF[700],
+    color: COLORS.BLACK,
+    marginBottom: SPACING.XL,
+    lineHeight: LH.LH36,
   },
   descriptionContainer: {
-    backgroundColor: '#F8F9FA',
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 20,
+    backgroundColor: COLORS.WHITE,
+    padding: SPACING.LG,
+    borderRadius: BORDER_RADIUS.MD,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
+    marginBottom: SPACING.XL,
   },
   description: {
-    fontSize: 16,
-    color: '#444',
-    lineHeight: 24,
+    fontSize: FS.FS16,
+    fontFamily: FF[400],
+    color: COLORS.BLACK,
+    lineHeight: LH.LH24,
   },
   contentContainer: {
-    marginBottom: 20,
+    marginBottom: SPACING.XL,
   },
   contentLabel: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#666',
-    marginBottom: 8,
+    fontSize: FS.FS14,
+    fontFamily: FF[600],
+    color: COLORS.BLACK,
+    marginBottom: SPACING.SM,
+    lineHeight: LH.LH20,
   },
   content: {
-    fontSize: 15,
-    color: '#333',
-    lineHeight: 24,
+    fontSize: FS.FS15,
+    fontFamily: FF[400],
+    color: COLORS.BLACK,
+    lineHeight: LH.LH24,
   },
   attachmentsContainer: {
-    backgroundColor: '#fff',
-    padding: 16,
-    borderRadius: 12,
+    backgroundColor: COLORS.WHITE,
+    padding: SPACING.LG,
+    borderRadius: BORDER_RADIUS.MD,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
-    marginBottom: 20,
+    borderColor: COLORS.BORDER_GREY,
+    marginBottom: SPACING.XL,
   },
   attachmentsLabel: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1A1A1A',
-    marginBottom: 12,
+    fontSize: FS.FS16,
+    fontFamily: FF[600],
+    color: COLORS.BLACK,
+    marginBottom: SPACING.MD,
+    lineHeight: LH.LH22,
   },
   attachmentItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 12,
-    backgroundColor: '#F8F9FA',
-    borderRadius: 8,
-    marginBottom: 8,
+    paddingVertical: SPACING.MD,
+    paddingHorizontal: SPACING.MD,
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.SM,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
+    marginBottom: SPACING.SM,
   },
   attachmentIcon: {
-    fontSize: 20,
-    marginRight: 12,
+    fontSize: FS.FS20,
+    marginRight: SPACING.MD,
   },
   attachmentText: {
-    fontSize: 14,
-    color: '#5773FF',
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
+    color: COLORS.BLACK,
     flex: 1,
+    lineHeight: LH.LH20,
   },
   footerInfo: {
-    backgroundColor: '#fff',
-    padding: 16,
-    borderRadius: 12,
+    backgroundColor: COLORS.WHITE,
+    padding: SPACING.LG,
+    borderRadius: BORDER_RADIUS.MD,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
-    marginBottom: 20,
+    borderColor: COLORS.BORDER_GREY,
+    marginBottom: SPACING.XL,
   },
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 8,
+    paddingVertical: SPACING.SM,
     borderBottomWidth: 1,
-    borderBottomColor: '#F0F0F0',
+    borderBottomColor: COLORS.BORDER_GREY,
   },
   infoLabel: {
-    fontSize: 14,
-    color: '#999',
-    fontWeight: '500',
+    fontSize: FS.FS14,
+    fontFamily: FF[500],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH20,
   },
   infoValue: {
-    fontSize: 14,
-    color: '#1A1A1A',
-    fontWeight: '600',
+    fontSize: FS.FS14,
+    fontFamily: FF[600],
+    color: COLORS.BLACK,
+    lineHeight: LH.LH20,
   },
   centerContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: SPACING.XL,
   },
   loadingText: {
-    marginTop: 16,
-    fontSize: 16,
-    color: '#666',
+    marginTop: SPACING.LG,
+    fontSize: FS.FS16,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH22,
   },
   errorText: {
-    fontSize: 16,
-    color: '#F44336',
+    fontSize: FS.FS16,
+    fontFamily: FF[400],
+    color: COLORS.ERROR_COLOR,
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: SPACING.XL,
+    lineHeight: LH.LH22,
   },
   retryButton: {
-    backgroundColor: '#5773FF',
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    borderRadius: 8,
+    backgroundColor: COLORS.BLACK,
+    paddingHorizontal: SPACING.XXL,
+    paddingVertical: SPACING.MD,
+    borderRadius: BORDER_RADIUS.SM,
   },
   retryButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    color: COLORS.WHITE,
+    fontSize: FS.FS16,
+    fontFamily: FF[600],
+    lineHeight: LH.LH22,
   },
 });
 

@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FF, FS } from '../../../constants';
+import { COLORS, FF, FS, SPACING, BORDER_RADIUS } from '../../../constants';
 
 const complaintDetailsStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.BG_GREY,
+    backgroundColor: COLORS.WHITE,
   },
   contentWrapper: {
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: SPACING.XL,
   },
 
   // Empty State
@@ -20,7 +20,7 @@ const complaintDetailsStyles = StyleSheet.create({
   },
   emptyIcon: {
     fontSize: 64,
-    marginBottom: 16,
+    marginBottom: SPACING.LG,
   },
   emptyText: {
     fontFamily: FF[500],
@@ -31,31 +31,28 @@ const complaintDetailsStyles = StyleSheet.create({
   emptySubText: {
     fontFamily: FF[400],
     fontSize: FS.FS14,
-    color: COLORS.LIGHT_GRAY,
+    color: COLORS.GREY_TEXT,
     textAlign: 'center',
-    marginTop: 8,
+    marginTop: SPACING.SM,
   },
 
   // Header Section
   headerSection: {
     backgroundColor: COLORS.WHITE,
-    borderRadius: 12,
-    padding: 16,
-    marginTop: 16,
-    marginBottom: 12,
-    shadowColor: COLORS.BLACK,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.LG,
+    marginTop: SPACING.LG,
+    marginBottom: SPACING.MD,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   iconTitleRow: {
     flexDirection: 'row',
-    marginBottom: 12,
+    marginBottom: SPACING.MD,
   },
   categoryIconLarge: {
     fontSize: 48,
-    marginRight: 16,
+    marginRight: SPACING.LG,
   },
   titleColumn: {
     flex: 1,
@@ -64,7 +61,7 @@ const complaintDetailsStyles = StyleSheet.create({
     fontFamily: FF[700],
     fontSize: FS.FS20,
     color: COLORS.BLACK_TEXT,
-    marginBottom: 6,
+    marginBottom: SPACING.XS,
   },
   categoryText: {
     fontFamily: FF[500],
@@ -74,14 +71,14 @@ const complaintDetailsStyles = StyleSheet.create({
   badgesRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginTop: 8,
+    marginTop: SPACING.SM,
   },
   priorityBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 8,
-    marginRight: 8,
-    marginBottom: 8,
+    paddingHorizontal: SPACING.MD,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.SM,
+    marginRight: SPACING.SM,
+    marginBottom: SPACING.SM,
   },
   priorityText: {
     fontFamily: FF[700],
@@ -89,10 +86,10 @@ const complaintDetailsStyles = StyleSheet.create({
     letterSpacing: 0.5,
   },
   statusBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 8,
-    marginBottom: 8,
+    paddingHorizontal: SPACING.MD,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.SM,
+    marginBottom: SPACING.SM,
   },
   statusText: {
     fontFamily: FF[700],
@@ -102,39 +99,36 @@ const complaintDetailsStyles = StyleSheet.create({
   escalationWarning: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFEBEE',
-    padding: 12,
-    borderRadius: 8,
-    marginTop: 12,
+    backgroundColor: COLORS.ORANGE_BG,
+    padding: SPACING.MD,
+    borderRadius: BORDER_RADIUS.SM,
+    marginTop: SPACING.MD,
   },
   escalationIcon: {
     fontSize: 20,
-    marginRight: 8,
+    marginRight: SPACING.SM,
   },
   escalationText: {
     flex: 1,
     fontFamily: FF[600],
     fontSize: FS.FS13,
-    color: '#C62828',
+    color: COLORS.ERROR_COLOR,
   },
 
   // Section
   section: {
     backgroundColor: COLORS.WHITE,
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
-    shadowColor: COLORS.BLACK,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.LG,
+    marginBottom: SPACING.MD,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   sectionTitle: {
     fontFamily: FF[700],
     fontSize: FS.FS16,
     color: COLORS.BLACK_TEXT,
-    marginBottom: 12,
+    marginBottom: SPACING.MD,
   },
   descriptionText: {
     fontFamily: FF[400],
@@ -145,26 +139,26 @@ const complaintDetailsStyles = StyleSheet.create({
 
   // Timeline
   timelineContainer: {
-    paddingLeft: 8,
+    paddingLeft: SPACING.SM,
   },
   timelineItem: {
     flexDirection: 'row',
-    marginBottom: 20,
+    marginBottom: SPACING.XL,
     position: 'relative',
   },
   timelineDot: {
     width: 12,
     height: 12,
     borderRadius: 6,
-    backgroundColor: '#E65100',
-    marginRight: 16,
-    marginTop: 4,
+    backgroundColor: COLORS.ORANGE_TEXT,
+    marginRight: SPACING.LG,
+    marginTop: SPACING.XS,
   },
   timelineDotBlue: {
-    backgroundColor: '#1565C0',
+    backgroundColor: COLORS.OCEAN_BLUE_TEXT,
   },
   timelineDotGreen: {
-    backgroundColor: '#2E7D32',
+    backgroundColor: COLORS.GREEN_TEXT,
   },
   timelineContent: {
     flex: 1,
@@ -173,7 +167,7 @@ const complaintDetailsStyles = StyleSheet.create({
     fontFamily: FF[600],
     fontSize: FS.FS14,
     color: COLORS.BLACK_TEXT,
-    marginBottom: 4,
+    marginBottom: SPACING.XS,
   },
   timelineDate: {
     fontFamily: FF[500],
@@ -184,21 +178,21 @@ const complaintDetailsStyles = StyleSheet.create({
   timelineSubtext: {
     fontFamily: FF[400],
     fontSize: FS.FS12,
-    color: COLORS.LIGHT_GRAY,
+    color: COLORS.GREY_TEXT,
   },
 
   // Resolution
   resolutionCard: {
-    backgroundColor: '#E8F5E9',
-    padding: 12,
-    borderRadius: 8,
+    backgroundColor: COLORS.LIGHT_GREEN,
+    padding: SPACING.MD,
+    borderRadius: BORDER_RADIUS.SM,
     borderLeftWidth: 4,
-    borderLeftColor: '#2E7D32',
+    borderLeftColor: COLORS.GREEN_TEXT,
   },
   resolutionText: {
     fontFamily: FF[400],
     fontSize: FS.FS14,
-    color: '#1B5E20',
+    color: COLORS.GREEN_TEXT,
     lineHeight: 20,
   },
 
@@ -209,14 +203,16 @@ const complaintDetailsStyles = StyleSheet.create({
   attachmentItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F5F5F5',
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 8,
+    backgroundColor: COLORS.WHITE,
+    padding: SPACING.MD,
+    borderRadius: BORDER_RADIUS.SM,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
+    marginBottom: SPACING.SM,
   },
   attachmentIcon: {
     fontSize: 20,
-    marginRight: 12,
+    marginRight: SPACING.MD,
   },
   attachmentText: {
     flex: 1,
@@ -227,15 +223,15 @@ const complaintDetailsStyles = StyleSheet.create({
 
   // Action Section
   actionSection: {
-    marginTop: 8,
-    marginBottom: 12,
+    marginTop: SPACING.SM,
+    marginBottom: SPACING.MD,
   },
   changeStatusButton: {
-    backgroundColor: COLORS.DARK_BLUE,
-    paddingVertical: 14,
-    borderRadius: 10,
+    backgroundColor: COLORS.BLACK,
+    paddingVertical: SPACING.LG,
+    borderRadius: BORDER_RADIUS.MD,
     alignItems: 'center',
-    shadowColor: COLORS.DARK_BLUE,
+    shadowColor: COLORS.BLACK,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 6,
@@ -249,7 +245,7 @@ const complaintDetailsStyles = StyleSheet.create({
   },
 
   bottomSpacer: {
-    height: 20,
+    height: SPACING.XL,
   },
 });
 

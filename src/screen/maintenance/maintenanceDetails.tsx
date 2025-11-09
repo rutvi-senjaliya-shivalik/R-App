@@ -101,7 +101,7 @@ const MaintenanceDetails: React.FC<Props> = ({ route, navigation }) => {
             onPress={() => navigation.goBack()}
           />
           <View style={maintenanceStyles.emptyContainer}>
-            <ActivityIndicator size="large" color={COLORS.DARK_BLUE} />
+            <ActivityIndicator size="large" color={COLORS.BLACK} />
             <Text style={maintenanceStyles.emptySubText}>Loading bill details...</Text>
           </View>
         </View>
@@ -305,7 +305,7 @@ const MaintenanceDetails: React.FC<Props> = ({ route, navigation }) => {
               </>
             ) : (
               <View style={maintenanceStyles.processingContainer}>
-                <ActivityIndicator size="large" color="#1976D2" />
+                <ActivityIndicator size="large" color="#000000" />
                 <Text style={maintenanceStyles.processingText}>Processing Payment...</Text>
                 <Text style={maintenanceStyles.processingSubtext}>
                   Please wait while we process your payment securely

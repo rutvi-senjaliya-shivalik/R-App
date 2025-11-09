@@ -14,6 +14,7 @@ import Container from '../../components/common/container';
 import { RootState } from '../../store/reducers';
 import { fetchAmenities } from '../../store/actions/amenities/amenitiesAction';
 import { selectUserDetailData } from '../../store/selectors/auth';
+import { COLORS, FF, FS, SPACING, BORDER_RADIUS } from '../../constants';
 
 interface AmenitiesListProps {
   navigation: {
@@ -188,7 +189,7 @@ const AmenitiesList: React.FC<AmenitiesListProps> = ({ navigation }) => {
           <Text style={styles.headerTitle}>Amenities</Text>
         </View>
         <View style={styles.centerContainer}>
-          <ActivityIndicator size="large" color="#5773FF" />
+          <ActivityIndicator size="large" color={COLORS.BLACK} />
           <Text style={styles.loadingText}>Loading amenities...</Text>
         </View>
       </Container>
@@ -250,7 +251,7 @@ const AmenitiesList: React.FC<AmenitiesListProps> = ({ navigation }) => {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={onRefresh}
-              colors={['#5773FF']}
+              colors={[COLORS.BLACK]}
             />
           }
         />
@@ -261,173 +262,175 @@ const AmenitiesList: React.FC<AmenitiesListProps> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   header: {
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    backgroundColor: '#fff',
+    paddingHorizontal: SPACING.XL,
+    paddingVertical: SPACING.XL,
+    backgroundColor: COLORS.WHITE,
     borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: COLORS.BORDER_GREY,
   },
   headerTitle: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#1A1A1A',
-    marginBottom: 4,
+    fontSize: FS.FS24,
+    fontFamily: FF[700],
+    color: COLORS.BLACK,
+    marginBottom: SPACING.XS,
   },
   headerSubtitle: {
-    fontSize: 14,
-    color: '#666',
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
   },
   myBookingsButton: {
-    margin: 16,
-    backgroundColor: '#5773FF',
+    margin: SPACING.LG,
+    backgroundColor: COLORS.BLACK,
     paddingVertical: 14,
-    paddingHorizontal: 20,
-    borderRadius: 12,
+    paddingHorizontal: SPACING.XL,
+    borderRadius: BORDER_RADIUS.MD,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
   },
   myBookingsText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    color: COLORS.WHITE,
+    fontSize: FS.FS16,
+    fontFamily: FF[600],
   },
   listContainer: {
-    padding: 16,
+    padding: SPACING.LG,
   },
   amenityCard: {
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    marginBottom: 16,
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.LG,
+    marginBottom: SPACING.LG,
     overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   amenityImage: {
     width: '100%',
     height: 180,
-    backgroundColor: '#F0F4FF',
+    backgroundColor: COLORS.LIGHT_GRAY,
   },
   amenityCardContent: {
-    padding: 16,
+    padding: SPACING.LG,
     flexDirection: 'row',
     alignItems: 'center',
   },
   amenityDescription: {
-    fontSize: 13,
-    color: '#666',
-    marginBottom: 8,
+    fontSize: FS.FS13,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    marginBottom: SPACING.SM,
     lineHeight: 18,
   },
   amenityDetails: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
-    marginTop: 8,
+    gap: SPACING.MD,
+    marginTop: SPACING.SM,
   },
   detailText: {
-    fontSize: 12,
-    color: '#666',
+    fontSize: FS.FS12,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
   },
   approvalText: {
-    fontSize: 11,
-    color: '#FF9800',
-    fontWeight: '600',
+    fontSize: FS.FS11,
+    fontFamily: FF[600],
+    color: COLORS.ORANGE_TEXT,
   },
   priceBadge: {
-    backgroundColor: '#4CAF5020',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 8,
+    backgroundColor: COLORS.LIGHT_GREEN,
+    paddingHorizontal: SPACING.SM + 2,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.SM,
+    borderWidth: 1,
+    borderColor: COLORS.LIGHT_BORDER_GREEN,
   },
   priceText: {
-    fontSize: 13,
-    color: '#4CAF50',
-    fontWeight: '700',
+    fontSize: FS.FS13,
+    fontFamily: FF[700],
+    color: COLORS.GREEN_TEXT,
   },
   freeBadge: {
-    backgroundColor: '#2196F320',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 8,
+    backgroundColor: COLORS.OCEAN_BLUE_BG,
+    paddingHorizontal: SPACING.SM + 2,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.SM,
+    borderWidth: 1,
+    borderColor: COLORS.OCEAN_BLUE_BORDER,
   },
   freeText: {
-    fontSize: 11,
-    color: '#2196F3',
-    fontWeight: '700',
+    fontSize: FS.FS11,
+    fontFamily: FF[700],
+    color: COLORS.OCEAN_BLUE_TEXT,
   },
   amenityInfo: {
     flex: 1,
   },
   amenityName: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#1A1A1A',
-    marginBottom: 4,
+    fontSize: FS.FS18,
+    fontFamily: FF[600],
+    color: COLORS.BLACK,
+    marginBottom: SPACING.XS,
   },
   amenityMeta: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 4,
+    marginBottom: SPACING.XS,
   },
   statusBadge: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 8,
-    marginRight: 8,
+    paddingHorizontal: SPACING.SM + 2,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.SM,
+    marginRight: SPACING.SM,
   },
   statusText: {
-    fontSize: 11,
-    fontWeight: '700',
+    fontSize: FS.FS11,
+    fontFamily: FF[700],
   },
   viewDetails: {
-    fontSize: 24,
-    color: '#5773FF',
-    fontWeight: '300',
+    fontSize: FS.FS24,
+    color: COLORS.BLACK,
+    fontFamily: FF[300],
   },
   centerContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: SPACING.XL,
   },
   loadingText: {
-    marginTop: 16,
-    fontSize: 16,
-    color: '#666',
+    marginTop: SPACING.LG,
+    fontSize: FS.FS16,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
   },
   errorText: {
-    fontSize: 16,
-    color: '#F44336',
+    fontSize: FS.FS16,
+    fontFamily: FF[400],
+    color: COLORS.ERROR_COLOR,
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: SPACING.XL,
   },
   retryButton: {
-    backgroundColor: '#5773FF',
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    borderRadius: 8,
+    backgroundColor: COLORS.BLACK,
+    paddingHorizontal: SPACING.XXL,
+    paddingVertical: SPACING.MD,
+    borderRadius: BORDER_RADIUS.SM,
   },
   retryButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    color: COLORS.WHITE,
+    fontSize: FS.FS16,
+    fontFamily: FF[600],
   },
   emptyText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#999',
-    marginBottom: 8,
+    fontSize: FS.FS18,
+    fontFamily: FF[600],
+    color: COLORS.GREY_TEXT,
+    marginBottom: SPACING.SM,
   },
   emptySubtext: {
-    fontSize: 14,
-    color: '#CCC',
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
   },
 });
 

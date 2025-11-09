@@ -1,35 +1,32 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FF, FS } from '../../../constants';
+import { COLORS, FF, FS, SPACING, BORDER_RADIUS } from '../../../constants';
 
 const VisitorStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.BG_GREY,
+    backgroundColor: COLORS.WHITE,
   },
   contentWrapper: {
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: SPACING.XL,
   },
   tabContainer: {
     flexDirection: 'row',
-    backgroundColor: COLORS.WHITE,
-    borderRadius: 12,
-    padding: 4,
-    marginVertical: 16,
-    shadowColor: COLORS.BLACK,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    backgroundColor: COLORS.LIGHT_GRAY,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.XS,
+    marginVertical: SPACING.LG,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   tab: {
     flex: 1,
-    paddingVertical: 12,
+    paddingVertical: SPACING.MD,
     alignItems: 'center',
-    borderRadius: 8,
+    borderRadius: BORDER_RADIUS.SM,
   },
   activeTab: {
-    backgroundColor: COLORS.DARK_BLUE,
+    backgroundColor: COLORS.BLACK,
   },
   tabText: {
     fontFamily: FF[500],
@@ -65,14 +62,11 @@ const VisitorStyles = StyleSheet.create({
   },
   visitorCard: {
     backgroundColor: COLORS.WHITE,
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
-    shadowColor: COLORS.BLACK,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.LG,
+    marginBottom: SPACING.MD,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   visitorHeader: {
     flexDirection: 'row',
@@ -95,34 +89,43 @@ const VisitorStyles = StyleSheet.create({
     color: COLORS.GREY_TEXT,
   },
   statusBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 12,
+    paddingHorizontal: SPACING.MD,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.SM,
   },
   statusPending: {
-    backgroundColor: '#FFF3E0',
+    backgroundColor: COLORS.ORANGE_BG,
+    borderWidth: 1,
+    borderColor: COLORS.ORANGE_BORDER,
   },
   statusApproved: {
-    backgroundColor: '#E8F5E9',
+    backgroundColor: COLORS.LIGHT_GREEN,
+    borderWidth: 1,
+    borderColor: COLORS.LIGHT_BORDER_GREEN,
   },
   statusActive: {
-    backgroundColor: '#E3F2FD',
+    backgroundColor: COLORS.OCEAN_BLUE_BG,
+    borderWidth: 1,
+    borderColor: COLORS.OCEAN_BLUE_BORDER,
   },
   statusCompleted: {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: COLORS.LIGHT_GRAY,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   statusText: {
     fontFamily: FF[600],
-    fontSize: FS.FS12,
+    fontSize: FS.FS10,
+    textTransform: 'uppercase',
   },
   statusTextPending: {
-    color: '#F57C00',
+    color: COLORS.ORANGE_TEXT,
   },
   statusTextApproved: {
-    color: '#4CAF50',
+    color: COLORS.GREEN_TEXT,
   },
   statusTextActive: {
-    color: '#2196F3',
+    color: COLORS.OCEAN_BLUE_TEXT,
   },
   statusTextCompleted: {
     color: COLORS.GREY_TEXT,
@@ -162,10 +165,10 @@ const VisitorStyles = StyleSheet.create({
   },
   viewButton: {
     backgroundColor: COLORS.WHITE,
-    borderColor: COLORS.DARK_BLUE,
+    borderColor: COLORS.BLACK,
   },
   viewButtonText: {
-    color: COLORS.DARK_BLUE,
+    color: COLORS.BLACK,
     fontFamily: FF[600],
     fontSize: FS.FS14,
   },
@@ -180,12 +183,12 @@ const VisitorStyles = StyleSheet.create({
   },
   fabButton: {
     position: 'absolute',
-    right: 20,
-    bottom: 20,
+    right: SPACING.XL,
+    bottom: SPACING.XL,
     width: 60,
     height: 60,
-    borderRadius: 30,
-    backgroundColor: COLORS.DARK_BLUE,
+    borderRadius: BORDER_RADIUS.ROUND,
+    backgroundColor: COLORS.BLACK,
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: COLORS.BLACK,
@@ -245,12 +248,12 @@ const VisitorStyles = StyleSheet.create({
     color: COLORS.GREY_TEXT,
   },
   submitButton: {
-    backgroundColor: COLORS.DARK_BLUE,
-    borderRadius: 8,
-    paddingVertical: 16,
+    backgroundColor: COLORS.BLACK,
+    borderRadius: BORDER_RADIUS.SM,
+    paddingVertical: SPACING.LG,
     alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 40,
+    marginTop: SPACING.XL,
+    marginBottom: SPACING.XXXL,
   },
   submitButtonText: {
     color: COLORS.WHITE,
@@ -260,7 +263,7 @@ const VisitorStyles = StyleSheet.create({
   // Visitor Details Screen
   detailsContainer: {
     flex: 1,
-    backgroundColor: COLORS.BG_GREY,
+    backgroundColor: COLORS.WHITE,
   },
   detailsHeader: {
     backgroundColor: COLORS.WHITE,
@@ -361,9 +364,9 @@ const VisitorStyles = StyleSheet.create({
   },
   primaryButton: {
     flex: 1,
-    backgroundColor: COLORS.DARK_BLUE,
-    paddingVertical: 16,
-    borderRadius: 8,
+    backgroundColor: COLORS.BLACK,
+    paddingVertical: SPACING.LG,
+    borderRadius: BORDER_RADIUS.SM,
     alignItems: 'center',
   },
   primaryButtonText: {

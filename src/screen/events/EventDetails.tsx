@@ -17,6 +17,7 @@ import {
   registerForEvent,
 } from '../../store/actions/events/eventsAction';
 import { selectUserDetailData } from '../../store/selectors/auth';
+import { COLORS, SPACING, BORDER_RADIUS, FF, FS, LH } from '../../constants';
 
 interface EventDetailsProps {
   navigation: {
@@ -134,7 +135,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({ navigation, route }) => {
     return (
       <Container>
         <View style={styles.centerContainer}>
-          <ActivityIndicator size="large" color="#5773FF" />
+          <ActivityIndicator size="large" color={COLORS.BLACK} />
           <Text style={styles.loadingText}>Loading event details...</Text>
         </View>
       </Container>
@@ -226,7 +227,10 @@ const EventDetails: React.FC<EventDetailsProps> = ({ navigation, route }) => {
                       ? styles.statusOpen
                       : styles.statusClosed,
                   ]}>
-                  <Text style={styles.statusText}>
+                  <Text style={[
+                    styles.statusText,
+                    eventDetails.registrationStatus !== 'open' && styles.statusClosedText
+                  ]}>
                     {eventDetails.registrationStatus.toUpperCase()}
                   </Text>
                 </View>
@@ -278,7 +282,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({ navigation, route }) => {
                 onPress={handleRegister}
                 disabled={registering}>
                 {registering ? (
-                  <ActivityIndicator size="small" color="#FFFFFF" />
+                  <ActivityIndicator size="small" color={COLORS.WHITE} />
                 ) : (
                   <Text style={styles.registerButtonText}>Register Now</Text>
                 )}
@@ -303,207 +307,237 @@ const EventDetails: React.FC<EventDetailsProps> = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
+    backgroundColor: COLORS.WHITE,
   },
   content: {
-    padding: 16,
+    padding: SPACING.XL,
   },
   centerContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: SPACING.XL,
   },
   loadingText: {
-    marginTop: 12,
-    fontSize: 16,
-    color: '#666',
+    marginTop: SPACING.MD,
+    fontSize: FS.FS16,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH20,
   },
   errorIcon: {
     fontSize: 48,
-    marginBottom: 16,
+    marginBottom: SPACING.LG,
   },
   errorText: {
-    fontSize: 16,
-    color: '#FF3B30',
+    fontSize: FS.FS16,
+    fontFamily: FF[400],
+    color: COLORS.ERROR_COLOR,
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: SPACING.XL,
+    lineHeight: LH.LH20,
   },
   retryButton: {
-    backgroundColor: '#5773FF',
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    borderRadius: 8,
+    backgroundColor: COLORS.BLACK,
+    paddingHorizontal: SPACING.XXL,
+    paddingVertical: SPACING.MD,
+    borderRadius: BORDER_RADIUS.SM,
   },
   retryButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600',
+    color: COLORS.WHITE,
+    fontSize: FS.FS16,
+    fontFamily: FF[600],
   },
   emptyIcon: {
     fontSize: 64,
-    marginBottom: 16,
+    marginBottom: SPACING.LG,
   },
   emptyText: {
-    fontSize: 18,
-    color: '#666',
+    fontSize: FS.FS18,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
     textAlign: 'center',
   },
   headerSection: {
     alignItems: 'center',
-    paddingVertical: 24,
-    backgroundColor: '#F8F9FF',
-    borderRadius: 12,
-    marginBottom: 16,
+    paddingVertical: SPACING.XXL,
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.MD,
+    marginBottom: SPACING.LG,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   eventIcon: {
     fontSize: 64,
-    marginBottom: 12,
+    marginBottom: SPACING.MD,
   },
   eventName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#1A1A1A',
+    fontSize: FS.FS22,
+    fontFamily: FF[600],
+    color: COLORS.BLACK,
     textAlign: 'center',
-    marginBottom: 8,
+    marginBottom: SPACING.SM,
+    lineHeight: LH.LH28,
   },
   eventTypeBadge: {
-    backgroundColor: '#5773FF',
-    paddingHorizontal: 16,
-    paddingVertical: 6,
-    borderRadius: 16,
+    backgroundColor: COLORS.BLACK,
+    paddingHorizontal: SPACING.LG,
+    paddingVertical: SPACING.SM,
+    borderRadius: BORDER_RADIUS.LG,
   },
   eventTypeText: {
-    color: '#FFFFFF',
-    fontSize: 12,
-    fontWeight: '600',
+    color: COLORS.WHITE,
+    fontSize: FS.FS12,
+    fontFamily: FF[600],
     textTransform: 'uppercase',
   },
   infoCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.LG,
+    marginBottom: SPACING.LG,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: SPACING.SM,
   },
   infoLabel: {
-    fontSize: 14,
-    color: '#666',
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
     flex: 1,
+    lineHeight: LH.LH20,
   },
   infoValue: {
-    fontSize: 14,
-    color: '#1A1A1A',
-    fontWeight: '600',
+    fontSize: FS.FS14,
+    fontFamily: FF[600],
+    color: COLORS.BLACK,
     flex: 1,
     textAlign: 'right',
+    lineHeight: LH.LH20,
   },
   section: {
-    marginBottom: 16,
+    marginBottom: SPACING.LG,
   },
   sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#1A1A1A',
-    marginBottom: 12,
+    fontSize: FS.FS18,
+    fontFamily: FF[600],
+    color: COLORS.BLACK,
+    marginBottom: SPACING.MD,
+    lineHeight: LH.LH24,
   },
   description: {
-    fontSize: 14,
-    color: '#666',
-    lineHeight: 22,
-    backgroundColor: '#FFFFFF',
-    padding: 16,
-    borderRadius: 12,
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH20,
+    backgroundColor: COLORS.WHITE,
+    padding: SPACING.LG,
+    borderRadius: BORDER_RADIUS.MD,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   registrationInfo: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 16,
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.LG,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   statusBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 12,
+    paddingHorizontal: SPACING.MD,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.MD,
   },
   statusOpen: {
-    backgroundColor: '#34C759',
+    backgroundColor: COLORS.LIGHT_GREEN,
+    borderWidth: 1,
+    borderColor: COLORS.LIGHT_BORDER_GREEN,
   },
   statusClosed: {
-    backgroundColor: '#FF3B30',
+    backgroundColor: COLORS.LIGHT_GRAY,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   statusText: {
-    color: '#FFFFFF',
-    fontSize: 12,
-    fontWeight: '600',
+    color: COLORS.GREEN_TEXT,
+    fontSize: FS.FS12,
+    fontFamily: FF[600],
+  },
+  statusClosedText: {
+    color: COLORS.GREY_TEXT,
   },
   registrationForm: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 16,
-    marginTop: 8,
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.LG,
+    marginTop: SPACING.SM,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   inputContainer: {
-    marginBottom: 16,
+    marginBottom: SPACING.LG,
   },
   inputLabel: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#1A1A1A',
-    marginBottom: 8,
+    fontSize: FS.FS14,
+    fontFamily: FF[600],
+    color: COLORS.BLACK,
+    marginBottom: SPACING.SM,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#E0E0E0',
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    fontSize: 16,
-    color: '#1A1A1A',
-    backgroundColor: '#F8F9FF',
+    borderColor: COLORS.BORDER_GREY,
+    borderRadius: BORDER_RADIUS.SM,
+    paddingHorizontal: SPACING.MD,
+    paddingVertical: SPACING.SM,
+    fontSize: FS.FS16,
+    fontFamily: FF[400],
+    color: COLORS.BLACK,
+    backgroundColor: COLORS.WHITE,
   },
   inputHint: {
-    fontSize: 12,
-    color: '#999',
-    marginTop: 4,
+    fontSize: FS.FS12,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    marginTop: SPACING.XS,
   },
   registerButton: {
-    backgroundColor: '#5773FF',
-    paddingVertical: 14,
-    borderRadius: 8,
+    backgroundColor: COLORS.BLACK,
+    paddingVertical: SPACING.MD,
+    borderRadius: BORDER_RADIUS.SM,
     alignItems: 'center',
   },
   buttonDisabled: {
-    backgroundColor: '#B0B0B0',
+    backgroundColor: COLORS.GREY_TEXT,
   },
   registerButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600',
+    color: COLORS.WHITE,
+    fontSize: FS.FS16,
+    fontFamily: FF[600],
   },
   closedNotice: {
-    backgroundColor: '#FFF3CD',
-    borderRadius: 12,
-    padding: 20,
+    backgroundColor: COLORS.ORANGE_BG,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.XL,
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: SPACING.SM,
+    borderWidth: 1,
+    borderColor: COLORS.ORANGE_BORDER,
   },
   closedNoticeIcon: {
     fontSize: 48,
-    marginBottom: 12,
+    marginBottom: SPACING.MD,
   },
   closedNoticeText: {
-    fontSize: 14,
-    color: '#856404',
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
+    color: COLORS.ORANGE_TEXT,
     textAlign: 'center',
+    lineHeight: LH.LH20,
   },
 });
 

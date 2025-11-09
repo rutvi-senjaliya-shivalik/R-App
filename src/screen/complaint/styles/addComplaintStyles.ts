@@ -1,28 +1,28 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FF, FS } from '../../../constants';
+import { COLORS, FF, FS, SPACING, BORDER_RADIUS } from '../../../constants';
 
 const addComplaintStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.BG_GREY,
+    backgroundColor: COLORS.WHITE,
   },
   contentWrapper: {
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: SPACING.XL,
   },
 
   // Section
   section: {
-    marginTop: 16,
+    marginTop: SPACING.LG,
   },
   sectionTitle: {
     fontFamily: FF[600],
     fontSize: FS.FS15,
     color: COLORS.BLACK_TEXT,
-    marginBottom: 12,
+    marginBottom: SPACING.MD,
   },
   required: {
-    color: '#C62828',
+    color: COLORS.ERROR_COLOR,
   },
 
   // Category Selection
@@ -35,26 +35,21 @@ const addComplaintStyles = StyleSheet.create({
     width: '30%',
     aspectRatio: 1,
     backgroundColor: COLORS.WHITE,
-    borderRadius: 12,
-    padding: 12,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.MD,
     margin: 6,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
-    borderColor: 'transparent',
-    shadowColor: COLORS.BLACK,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    borderColor: COLORS.BORDER_GREY,
   },
   categoryCardActive: {
-    borderColor: COLORS.DARK_BLUE,
-    backgroundColor: '#E3F2FD',
+    borderColor: COLORS.BLACK,
+    backgroundColor: COLORS.WHITE,
   },
   categoryIcon: {
     fontSize: 32,
-    marginBottom: 8,
+    marginBottom: SPACING.SM,
   },
   categoryLabel: {
     fontFamily: FF[500],
@@ -64,7 +59,7 @@ const addComplaintStyles = StyleSheet.create({
   },
   categoryLabelActive: {
     fontFamily: FF[600],
-    color: COLORS.DARK_BLUE,
+    color: COLORS.BLACK,
   },
 
   // Priority Selection
@@ -74,18 +69,13 @@ const addComplaintStyles = StyleSheet.create({
     marginHorizontal: -4,
   },
   priorityChip: {
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    borderRadius: 20,
+    paddingHorizontal: SPACING.LG,
+    paddingVertical: SPACING.MD,
+    borderRadius: BORDER_RADIUS.XL,
     backgroundColor: COLORS.WHITE,
     borderWidth: 2,
-    borderColor: '#E0E0E0',
+    borderColor: COLORS.BORDER_GREY,
     margin: 4,
-    shadowColor: COLORS.BLACK,
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 1,
   },
   priorityText: {
     fontFamily: FF[600],
@@ -96,63 +86,63 @@ const addComplaintStyles = StyleSheet.create({
   // Input Fields
   input: {
     backgroundColor: COLORS.WHITE,
-    borderRadius: 10,
-    padding: 14,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.LG,
     fontFamily: FF[400],
     fontSize: FS.FS14,
     color: COLORS.BLACK_TEXT,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor: COLORS.BORDER_GREY,
   },
   textArea: {
     minHeight: 120,
-    paddingTop: 14,
+    paddingTop: SPACING.LG,
   },
   charCount: {
     fontFamily: FF[400],
     fontSize: FS.FS12,
-    color: COLORS.LIGHT_GRAY,
-    marginTop: 6,
+    color: COLORS.GREY_TEXT,
+    marginTop: SPACING.XS,
     textAlign: 'right',
   },
 
   // Info Box
   infoBox: {
     flexDirection: 'row',
-    backgroundColor: '#E3F2FD',
-    padding: 14,
-    borderRadius: 10,
-    marginTop: 16,
+    backgroundColor: COLORS.OCEAN_BLUE_BG,
+    padding: SPACING.LG,
+    borderRadius: BORDER_RADIUS.MD,
+    marginTop: SPACING.LG,
     borderLeftWidth: 4,
-    borderLeftColor: COLORS.DARK_BLUE,
+    borderLeftColor: COLORS.OCEAN_BLUE_TEXT,
   },
   infoIcon: {
     fontSize: 20,
-    marginRight: 12,
+    marginRight: SPACING.MD,
   },
   infoText: {
     flex: 1,
     fontFamily: FF[400],
     fontSize: FS.FS13,
-    color: '#1565C0',
+    color: COLORS.OCEAN_BLUE_TEXT,
     lineHeight: 19,
   },
 
   // Submit Button
   submitButton: {
-    backgroundColor: COLORS.DARK_BLUE,
-    paddingVertical: 16,
-    borderRadius: 12,
+    backgroundColor: COLORS.BLACK,
+    paddingVertical: SPACING.LG,
+    borderRadius: BORDER_RADIUS.MD,
     alignItems: 'center',
-    marginTop: 24,
-    shadowColor: COLORS.DARK_BLUE,
+    marginTop: SPACING.XXL,
+    shadowColor: COLORS.BLACK,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
     elevation: 6,
   },
   submitButtonDisabled: {
-    backgroundColor: COLORS.LIGHT_GRAY,
+    backgroundColor: COLORS.GREY_TEXT,
     shadowOpacity: 0,
     elevation: 0,
   },
@@ -164,7 +154,7 @@ const addComplaintStyles = StyleSheet.create({
   },
 
   bottomSpacer: {
-    height: 24,
+    height: SPACING.XXL,
   },
 });
 

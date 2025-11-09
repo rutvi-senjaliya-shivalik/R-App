@@ -1,35 +1,37 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FF, FS } from "../../../constants";
+import { COLORS, FF, FS, SPACING, BORDER_RADIUS } from "../../../constants";
 
 const feedbackStyle = StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor: COLORS.WHITE,
+      paddingHorizontal: SPACING.XL,
     },
     scrollContent: {
-      // padding: 16,
+      paddingBottom: SPACING.XL,
     },
     section: {
-      marginBottom: 24,
+      marginBottom: SPACING.XXL,
     },
     inputContainer: {
-      marginBottom: 16,
+      marginBottom: SPACING.LG,
     },
     inputLabel: {
       fontSize: FS.FS18,
-      fontFamily:FF[400],
-      color:COLORS.BLACK,
-      marginTop:20
+      fontFamily: FF[400],
+      color: COLORS.BLACK,
+      marginTop: SPACING.XL,
     },
     textInput: {
       borderWidth: 1,
-      borderColor: '#ddd',
-      borderRadius: 8,
-      paddingHorizontal: 12,
-      paddingVertical: 12,
-      fontSize: 16,
-      backgroundColor: '#fff',
-      color: '#333',
-      marginTop:24
+      borderColor: COLORS.BORDER_GREY,
+      borderRadius: BORDER_RADIUS.SM,
+      paddingHorizontal: SPACING.MD,
+      paddingVertical: SPACING.MD,
+      fontSize: FS.FS16,
+      backgroundColor: COLORS.WHITE,
+      color: COLORS.BLACK,
+      marginTop: SPACING.XXL,
     },
     messageInput: {
       height: 120,
@@ -38,14 +40,14 @@ const feedbackStyle = StyleSheet.create({
     uploadButton: {
       borderWidth: 1,
       borderColor: COLORS.BORDER_GREY,
-      borderRadius: 8,
+      borderRadius: BORDER_RADIUS.SM,
       borderStyle: 'dashed',
-      paddingVertical: 16,
-      paddingHorizontal: 12,
-      backgroundColor: '#F9FAFB',
+      paddingVertical: SPACING.LG,
+      paddingHorizontal: SPACING.MD,
+      backgroundColor: COLORS.WHITE,
       alignItems: 'center',
       justifyContent: 'center',
-      marginTop: 12,
+      marginTop: SPACING.MD,
     },
     uploadButtonText: {
       fontSize: FS.FS16,
@@ -56,26 +58,25 @@ const feedbackStyle = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      marginTop: 12,
-      borderRadius: 8,
+      marginTop: SPACING.MD,
+      borderRadius: BORDER_RADIUS.SM,
       borderWidth: 1,
-      borderColor: '#ddd',
-      backgroundColor: '#fff',
-      paddingVertical: 12,
-      paddingHorizontal: 12,
+      borderColor: COLORS.BORDER_GREY,
+      backgroundColor: COLORS.WHITE,
+      paddingVertical: SPACING.MD,
+      paddingHorizontal: SPACING.MD,
     },
     imageName: {
       flex: 1,
       fontSize: FS.FS14,
       fontFamily: FF[400],
       color: COLORS.BLACK,
-      marginRight: 8,
+      marginRight: SPACING.SM,
     },
     removeImageButton: {
-      // backgroundColor: '#FF4444',
-      paddingVertical: 6,
-      paddingHorizontal: 12,
-      borderRadius: 6,
+      paddingVertical: SPACING.SM,
+      paddingHorizontal: SPACING.MD,
+      borderRadius: BORDER_RADIUS.SM,
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -85,9 +86,9 @@ const feedbackStyle = StyleSheet.create({
       fontFamily: FF[600],
     },
     submitSection: {
-      marginTop: 24,
-      marginBottom: 32,
-      alignItems:'center'
+      marginTop: SPACING.XXL,
+      marginBottom: SPACING.XXXL,
+      alignItems: 'center',
     },
   });
 

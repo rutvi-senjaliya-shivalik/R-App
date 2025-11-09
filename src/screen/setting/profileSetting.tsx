@@ -87,10 +87,10 @@ const ProfileSetting = (props: any) => {
         />
 
         <View style={ProfileSettingStyles.contentWrapper}>
-          <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, width: "100%" }}>
+          <ScrollView showsVerticalScrollIndicator={false} style={ProfileSettingStyles.scrollView}>
 
             {/* Menu Items */}
-            <View style={[ProfileSettingStyles.section, { marginTop: 16 }]}>
+            <View style={ProfileSettingStyles.sectionWithMarginTop}>
               <TouchableOpacity
                 style={ProfileSettingStyles.menuItem}
                 onPress={() => openLink('https://realestateos.io/privacy-policy')}>

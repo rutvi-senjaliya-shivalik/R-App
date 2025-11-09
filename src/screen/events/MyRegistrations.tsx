@@ -17,6 +17,7 @@ import {
   cancelRegistration,
 } from '../../store/actions/events/eventsAction';
 import { selectUserDetailData } from '../../store/selectors/auth';
+import { COLORS, SPACING, BORDER_RADIUS, FF, FS, LH } from '../../constants';
 
 interface MyRegistrationsProps {
   navigation: {
@@ -108,22 +109,37 @@ const MyRegistrations: React.FC<MyRegistrationsProps> = ({ navigation }) => {
     }
   };
 
-  const getStatusColor = (status: string): string => {
+  const getStatusStyle = (status: string) => {
     switch (status) {
       case 'registered':
-        return '#34C759';
+      case 'confirmed':
+        return {
+          backgroundColor: COLORS.LIGHT_GREEN,
+          textColor: COLORS.GREEN_TEXT,
+        };
       case 'waitlist':
-        return '#FF9500';
+      case 'pending':
+        return {
+          backgroundColor: COLORS.ORANGE_BG,
+          textColor: COLORS.ORANGE_TEXT,
+        };
       case 'cancelled':
-        return '#FF3B30';
+        return {
+          backgroundColor: COLORS.LIGHT_GRAY,
+          textColor: COLORS.GREY_TEXT,
+        };
       default:
-        return '#999';
+        return {
+          backgroundColor: COLORS.OCEAN_BLUE_BG,
+          textColor: COLORS.OCEAN_BLUE_TEXT,
+        };
     }
   };
 
   const renderRegistrationItem = ({ item }: { item: any }) => {
     const canCancel = item.registrationStatus === 'registered' &&
                       new Date(item.eventDetails?.eventDate) > new Date();
+    const statusStyle = getStatusStyle(item.registrationStatus);
 
     return (
       <View style={styles.registrationCard}>
@@ -139,9 +155,9 @@ const MyRegistrations: React.FC<MyRegistrationsProps> = ({ navigation }) => {
           <View
             style={[
               styles.statusBadge,
-              { backgroundColor: getStatusColor(item.registrationStatus) },
+              { backgroundColor: statusStyle.backgroundColor },
             ]}>
-            <Text style={styles.statusText}>
+            <Text style={[styles.statusText, { color: statusStyle.textColor }]}>
               {item.registrationStatus.toUpperCase()}
             </Text>
           </View>
@@ -208,7 +224,7 @@ const MyRegistrations: React.FC<MyRegistrationsProps> = ({ navigation }) => {
     return (
       <Container>
         <View style={styles.centerContainer}>
-          <ActivityIndicator size="large" color="#5773FF" />
+          <ActivityIndicator size="large" color={COLORS.BLACK} />
           <Text style={styles.loadingText}>Loading registrations...</Text>
         </View>
       </Container>
@@ -247,7 +263,7 @@ const MyRegistrations: React.FC<MyRegistrationsProps> = ({ navigation }) => {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={onRefresh}
-              colors={['#5773FF']}
+              colors={[COLORS.BLACK]}
             />
           }
           ListEmptyComponent={
@@ -268,41 +284,46 @@ const MyRegistrations: React.FC<MyRegistrationsProps> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.WHITE,
   },
   listContent: {
-    padding: 16,
+    padding: SPACING.XL,
   },
   centerContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: SPACING.XL,
   },
   loadingText: {
-    marginTop: 12,
-    fontSize: 16,
-    color: '#666',
+    marginTop: SPACING.MD,
+    fontSize: FS.FS16,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH20,
   },
   errorIcon: {
     fontSize: 48,
-    marginBottom: 16,
+    marginBottom: SPACING.LG,
   },
   errorText: {
-    fontSize: 16,
-    color: '#FF3B30',
+    fontSize: FS.FS16,
+    fontFamily: FF[400],
+    color: COLORS.ERROR_COLOR,
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: SPACING.XL,
+    lineHeight: LH.LH20,
   },
   retryButton: {
-    backgroundColor: '#5773FF',
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    borderRadius: 8,
+    backgroundColor: COLORS.BLACK,
+    paddingHorizontal: SPACING.XXL,
+    paddingVertical: SPACING.MD,
+    borderRadius: BORDER_RADIUS.SM,
   },
   retryButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600',
+    color: COLORS.WHITE,
+    fontSize: FS.FS16,
+    fontFamily: FF[600],
   },
   emptyContainer: {
     flex: 1,
@@ -312,126 +333,132 @@ const styles = StyleSheet.create({
   },
   emptyIcon: {
     fontSize: 64,
-    marginBottom: 16,
+    marginBottom: SPACING.LG,
   },
   emptyText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#1A1A1A',
-    marginBottom: 8,
+    fontSize: FS.FS18,
+    fontFamily: FF[600],
+    color: COLORS.BLACK,
+    marginBottom: SPACING.SM,
   },
   emptySubtext: {
-    fontSize: 14,
-    color: '#999',
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
     textAlign: 'center',
   },
   registrationCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.LG,
+    marginBottom: SPACING.MD,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   cardHeader: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 12,
+    marginBottom: SPACING.MD,
   },
   eventIcon: {
     fontSize: 40,
-    marginRight: 12,
+    marginRight: SPACING.MD,
   },
   headerInfo: {
     flex: 1,
   },
   eventName: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#1A1A1A',
-    marginBottom: 4,
+    fontSize: FS.FS16,
+    fontFamily: FF[600],
+    color: COLORS.BLACK,
+    marginBottom: SPACING.XS,
+    lineHeight: LH.LH20,
   },
   eventType: {
-    fontSize: 12,
-    color: '#999',
+    fontSize: FS.FS12,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
     textTransform: 'capitalize',
   },
   statusBadge: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 12,
+    paddingHorizontal: SPACING.SM,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.MD,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   statusText: {
-    color: '#FFFFFF',
-    fontSize: 10,
-    fontWeight: '600',
+    fontSize: FS.FS10,
+    fontFamily: FF[600],
+    textTransform: 'uppercase',
   },
   detailsSection: {
-    backgroundColor: '#F8F9FF',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 12,
+    backgroundColor: COLORS.LIGHT_GRAY,
+    borderRadius: BORDER_RADIUS.SM,
+    padding: SPACING.MD,
+    marginBottom: SPACING.MD,
   },
   detailRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 4,
+    paddingVertical: SPACING.XS,
   },
   detailLabel: {
-    fontSize: 13,
-    color: '#666',
+    fontSize: FS.FS12,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
     flex: 1,
+    lineHeight: LH.LH16,
   },
   detailValue: {
-    fontSize: 13,
-    color: '#1A1A1A',
-    fontWeight: '500',
+    fontSize: FS.FS12,
+    fontFamily: FF[500],
+    color: COLORS.BLACK,
     flex: 1,
     textAlign: 'right',
+    lineHeight: LH.LH16,
   },
   registrationInfo: {
-    marginBottom: 12,
-    paddingTop: 8,
+    marginBottom: SPACING.MD,
+    paddingTop: SPACING.SM,
     borderTopWidth: 1,
-    borderTopColor: '#E0E0E0',
+    borderTopColor: COLORS.BORDER_GREY,
   },
   registrationDate: {
-    fontSize: 12,
-    color: '#999',
+    fontSize: FS.FS12,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
     fontStyle: 'italic',
   },
   actionButtons: {
     flexDirection: 'row',
-    gap: 8,
+    gap: SPACING.SM,
   },
   viewButton: {
     flex: 1,
-    backgroundColor: '#5773FF',
-    paddingVertical: 10,
-    borderRadius: 8,
+    backgroundColor: COLORS.BLACK,
+    paddingVertical: SPACING.SM,
+    borderRadius: BORDER_RADIUS.SM,
     alignItems: 'center',
   },
   viewButtonText: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '600',
+    color: COLORS.WHITE,
+    fontSize: FS.FS14,
+    fontFamily: FF[600],
   },
   cancelButton: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.WHITE,
     borderWidth: 1,
-    borderColor: '#FF3B30',
-    paddingVertical: 10,
-    borderRadius: 8,
+    borderColor: COLORS.ERROR_COLOR,
+    paddingVertical: SPACING.SM,
+    borderRadius: BORDER_RADIUS.SM,
     alignItems: 'center',
   },
   cancelButtonText: {
-    color: '#FF3B30',
-    fontSize: 14,
-    fontWeight: '600',
+    color: COLORS.ERROR_COLOR,
+    fontSize: FS.FS14,
+    fontFamily: FF[600],
   },
 });
 

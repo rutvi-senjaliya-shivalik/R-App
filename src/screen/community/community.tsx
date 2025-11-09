@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container } from '../../components/common';
-import { COLORS, FF, FS } from '../../constants';
+import { COLORS, FF, FS, SPACING, BORDER_RADIUS } from '../../constants';
 import { RootState } from '../../store/reducers';
 import { fetchNotices } from '../../store/actions/notices/noticesAction';
 import { selectUserDetailData } from '../../store/selectors/auth';
@@ -208,32 +208,25 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.WHITE,
   },
   headerContainer: {
-    paddingHorizontal: 20,
-    paddingVertical: 16,
+    paddingHorizontal: SPACING.XL,
+    paddingVertical: SPACING.LG,
   },
   headerTitle: {
     fontSize: FS.FS24,
     fontFamily: FF[600],
     color: COLORS.BLACK,
-    fontWeight: 'bold',
   },
   listContainer: {
-    paddingHorizontal: 20,
-    paddingBottom: 20,
+    paddingHorizontal: SPACING.XL,
+    paddingBottom: SPACING.XL,
   },
   communityCard: {
-    backgroundColor: COLORS.LIGHT_GRAY,
-    borderRadius: 8,
-    marginVertical: 8,
-    padding: 16,
-    elevation: 1,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.MD,
+    marginVertical: SPACING.SM,
+    padding: SPACING.LG,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   cardContent: {
     flex: 1,
@@ -242,14 +235,13 @@ const styles = StyleSheet.create({
     fontSize: FS.FS18,
     fontFamily: FF[600],
     color: COLORS.BLACK,
-    marginBottom: 4,
-    fontWeight: 'bold',
+    marginBottom: SPACING.XS,
   },
   cardSubtitle: {
     fontSize: FS.FS14,
     fontFamily: FF[400],
     color: COLORS.GREY_TEXT,
-    marginBottom: 8,
+    marginBottom: SPACING.SM,
   },
   cardDescription: {
     fontSize: FS.FS14,
@@ -259,12 +251,12 @@ const styles = StyleSheet.create({
   },
   readMoreText: {
     color: COLORS.BLACK,
-    fontWeight: 'bold',
+    fontFamily: FF[600],
   },
   titleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 4,
+    marginBottom: SPACING.XS,
   },
   priorityIcon: {
     fontSize: 16,
@@ -274,11 +266,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   categoryBadge: {
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: 4,
+    paddingHorizontal: SPACING.SM,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.SM,
     alignSelf: 'flex-start',
-    marginBottom: 8,
+    marginBottom: SPACING.SM,
   },
   categoryText: {
     color: COLORS.WHITE,
@@ -288,25 +280,25 @@ const styles = StyleSheet.create({
   dateRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 12,
+    marginTop: SPACING.MD,
   },
   dateText: {
     fontSize: 12,
     color: COLORS.GREY_TEXT,
   },
   loadingContainer: {
-    padding: 20,
+    padding: SPACING.XL,
     alignItems: 'center',
     justifyContent: 'center',
   },
   loadingText: {
-    marginTop: 10,
+    marginTop: SPACING.MD,
     fontSize: FS.FS14,
     fontFamily: FF[400],
     color: COLORS.GREY_TEXT,
   },
   errorContainer: {
-    padding: 20,
+    padding: SPACING.XL,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -315,13 +307,13 @@ const styles = StyleSheet.create({
     fontFamily: FF[400],
     color: COLORS.ERROR_COLOR,
     textAlign: 'center',
-    marginBottom: 16,
+    marginBottom: SPACING.LG,
   },
   retryButton: {
-    backgroundColor: COLORS.BLUE_TEXT,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
+    backgroundColor: COLORS.BLACK,
+    paddingVertical: SPACING.MD,
+    paddingHorizontal: SPACING.XL,
+    borderRadius: BORDER_RADIUS.SM,
   },
   retryButtonText: {
     color: COLORS.WHITE,

@@ -1,35 +1,27 @@
 import { StyleSheet } from 'react-native';
 import { COLORS, FF, FS } from '../../../constants';
+import { SPACING, BORDER_RADIUS } from '../../../constants/theme';
 
 const ContactStyles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // backgroundColor: '#2c3e50',
+    backgroundColor: COLORS.WHITE,
+    paddingHorizontal: SPACING.XL,
   },
   searchContainer: {
-    marginTop: 16,
+    marginTop: SPACING.LG,
   },
   contactSyncContainer: {
-    marginTop: 16,
-    marginHorizontal: 16,
+    marginTop: SPACING.LG,
   },
   contactCardContainer: {
-    marginTop: 16,
-    // marginHorizontal:16
+    marginTop: SPACING.LG,
   },
-  // New styles for contact list
   scrollContainer: {
     flex: 1,
   },
   sectionHeader: {
-    // paddingHorizontal: 16,
-    // paddingVertical: 12,
-    // backgroundColor: COLORS.BG_GREY,
-    marginTop: 16,
-    // borderTopLeftRadius: 12,
-    // borderTopRightRadius: 12,
+    marginTop: SPACING.LG,
   },
   sectionHeaderText: {
     fontSize: FS.FS14,
@@ -37,36 +29,35 @@ const ContactStyles = StyleSheet.create({
     color: COLORS.GREY_TEXT,
   },
   contactItem: {
-    padding: 12,
+    padding: SPACING.MD,
     borderWidth: 1,
     borderColor: COLORS.BORDER_GREY,
     flexDirection: 'row',
-    // marginHorizontal: 16,
-    marginTop: 16,
-    borderRadius: 14,
-    // borderTopWidth: 0,
+    marginTop: SPACING.LG,
+    borderRadius: BORDER_RADIUS.MD,
+    backgroundColor: COLORS.WHITE,
   },
   contactAvatar: {
     borderWidth: 1,
     borderColor: COLORS.BORDER_GREY,
-    borderRadius: 100,
-    padding: 10,
+    borderRadius: BORDER_RADIUS.ROUND,
+    padding: SPACING.SM,
     height: 60,
     width: 60,
     justifyContent: 'center',
     alignItems: 'center',
   },
   contactAvatarText: {
-    fontSize:FS.FS24,color:COLORS.BLACK_TEXT,fontFamily:FF[600]
-    // style={{fontSize:FS.FS24,color:COLORS.BLACK_TEXT,fontFamily:FF[600]}}
+    fontSize: FS.FS24,
+    color: COLORS.BLACK_TEXT,
+    fontFamily: FF[600],
   },
   contactInfo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     flex: 1,
     alignItems: 'center',
-    paddingLeft:12,
-    // paddingHorizontal: 12,
+    paddingLeft: SPACING.MD,
   },
   contactName: {
     fontSize: FS.FS18,
@@ -87,18 +78,17 @@ const ContactStyles = StyleSheet.create({
     color: COLORS.IOS_BLUE,
   },
   bottomPadding: {
-    height: 20,
+    height: SPACING.XL,
   },
   flatListFooter: {
-    height: 16,
+    height: SPACING.LG,
   },
-  // New styles for invite buttons
   inviteButton: {
     flex: 0.2,
-    paddingVertical: 10,
-    paddingHorizontal: 8,
-    borderRadius: 8,
-    backgroundColor: COLORS.IOS_BLUE + '10', // Light blue background
+    paddingVertical: SPACING.SM,
+    paddingHorizontal: SPACING.SM,
+    borderRadius: BORDER_RADIUS.SM,
+    backgroundColor: COLORS.IOS_BLUE + '10',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -109,20 +99,19 @@ const ContactStyles = StyleSheet.create({
     textAlign: 'center',
   },
   inviteButtonPressed: {
-    backgroundColor: COLORS.IOS_BLUE + '20', // Slightly darker when pressed
+    backgroundColor: COLORS.IOS_BLUE + '20',
   },
-  // Header action styles
   headerActions: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    paddingHorizontal: 16,
-    marginTop: 8,
+    paddingHorizontal: SPACING.LG,
+    marginTop: SPACING.SM,
   },
   bulkInviteButton: {
-    backgroundColor: COLORS.IOS_BLUE,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
+    backgroundColor: COLORS.BLACK,
+    paddingHorizontal: SPACING.LG,
+    paddingVertical: SPACING.SM,
+    borderRadius: BORDER_RADIUS.XL,
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -1,29 +1,29 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FF, FS } from '../../../constants';
+import { COLORS, FF, FS, SPACING, BORDER_RADIUS } from '../../../constants';
 
 const amenityStyles = StyleSheet.create({
   contentWrapper: {
     flex: 1,
-    backgroundColor: COLORS.BG_GREY,
+    backgroundColor: COLORS.WHITE,
   },
   tabContainer: {
     flexDirection: 'row',
     backgroundColor: COLORS.WHITE,
-    paddingHorizontal: 16,
-    paddingTop: 12,
-    paddingBottom: 8,
+    paddingHorizontal: SPACING.XL,
+    paddingTop: SPACING.MD,
+    paddingBottom: SPACING.SM,
     borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: COLORS.BORDER_GREY,
   },
   tab: {
     flex: 1,
-    paddingVertical: 12,
+    paddingVertical: SPACING.MD,
     alignItems: 'center',
     borderBottomWidth: 2,
     borderBottomColor: 'transparent',
   },
   activeTab: {
-    borderBottomColor: COLORS.DARK_BLUE,
+    borderBottomColor: COLORS.BLACK,
   },
   tabText: {
     fontFamily: FF[500],
@@ -32,20 +32,20 @@ const amenityStyles = StyleSheet.create({
   },
   activeTabText: {
     fontFamily: FF[600],
-    color: COLORS.DARK_BLUE,
+    color: COLORS.BLACK,
   },
   tabBadge: {
     fontFamily: FF[700],
     fontSize: FS.FS12,
     color: COLORS.WHITE,
-    backgroundColor: '#F44336',
-    paddingHorizontal: 6,
+    backgroundColor: COLORS.ERROR_COLOR,
+    paddingHorizontal: SPACING.XS + 2,
     paddingVertical: 2,
-    borderRadius: 10,
+    borderRadius: BORDER_RADIUS.SM + 2,
     overflow: 'hidden',
   },
   listContent: {
-    padding: 16,
+    padding: SPACING.XL,
     flexGrow: 1,
   },
   loadingContainer: {
@@ -54,7 +54,7 @@ const amenityStyles = StyleSheet.create({
     alignItems: 'center',
   },
   loadingText: {
-    marginTop: 12,
+    marginTop: SPACING.MD,
     fontFamily: FF[500],
     fontSize: FS.FS14,
     color: COLORS.GREY_TEXT,
@@ -63,41 +63,38 @@ const amenityStyles = StyleSheet.create({
   // Amenity Card Styles
   amenityCard: {
     backgroundColor: COLORS.WHITE,
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.LG,
+    marginBottom: SPACING.LG,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   amenityHeader: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 12,
+    marginBottom: SPACING.MD,
   },
   amenityIconContainer: {
     width: 56,
     height: 56,
-    borderRadius: 28,
-    backgroundColor: '#E3F2FD',
+    borderRadius: BORDER_RADIUS.ROUND,
+    backgroundColor: COLORS.LIGHT_GRAY,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 12,
+    marginRight: SPACING.MD,
   },
   amenityIcon: {
     fontSize: 28,
   },
   amenityInfo: {
     flex: 1,
-    marginRight: 8,
+    marginRight: SPACING.SM,
   },
   amenityName: {
     fontFamily: FF[600],
     fontSize: FS.FS16,
     color: COLORS.BLACK_TEXT,
-    marginBottom: 4,
+    marginBottom: SPACING.XS,
   },
   amenityDescription: {
     fontFamily: FF[400],
@@ -106,34 +103,38 @@ const amenityStyles = StyleSheet.create({
     lineHeight: 18,
   },
   availableBadge: {
-    backgroundColor: '#E8F5E9',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 12,
+    backgroundColor: COLORS.LIGHT_GREEN,
+    paddingHorizontal: SPACING.SM + 2,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.MD,
+    borderWidth: 1,
+    borderColor: COLORS.LIGHT_BORDER_GREEN,
   },
   availableText: {
     fontFamily: FF[600],
     fontSize: FS.FS11,
-    color: '#4CAF50',
+    color: COLORS.GREEN_TEXT,
   },
   unavailableBadge: {
-    backgroundColor: '#FFEBEE',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 12,
+    backgroundColor: '#FDECEA',
+    paddingHorizontal: SPACING.SM + 2,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.MD,
+    borderWidth: 1,
+    borderColor: '#F1AEA9',
   },
   unavailableText: {
     fontFamily: FF[600],
     fontSize: FS.FS11,
-    color: '#F44336',
+    color: COLORS.ERROR_COLOR,
   },
   amenityDetails: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 16,
-    paddingTop: 12,
+    marginBottom: SPACING.LG,
+    paddingTop: SPACING.MD,
     borderTopWidth: 1,
-    borderTopColor: '#F5F5F5',
+    borderTopColor: COLORS.BORDER_GREY,
   },
   detailItem: {
     flexDirection: 'row',
@@ -142,7 +143,7 @@ const amenityStyles = StyleSheet.create({
   },
   detailIcon: {
     fontSize: 14,
-    marginRight: 4,
+    marginRight: SPACING.XS,
   },
   detailText: {
     fontFamily: FF[400],
@@ -150,9 +151,9 @@ const amenityStyles = StyleSheet.create({
     color: COLORS.GREY_TEXT,
   },
   bookButton: {
-    backgroundColor: COLORS.DARK_BLUE,
-    paddingVertical: 12,
-    borderRadius: 8,
+    backgroundColor: COLORS.BLACK,
+    paddingVertical: SPACING.MD,
+    borderRadius: BORDER_RADIUS.SM,
     alignItems: 'center',
   },
   bookButtonText: {
@@ -164,44 +165,41 @@ const amenityStyles = StyleSheet.create({
   // Booking Card Styles
   bookingCard: {
     backgroundColor: COLORS.WHITE,
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.LG,
+    marginBottom: SPACING.LG,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   bookingHeader: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 12,
-    paddingBottom: 12,
+    marginBottom: SPACING.MD,
+    paddingBottom: SPACING.MD,
     borderBottomWidth: 1,
-    borderBottomColor: '#F5F5F5',
+    borderBottomColor: COLORS.BORDER_GREY,
   },
   bookingIconContainer: {
     width: 48,
     height: 48,
-    borderRadius: 24,
-    backgroundColor: '#E3F2FD',
+    borderRadius: BORDER_RADIUS.ROUND,
+    backgroundColor: COLORS.LIGHT_GRAY,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 12,
+    marginRight: SPACING.MD,
   },
   bookingIcon: {
     fontSize: 24,
   },
   bookingInfo: {
     flex: 1,
-    marginRight: 8,
+    marginRight: SPACING.SM,
   },
   bookingAmenityName: {
     fontFamily: FF[600],
     fontSize: FS.FS15,
     color: COLORS.BLACK_TEXT,
-    marginBottom: 4,
+    marginBottom: SPACING.XS,
   },
   bookingDate: {
     fontFamily: FF[400],
@@ -215,26 +213,32 @@ const amenityStyles = StyleSheet.create({
     color: COLORS.GREY_TEXT,
   },
   statusBadge: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 12,
+    paddingHorizontal: SPACING.SM + 2,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.MD,
     alignSelf: 'flex-start',
   },
   statusUpcoming: {
-    backgroundColor: '#E3F2FD',
+    backgroundColor: COLORS.OCEAN_BLUE_BG,
+    borderWidth: 1,
+    borderColor: COLORS.OCEAN_BLUE_BORDER,
   },
   statusCompleted: {
-    backgroundColor: '#E8F5E9',
+    backgroundColor: COLORS.LIGHT_GREEN,
+    borderWidth: 1,
+    borderColor: COLORS.LIGHT_BORDER_GREEN,
   },
   statusCancelled: {
-    backgroundColor: '#FFEBEE',
+    backgroundColor: '#FDECEA',
+    borderWidth: 1,
+    borderColor: '#F1AEA9',
   },
   statusText: {
     fontFamily: FF[600],
     fontSize: FS.FS11,
   },
   bookingFooter: {
-    gap: 8,
+    gap: SPACING.SM,
   },
   bookingDetailRow: {
     flexDirection: 'row',
@@ -254,7 +258,7 @@ const amenityStyles = StyleSheet.create({
   bookingAmountValue: {
     fontFamily: FF[700],
     fontSize: FS.FS15,
-    color: COLORS.DARK_BLUE,
+    color: COLORS.BLACK,
   },
 
   // Empty State Styles
@@ -266,20 +270,20 @@ const amenityStyles = StyleSheet.create({
   },
   emptyIcon: {
     fontSize: 64,
-    marginBottom: 16,
+    marginBottom: SPACING.LG,
   },
   emptyText: {
     fontFamily: FF[600],
     fontSize: FS.FS16,
     color: COLORS.BLACK_TEXT,
-    marginBottom: 8,
+    marginBottom: SPACING.SM,
   },
   emptySubText: {
     fontFamily: FF[400],
     fontSize: FS.FS14,
     color: COLORS.GREY_TEXT,
     textAlign: 'center',
-    paddingHorizontal: 32,
+    paddingHorizontal: SPACING.XXXL,
   },
 });
 

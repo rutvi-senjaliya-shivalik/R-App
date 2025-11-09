@@ -5,6 +5,7 @@ import Container from '../../components/common/container';
 import { RootState } from '../../store/reducers';
 import { fetchNotices } from '../../store/actions/notices/noticesAction';
 import { selectUserDetailData } from '../../store/selectors/auth';
+import { COLORS, FF, FS, LH, SPACING, BORDER_RADIUS } from '../../constants';
 
 interface NoticesListProps {
   navigation: {
@@ -60,11 +61,11 @@ const NoticesList: React.FC<NoticesListProps> = ({ navigation }) => {
   const getPriorityColor = (priority: string): string => {
     switch (priority) {
       case 'urgent':
-        return '#F44336';
+        return COLORS.ERROR_COLOR;
       case 'important':
-        return '#FF9800';
+        return COLORS.ORANGE_TEXT;
       default:
-        return '#4CAF50';
+        return COLORS.GREEN_TEXT;
     }
   };
 
@@ -126,7 +127,7 @@ const NoticesList: React.FC<NoticesListProps> = ({ navigation }) => {
           <Text style={styles.headerTitle}>Notices & Announcements</Text>
         </View>
         <View style={styles.centerContainer}>
-          <ActivityIndicator size="large" color="#5773FF" />
+          <ActivityIndicator size="large" color={COLORS.BLACK} />
           <Text style={styles.loadingText}>Loading notices...</Text>
         </View>
       </Container>
@@ -173,7 +174,7 @@ const NoticesList: React.FC<NoticesListProps> = ({ navigation }) => {
           keyExtractor={(item) => item._id}
           contentContainerStyle={styles.listContainer}
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['#5773FF']} />
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={[COLORS.BLACK]} />
           }
         />
       )}
@@ -183,123 +184,139 @@ const NoticesList: React.FC<NoticesListProps> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   header: {
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    backgroundColor: '#fff',
+    paddingHorizontal: SPACING.XL,
+    paddingVertical: SPACING.XL,
+    backgroundColor: COLORS.WHITE,
     borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: COLORS.BORDER_GREY,
   },
   headerTitle: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#1A1A1A',
-    marginBottom: 4,
+    fontSize: FS.FS24,
+    fontFamily: FF[700],
+    color: COLORS.BLACK,
+    marginBottom: SPACING.XS,
+    lineHeight: LH.LH30,
   },
   headerSubtitle: {
-    fontSize: 14,
-    color: '#666',
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH20,
   },
   listContainer: {
-    padding: 16,
+    padding: SPACING.LG,
   },
   noticeCard: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.LG,
+    marginBottom: SPACING.LG,
     borderLeftWidth: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   noticeHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: SPACING.MD,
   },
   priorityBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 12,
+    paddingHorizontal: SPACING.MD,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.MD,
   },
   priorityText: {
-    fontSize: 11,
-    fontWeight: '700',
+    fontSize: FS.FS11,
+    fontFamily: FF[700],
+    textTransform: 'uppercase',
   },
   noticeDate: {
-    fontSize: 13,
-    color: '#999',
+    fontSize: FS.FS13,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH18,
   },
   noticeTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#1A1A1A',
-    marginBottom: 8,
+    fontSize: FS.FS18,
+    fontFamily: FF[600],
+    color: COLORS.BLACK,
+    marginBottom: SPACING.SM,
+    lineHeight: LH.LH24,
   },
   noticeDescription: {
-    fontSize: 14,
-    color: '#666',
-    lineHeight: 20,
-    marginBottom: 12,
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH20,
+    marginBottom: SPACING.MD,
   },
   noticeFooter: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 8,
-    paddingTop: 12,
+    marginTop: SPACING.SM,
+    paddingTop: SPACING.MD,
     borderTopWidth: 1,
-    borderTopColor: '#F0F0F0',
+    borderTopColor: COLORS.BORDER_GREY,
   },
   noticeAuthor: {
-    fontSize: 12,
-    color: '#999',
+    fontSize: FS.FS12,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH16,
   },
   viewDetails: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#5773FF',
+    fontSize: FS.FS14,
+    fontFamily: FF[600],
+    color: COLORS.BLACK,
+    lineHeight: LH.LH20,
   },
   centerContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: SPACING.XL,
   },
   loadingText: {
-    marginTop: 16,
-    fontSize: 16,
-    color: '#666',
+    marginTop: SPACING.LG,
+    fontSize: FS.FS16,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH22,
   },
   errorText: {
-    fontSize: 16,
-    color: '#F44336',
+    fontSize: FS.FS16,
+    fontFamily: FF[400],
+    color: COLORS.ERROR_COLOR,
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: SPACING.XL,
+    lineHeight: LH.LH22,
   },
   retryButton: {
-    backgroundColor: '#5773FF',
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    borderRadius: 8,
+    backgroundColor: COLORS.BLACK,
+    paddingHorizontal: SPACING.XXL,
+    paddingVertical: SPACING.MD,
+    borderRadius: BORDER_RADIUS.SM,
   },
   retryButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    color: COLORS.WHITE,
+    fontSize: FS.FS16,
+    fontFamily: FF[600],
+    lineHeight: LH.LH22,
   },
   emptyText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#999',
-    marginBottom: 8,
+    fontSize: FS.FS18,
+    fontFamily: FF[600],
+    color: COLORS.GREY_TEXT,
+    marginBottom: SPACING.SM,
+    lineHeight: LH.LH24,
   },
   emptySubtext: {
-    fontSize: 14,
-    color: '#CCC',
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH20,
   },
 });
 

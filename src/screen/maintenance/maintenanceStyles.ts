@@ -1,20 +1,20 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FF, FS } from '../../constants';
+import { COLORS, FF, FS, LH, SPACING, BORDER_RADIUS } from '../../constants';
 
 const maintenanceStyles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    backgroundColor: COLORS.BG_GREY 
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.WHITE
   },
   contentWrapper: {
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: SPACING.XL,
   },
-  listContainer: { padding: 16 },
+  listContainer: { padding: SPACING.XL },
   listContentEmpty: {
     flex: 1,
   },
-  
+
   // Empty State
   emptyContainer: {
     flex: 1,
@@ -24,256 +24,427 @@ const maintenanceStyles = StyleSheet.create({
   },
   emptyIcon: {
     fontSize: 64,
-    marginBottom: 16,
+    marginBottom: SPACING.LG,
   },
   emptyText: {
     fontFamily: FF[500],
     fontSize: FS.FS16,
     color: COLORS.GREY_TEXT,
     textAlign: 'center',
+    lineHeight: LH.LH20,
   },
   emptySubText: {
     fontFamily: FF[400],
     fontSize: FS.FS14,
-    color: COLORS.LIGHT_GRAY,
+    color: COLORS.GREY_TEXT,
     textAlign: 'center',
-    marginTop: 8,
+    marginTop: SPACING.SM,
+    lineHeight: LH.LH16,
   },
-  
+
   card: {
     backgroundColor: COLORS.WHITE,
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
-    shadowColor: COLORS.BLACK,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.LG,
+    marginBottom: SPACING.MD,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  rowSpace: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 14 },
-  month: { 
+  rowSpace: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: SPACING.LG },
+  month: {
     fontFamily: FF[600],
-    fontSize: FS.FS18, 
-    color: COLORS.BLACK_TEXT, 
-    marginBottom: 4 
+    fontSize: FS.FS18,
+    color: COLORS.BLACK,
+    marginBottom: SPACING.XS,
+    lineHeight: LH.LH24,
   },
-  amount: { 
+  amount: {
     fontFamily: FF[700],
-    fontSize: FS.FS20, 
-    color: '#2E7D32' 
+    fontSize: FS.FS20,
+    color: COLORS.BLACK,
+    lineHeight: LH.LH28,
   },
-  due: { 
-    marginTop: 6, 
+  due: {
+    marginTop: SPACING.SM,
     fontFamily: FF[400],
-    fontSize: FS.FS13, 
-    color: COLORS.GREY_TEXT, 
+    fontSize: FS.FS13,
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH16,
   },
-  statusBadge: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 6 },
-  paid: { backgroundColor: '#C8E6C9' },
-  pending: { backgroundColor: '#FFE0B2' },
-  overdue: { backgroundColor: '#FFCDD2' },
-  statusText: { 
+  statusBadge: {
+    paddingHorizontal: SPACING.MD,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.SM,
+  },
+  paid: {
+    backgroundColor: COLORS.LIGHT_GREEN,
+    borderWidth: 1,
+    borderColor: COLORS.LIGHT_BORDER_GREEN,
+  },
+  pending: {
+    backgroundColor: COLORS.ORANGE_BG,
+    borderWidth: 1,
+    borderColor: COLORS.ORANGE_BORDER,
+  },
+  overdue: {
+    backgroundColor: '#FDECEA',
+    borderWidth: 1,
+    borderColor: '#F1AEA9',
+  },
+  statusText: {
     fontFamily: FF[700],
-    fontSize: FS.FS11, 
-    color: '#333', 
-    letterSpacing: 0.5 
+    fontSize: FS.FS10,
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
+  },
+  statusTextPaid: {
+    color: COLORS.GREEN_TEXT,
+  },
+  statusTextPending: {
+    color: COLORS.ORANGE_TEXT,
+  },
+  statusTextOverdue: {
+    color: COLORS.ERROR_COLOR,
   },
   actions: { flexDirection: 'row', alignItems: 'center' },
-  detailsBtn: { 
-    paddingHorizontal: 16, 
-    paddingVertical: 10, 
-    marginRight: 8, 
-    backgroundColor: '#E0E0E0', 
-    borderRadius: 8 
+  detailsBtn: {
+    paddingHorizontal: SPACING.LG,
+    paddingVertical: SPACING.SM,
+    marginRight: SPACING.SM,
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.SM,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
-  detailsBtnText: { 
+  detailsBtnText: {
     fontFamily: FF[600],
-    fontSize: FS.FS14, 
-    color: '#424242' 
+    fontSize: FS.FS14,
+    color: COLORS.BLACK,
+    lineHeight: LH.LH20,
   },
-  payBtn: { 
-    paddingHorizontal: 18, 
-    paddingVertical: 10, 
-    backgroundColor: COLORS.DARK_BLUE, 
-    borderRadius: 8, 
-    shadowColor: COLORS.DARK_BLUE, 
-    shadowOpacity: 0.3, 
-    shadowOffset: { width: 0, height: 2 }, 
-    shadowRadius: 4,
-    elevation: 2,
+  payBtn: {
+    paddingHorizontal: SPACING.LG,
+    paddingVertical: SPACING.SM,
+    backgroundColor: COLORS.BLACK,
+    borderRadius: BORDER_RADIUS.SM,
   },
-  payBtnText: { 
+  payBtnText: {
     fontFamily: FF[600],
-    fontSize: FS.FS14, 
-    color: COLORS.WHITE 
+    fontSize: FS.FS14,
+    color: COLORS.WHITE,
+    lineHeight: LH.LH20,
   },
-  empty: { textAlign: 'center', marginTop: 40, fontSize: 16, color: '#999' },
-  
+  empty: {
+    textAlign: 'center',
+    marginTop: 40,
+    fontSize: FS.FS16,
+    color: COLORS.GREY_TEXT,
+  },
+
   // Details page
-  detailsHeader: { marginBottom: 20, paddingTop: 8 },
-  billTitle: { 
+  detailsHeader: { marginBottom: SPACING.XL, paddingTop: SPACING.SM },
+  billTitle: {
     fontFamily: FF[700],
-    fontSize: FS.FS24, 
-    color: COLORS.BLACK_TEXT, 
-    marginBottom: 6 
+    fontSize: FS.FS24,
+    color: COLORS.BLACK,
+    marginBottom: SPACING.SM,
+    lineHeight: LH.LH32,
   },
-  billStatus: { 
+  billStatus: {
     fontFamily: FF[500],
-    fontSize: FS.FS15, 
-    color: COLORS.GREY_TEXT, 
-    marginTop: 4 
+    fontSize: FS.FS15,
+    color: COLORS.GREY_TEXT,
+    marginTop: SPACING.XS,
+    lineHeight: LH.LH20,
   },
-  amountCard: { 
-    backgroundColor: '#E3F2FD', 
-    borderRadius: 16, 
-    padding: 20, 
-    marginBottom: 24, 
+  amountCard: {
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.LG,
+    padding: SPACING.XL,
+    marginBottom: SPACING.XXL,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#BBDEFB',
-    shadowColor: COLORS.DARK_BLUE,
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    elevation: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
-  amountLabel: { 
+  amountLabel: {
     fontFamily: FF[600],
-    fontSize: FS.FS14, 
-    color: '#1565C0', 
-    marginBottom: 6, 
-    letterSpacing: 0.5 
+    fontSize: FS.FS14,
+    color: COLORS.GREY_TEXT,
+    marginBottom: SPACING.SM,
+    letterSpacing: 0.5,
+    lineHeight: LH.LH16,
   },
-  amountLarge: { 
+  amountLarge: {
     fontFamily: FF[700],
-    fontSize: 40, 
-    color: COLORS.DARK_BLUE, 
-    letterSpacing: -1 
+    fontSize: 40,
+    color: COLORS.BLACK,
+    letterSpacing: -1,
   },
-  dueLabel: { 
+  dueLabel: {
     fontFamily: FF[700],
-    fontSize: FS.FS13, 
-    color: '#E53935', 
-    marginTop: 10, 
-    textTransform: 'uppercase', 
-    letterSpacing: 0.5 
+    fontSize: FS.FS13,
+    color: COLORS.ERROR_COLOR,
+    marginTop: SPACING.SM,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    lineHeight: LH.LH16,
   },
-  
-  sectionTitle: { 
+
+  sectionTitle: {
     fontFamily: FF[700],
-    fontSize: FS.FS17, 
-    color: COLORS.BLACK_TEXT, 
-    marginBottom: 12, 
-    marginTop: 8 
+    fontSize: FS.FS17,
+    color: COLORS.BLACK,
+    marginBottom: SPACING.MD,
+    marginTop: SPACING.SM,
+    lineHeight: LH.LH24,
   },
-  breakdownContainer: { 
-    backgroundColor: COLORS.WHITE, 
-    borderRadius: 12, 
-    padding: 18, 
-    marginBottom: 24,
+  breakdownContainer: {
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.LG,
+    marginBottom: SPACING.XXL,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
-    shadowColor: COLORS.BLACK,
-    shadowOpacity: 0.05,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 3,
-    elevation: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
-  breakdownRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 8 },
-  breakdownLabel: { 
+  breakdownRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: SPACING.SM },
+  breakdownLabel: {
     fontFamily: FF[500],
-    fontSize: FS.FS14, 
-    color: COLORS.GREY_TEXT 
+    fontSize: FS.FS14,
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH20,
   },
-  breakdownValue: { 
+  breakdownValue: {
     fontFamily: FF[700],
-    fontSize: FS.FS14, 
-    color: COLORS.BLACK_TEXT 
+    fontSize: FS.FS14,
+    color: COLORS.BLACK,
+    lineHeight: LH.LH20,
   },
-  divider: { height: 1, backgroundColor: '#EEEEEE', marginVertical: 4 },
-  breakdownTotal: { 
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    marginTop: 8, 
-    paddingTop: 12, 
-    borderTopWidth: 2, 
-    borderTopColor: COLORS.DARK_BLUE 
+  divider: { height: 1, backgroundColor: COLORS.BORDER_GREY, marginVertical: SPACING.XS },
+  breakdownTotal: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: SPACING.SM,
+    paddingTop: SPACING.MD,
+    borderTopWidth: 2,
+    borderTopColor: COLORS.BLACK
   },
-  breakdownTotalLabel: { 
+  breakdownTotalLabel: {
     fontFamily: FF[700],
-    fontSize: FS.FS16, 
-    color: COLORS.BLACK_TEXT 
+    fontSize: FS.FS16,
+    color: COLORS.BLACK,
+    lineHeight: LH.LH24,
   },
-  breakdownTotalValue: { 
+  breakdownTotalValue: {
     fontFamily: FF[700],
-    fontSize: FS.FS20, 
-    color: COLORS.DARK_BLUE 
+    fontSize: FS.FS20,
+    color: COLORS.BLACK,
+    lineHeight: LH.LH28,
   },
-  
-  paidInfo: { 
-    backgroundColor: '#E8F5E9', 
-    borderRadius: 12, 
-    padding: 18, 
-    marginBottom: 24,
+
+  paidInfo: {
+    backgroundColor: COLORS.LIGHT_GREEN,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.LG,
+    marginBottom: SPACING.XXL,
     borderWidth: 1,
-    borderColor: '#C8E6C9'
+    borderColor: COLORS.LIGHT_BORDER_GREEN,
   },
-  paidInfoRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10, paddingVertical: 4 },
-  paidInfoLabel: { fontSize: 14, color: '#2E7D32', fontWeight: '600' },
-  paidInfoValue: { fontSize: 14, fontWeight: '700', color: '#1B5E20' },
-  paidBadge: { 
-    alignSelf: 'flex-start', 
-    backgroundColor: '#4CAF50', 
-    paddingHorizontal: 14, 
-    paddingVertical: 8, 
-    borderRadius: 8, 
-    marginBottom: 14,
-    elevation: 2,
-    shadowColor: '#4CAF50',
-    shadowOpacity: 0.3,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
+  paidInfoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: SPACING.SM,
+    paddingVertical: SPACING.XS
   },
-  paidBadgeText: { color: '#fff', fontSize: 12, fontWeight: '700', letterSpacing: 1 },
-  
+  paidInfoLabel: {
+    fontFamily: FF[600],
+    fontSize: FS.FS14,
+    color: COLORS.GREEN_TEXT,
+    lineHeight: LH.LH20,
+  },
+  paidInfoValue: {
+    fontFamily: FF[700],
+    fontSize: FS.FS14,
+    color: COLORS.GREEN_TEXT,
+    lineHeight: LH.LH20,
+  },
+  paidBadge: {
+    alignSelf: 'flex-start',
+    backgroundColor: COLORS.GREEN_TEXT,
+    paddingHorizontal: SPACING.MD,
+    paddingVertical: SPACING.SM,
+    borderRadius: BORDER_RADIUS.SM,
+    marginBottom: SPACING.MD,
+  },
+  paidBadgeText: {
+    fontFamily: FF[700],
+    color: COLORS.WHITE,
+    fontSize: FS.FS10,
+    letterSpacing: 1,
+  },
+
   // Payment Modal
-  modalOverlay: { flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', justifyContent: 'flex-end' },
-  modalContent: { backgroundColor: '#FFFFFF', borderTopLeftRadius: 24, borderTopRightRadius: 24, paddingHorizontal: 20, paddingTop: 24, paddingBottom: 32, maxHeight: '85%' },
-  modalHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
-  modalTitle: { fontSize: 20, fontWeight: '700', color: '#000' },
-  closeButton: { padding: 4 },
-  closeButtonText: { fontSize: 28, color: '#999', fontWeight: '300' },
-  
-  modalSection: { marginBottom: 24 },
-  modalSectionTitle: { fontSize: 15, fontWeight: '700', color: '#000', marginBottom: 12 },
-  
-  paymentMethodCard: { flexDirection: 'row', alignItems: 'center', padding: 14, borderRadius: 12, borderWidth: 2, borderColor: '#E0E0E0', marginBottom: 10 },
-  paymentMethodSelected: { borderColor: '#1976D2', backgroundColor: '#E3F2FD' },
-  paymentMethodIcon: { fontSize: 28, marginRight: 14 },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'flex-end'
+  },
+  modalContent: {
+    backgroundColor: COLORS.WHITE,
+    borderTopLeftRadius: BORDER_RADIUS.XL,
+    borderTopRightRadius: BORDER_RADIUS.XL,
+    paddingHorizontal: SPACING.XL,
+    paddingTop: SPACING.XXL,
+    paddingBottom: SPACING.XXXL,
+    maxHeight: '85%'
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: SPACING.XL
+  },
+  modalTitle: {
+    fontFamily: FF[700],
+    fontSize: FS.FS20,
+    color: COLORS.BLACK,
+    lineHeight: LH.LH28,
+  },
+  closeButton: { padding: SPACING.XS },
+  closeButtonText: {
+    fontSize: 28,
+    color: COLORS.GREY_TEXT,
+    fontFamily: FF[300],
+  },
+
+  modalSection: { marginBottom: SPACING.XXL },
+  modalSectionTitle: {
+    fontFamily: FF[700],
+    fontSize: FS.FS15,
+    color: COLORS.BLACK,
+    marginBottom: SPACING.MD,
+    lineHeight: LH.LH20,
+  },
+
+  paymentMethodCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: SPACING.MD,
+    borderRadius: BORDER_RADIUS.MD,
+    borderWidth: 2,
+    borderColor: COLORS.BORDER_GREY,
+    marginBottom: SPACING.SM,
+    backgroundColor: COLORS.WHITE,
+  },
+  paymentMethodSelected: {
+    borderColor: COLORS.BLACK,
+    backgroundColor: COLORS.WHITE,
+  },
+  paymentMethodIcon: { fontSize: 28, marginRight: SPACING.MD },
   paymentMethodInfo: { flex: 1 },
-  paymentMethodName: { fontSize: 15, fontWeight: '600', color: '#000' },
-  paymentMethodDesc: { fontSize: 12, color: '#666', marginTop: 2 },
-  radioOuter: { width: 22, height: 22, borderRadius: 11, borderWidth: 2, borderColor: '#CCC', justifyContent: 'center', alignItems: 'center' },
-  radioOuterSelected: { borderColor: '#1976D2' },
-  radioInner: { width: 12, height: 12, borderRadius: 6, backgroundColor: '#1976D2' },
-  
-  billSummaryCard: { backgroundColor: '#F5F5F5', borderRadius: 12, padding: 16, marginBottom: 24 },
-  summaryRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 },
-  summaryLabel: { fontSize: 14, color: '#666' },
-  summaryValue: { fontSize: 14, fontWeight: '600', color: '#000' },
-  summaryTotal: { flexDirection: 'row', justifyContent: 'space-between', paddingTop: 12, borderTopWidth: 1, borderTopColor: '#E0E0E0', marginTop: 4 },
-  summaryTotalLabel: { fontSize: 16, fontWeight: '700', color: '#000' },
-  summaryTotalValue: { fontSize: 18, fontWeight: '700', color: '#1976D2' },
-  
-  confirmButton: { backgroundColor: '#1976D2', borderRadius: 12, paddingVertical: 16, alignItems: 'center', elevation: 2, shadowColor: '#1976D2', shadowOpacity: 0.3, shadowOffset: { width: 0, height: 4 }, shadowRadius: 8 },
-  confirmButtonDisabled: { backgroundColor: '#BDBDBD', elevation: 0, shadowOpacity: 0 },
-  confirmButtonText: { fontSize: 16, fontWeight: '700', color: '#FFFFFF' },
-  
-  processingContainer: { alignItems: 'center', paddingVertical: 32 },
-  processingText: { fontSize: 16, color: '#666', marginTop: 16 },
-  processingSubtext: { fontSize: 13, color: '#999', marginTop: 8, textAlign: 'center' },
+  paymentMethodName: {
+    fontFamily: FF[600],
+    fontSize: FS.FS15,
+    color: COLORS.BLACK,
+    lineHeight: LH.LH20,
+  },
+  paymentMethodDesc: {
+    fontFamily: FF[400],
+    fontSize: FS.FS12,
+    color: COLORS.GREY_TEXT,
+    marginTop: 2,
+    lineHeight: LH.LH16,
+  },
+  radioOuter: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    borderWidth: 2,
+    borderColor: COLORS.BORDER_GREY,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  radioOuterSelected: { borderColor: COLORS.BLACK },
+  radioInner: { width: 12, height: 12, borderRadius: 6, backgroundColor: COLORS.BLACK },
+
+  billSummaryCard: {
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.LG,
+    marginBottom: SPACING.XXL,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
+  },
+  summaryRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: SPACING.SM
+  },
+  summaryLabel: {
+    fontFamily: FF[400],
+    fontSize: FS.FS14,
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH20,
+  },
+  summaryValue: {
+    fontFamily: FF[600],
+    fontSize: FS.FS14,
+    color: COLORS.BLACK,
+    lineHeight: LH.LH20,
+  },
+  summaryTotal: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: SPACING.MD,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.BORDER_GREY,
+    marginTop: SPACING.XS
+  },
+  summaryTotalLabel: {
+    fontFamily: FF[700],
+    fontSize: FS.FS16,
+    color: COLORS.BLACK,
+    lineHeight: LH.LH24,
+  },
+  summaryTotalValue: {
+    fontFamily: FF[700],
+    fontSize: FS.FS18,
+    color: COLORS.BLACK,
+    lineHeight: LH.LH24,
+  },
+
+  confirmButton: {
+    backgroundColor: COLORS.BLACK,
+    borderRadius: BORDER_RADIUS.MD,
+    paddingVertical: SPACING.LG,
+    alignItems: 'center',
+  },
+  confirmButtonDisabled: {
+    backgroundColor: COLORS.BORDER_GREY,
+  },
+  confirmButtonText: {
+    fontFamily: FF[700],
+    fontSize: FS.FS16,
+    color: COLORS.WHITE,
+    lineHeight: LH.LH24,
+  },
+
+  processingContainer: { alignItems: 'center', paddingVertical: SPACING.XXXL },
+  processingText: {
+    fontFamily: FF[400],
+    fontSize: FS.FS16,
+    color: COLORS.GREY_TEXT,
+    marginTop: SPACING.LG,
+    lineHeight: LH.LH24,
+  },
+  processingSubtext: {
+    fontFamily: FF[400],
+    fontSize: FS.FS13,
+    color: COLORS.GREY_TEXT,
+    marginTop: SPACING.SM,
+    textAlign: 'center',
+    lineHeight: LH.LH16,
+  },
 });
 
 export default maintenanceStyles;

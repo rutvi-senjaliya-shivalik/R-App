@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Container, HeaderComponent } from '../../components/common';
-import { COLORS, FF, FS } from '../../constants';
+import { COLORS, FF, FS, SPACING, BORDER_RADIUS } from '../../constants';
 
 const DiscussionForumsDetails = (props: any) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -425,20 +425,22 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   welcomeSection: {
-    marginHorizontal: 20,
-    marginTop: 20,
-    marginBottom: 16,
+    marginHorizontal: SPACING.XL,
+    marginTop: SPACING.XL,
+    marginBottom: SPACING.LG,
   },
   welcomeHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F8F9FA',
-    padding: 20,
-    borderRadius: 16,
+    backgroundColor: COLORS.WHITE,
+    padding: SPACING.XL,
+    borderRadius: BORDER_RADIUS.LG,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   welcomeIcon: {
     fontSize: 32,
-    marginRight: 16,
+    marginRight: SPACING.LG,
   },
   welcomeTextContainer: {
     flex: 1,
@@ -447,7 +449,7 @@ const styles = StyleSheet.create({
     fontSize: FS.FS20,
     fontFamily: FF[600],
     color: COLORS.BLACK,
-    marginBottom: 4,
+    marginBottom: SPACING.XS,
   },
   welcomeSubtitle: {
     fontSize: FS.FS14,
@@ -456,20 +458,22 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   searchContainer: {
-    marginHorizontal: 20,
-    marginBottom: 20,
+    marginHorizontal: SPACING.XL,
+    marginBottom: SPACING.XL,
   },
   searchInputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F5F5F5',
-    borderRadius: 25,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.XL,
+    paddingHorizontal: SPACING.LG,
+    paddingVertical: SPACING.MD,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   searchIcon: {
     fontSize: 16,
-    marginRight: 8,
+    marginRight: SPACING.SM,
     color: COLORS.GREY_TEXT,
   },
   searchInput: {
@@ -481,30 +485,33 @@ const styles = StyleSheet.create({
   clearIcon: {
     fontSize: 16,
     color: COLORS.GREY_TEXT,
-    marginLeft: 8,
+    marginLeft: SPACING.SM,
   },
   categoriesContainer: {
-    marginBottom: 20,
+    marginBottom: SPACING.XL,
   },
   sectionTitle: {
     fontSize: FS.FS16,
     fontFamily: FF[600],
     color: COLORS.BLACK,
-    marginBottom: 12,
-    marginHorizontal: 20,
+    marginBottom: SPACING.MD,
+    marginHorizontal: SPACING.XL,
   },
   categoriesScroll: {
-    paddingLeft: 20,
+    paddingLeft: SPACING.XL,
   },
   categoryChip: {
-    backgroundColor: '#F5F5F5',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    marginRight: 8,
+    backgroundColor: COLORS.WHITE,
+    paddingHorizontal: SPACING.LG,
+    paddingVertical: SPACING.SM,
+    borderRadius: BORDER_RADIUS.XL,
+    marginRight: SPACING.SM,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   selectedCategoryChip: {
     backgroundColor: COLORS.BLACK,
+    borderColor: COLORS.BLACK,
   },
   categoryText: {
     fontSize: FS.FS12,
@@ -516,25 +523,22 @@ const styles = StyleSheet.create({
   },
   tabsContainer: {
     flexDirection: 'row',
-    marginHorizontal: 20,
-    marginBottom: 20,
-    backgroundColor: '#F5F5F5',
-    borderRadius: 25,
-    padding: 4,
+    marginHorizontal: SPACING.XL,
+    marginBottom: SPACING.XL,
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.XL,
+    padding: SPACING.XS,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   tab: {
     flex: 1,
-    paddingVertical: 10,
+    paddingVertical: SPACING.MD,
     alignItems: 'center',
-    borderRadius: 20,
+    borderRadius: BORDER_RADIUS.XL,
   },
   activeTab: {
-    backgroundColor: COLORS.WHITE,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
+    backgroundColor: COLORS.BLACK,
   },
   tabText: {
     fontSize: FS.FS12,
@@ -542,24 +546,24 @@ const styles = StyleSheet.create({
     color: COLORS.GREY_TEXT,
   },
   activeTabText: {
-    color: COLORS.BLACK,
+    color: COLORS.WHITE,
     fontFamily: FF[600],
   },
   createPostButton: {
     backgroundColor: COLORS.BLACK,
-    marginHorizontal: 20,
-    marginBottom: 24,
-    paddingVertical: 16,
-    borderRadius: 16,
+    marginHorizontal: SPACING.XL,
+    marginBottom: SPACING.XXL,
+    paddingVertical: SPACING.LG,
+    borderRadius: BORDER_RADIUS.LG,
   },
   createPostContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 16,
+    paddingHorizontal: SPACING.LG,
   },
   createPostIcon: {
     fontSize: 20,
-    marginRight: 12,
+    marginRight: SPACING.MD,
   },
   createPostTextContainer: {
     flex: 1,
@@ -581,19 +585,16 @@ const styles = StyleSheet.create({
     fontFamily: FF[600],
   },
   postsContainer: {
-    marginBottom: 20,
+    marginBottom: SPACING.XL,
   },
   postCard: {
     backgroundColor: COLORS.WHITE,
-    marginHorizontal: 20,
-    marginBottom: 16,
-    borderRadius: 16,
-    padding: 20,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    marginHorizontal: SPACING.XL,
+    marginBottom: SPACING.LG,
+    borderRadius: BORDER_RADIUS.LG,
+    padding: SPACING.XL,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   pinnedPost: {
     borderLeftWidth: 4,
@@ -601,11 +602,11 @@ const styles = StyleSheet.create({
   },
   pinnedBadge: {
     backgroundColor: '#FFF3CD',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
+    paddingHorizontal: SPACING.SM,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.MD,
     alignSelf: 'flex-start',
-    marginBottom: 12,
+    marginBottom: SPACING.MD,
   },
   pinnedText: {
     fontSize: FS.FS10,
@@ -616,7 +617,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: 12,
+    marginBottom: SPACING.MD,
   },
   authorInfo: {
     flexDirection: 'row',
@@ -625,11 +626,11 @@ const styles = StyleSheet.create({
   authorAvatarContainer: {
     width: 40,
     height: 40,
-    borderRadius: 20,
-    backgroundColor: '#F5F5F5',
+    borderRadius: BORDER_RADIUS.XL,
+    backgroundColor: COLORS.LIGHT_GRAY,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 12,
+    marginRight: SPACING.MD,
   },
   authorAvatar: {
     fontSize: 20,
@@ -655,9 +656,9 @@ const styles = StyleSheet.create({
     color: COLORS.GREY_TEXT,
   },
   categoryBadge: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
+    paddingHorizontal: SPACING.SM,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.MD,
   },
   categoryBadgeText: {
     fontSize: FS.FS10,
@@ -668,7 +669,7 @@ const styles = StyleSheet.create({
     fontSize: FS.FS16,
     fontFamily: FF[600],
     color: COLORS.BLACK,
-    marginBottom: 8,
+    marginBottom: SPACING.SM,
     lineHeight: 22,
   },
   postContent: {
@@ -676,20 +677,20 @@ const styles = StyleSheet.create({
     fontFamily: FF[400],
     color: COLORS.GREY_TEXT,
     lineHeight: 20,
-    marginBottom: 12,
+    marginBottom: SPACING.MD,
   },
   tagsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginBottom: 16,
+    marginBottom: SPACING.LG,
   },
   tag: {
-    backgroundColor: '#F5F5F5',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
+    backgroundColor: COLORS.LIGHT_GRAY,
+    paddingHorizontal: SPACING.SM,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.MD,
     marginRight: 6,
-    marginBottom: 4,
+    marginBottom: SPACING.XS,
   },
   tagText: {
     fontSize: FS.FS10,
@@ -699,20 +700,20 @@ const styles = StyleSheet.create({
   postActions: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingTop: 16,
+    paddingTop: SPACING.LG,
     borderTopWidth: 1,
-    borderTopColor: '#F5F5F5',
+    borderTopColor: COLORS.BORDER_GREY,
   },
   actionButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 8,
+    paddingHorizontal: SPACING.SM,
     paddingVertical: 6,
-    borderRadius: 8,
+    borderRadius: BORDER_RADIUS.SM,
   },
   actionIcon: {
     fontSize: 16,
-    marginRight: 4,
+    marginRight: SPACING.XS,
   },
   actionText: {
     fontSize: FS.FS12,

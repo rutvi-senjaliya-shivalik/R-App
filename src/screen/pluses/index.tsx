@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet, Dimensions, ActivityIndicator, Share, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, HeaderComponent } from '../../components/common';
-import { COLORS, FF, FS, IMAGES } from '../../constants';
+import { COLORS, FF, FS, IMAGES, SPACING, BORDER_RADIUS } from '../../constants';
 import { pulsesListAction } from '../../store/actions/pulses/pulsesListAction';
 import {
   selectPulsesListData,
@@ -148,7 +148,7 @@ const Pluses = (props: any) => {
         data={memoizedPulsesData?.data?.result?.knowledgeList}
         renderItem={renderItem}
         // keyExtractor={(item, index) => item.id?.toString() || index.toString()}
-        contentContainerStyle={[styles.container,{paddingBottom:50}]}
+        contentContainerStyle={[styles.container, { paddingBottom: 50 }]}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           !loading ? (
@@ -157,7 +157,7 @@ const Pluses = (props: any) => {
             </View>
           ) : (
             <View style={styles.loaderContainer}>
-              <ActivityIndicator size="large" color={COLORS.BLUE_TEXT} />
+              <ActivityIndicator size="large" color={COLORS.BLACK} />
             </View>
           )
         }
@@ -170,38 +170,35 @@ const Pluses = (props: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.WHITE,
+    paddingHorizontal: SPACING.XL,
   },
   card: {
-    borderRadius: 10,
-    marginTop: 12,
+    borderRadius: BORDER_RADIUS.MD,
+    marginTop: SPACING.MD,
     overflow: 'hidden',
-    // elevation: 3,
-    // shadowColor: '#000',
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowOpacity: 0.1,
-    // shadowRadius: 4,
-    borderWidth: 0.5,
-    borderColor: COLORS.BORDER_GREY
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
+    backgroundColor: COLORS.WHITE,
   },
   image: {
     width: '100%',
     height: width * 0.45,
   },
   content: {
-    padding: 16,
+    padding: SPACING.LG,
   },
   title: {
     fontSize: FS.FS16,
     fontFamily: FF[400],
     color: COLORS.BLACK,
-    marginTop: 12
+    marginTop: SPACING.MD,
   },
   description: {
     fontSize: FS.FS14,
     fontFamily: FF[300],
     color: COLORS.GREY_TEXT,
-    marginTop: 12
+    marginTop: SPACING.MD,
   },
   date: {
     fontSize: FS.FS12,
@@ -209,21 +206,18 @@ const styles = StyleSheet.create({
     color: COLORS.GREY_TEXT,
   },
   button: {
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    borderRadius: 8,
+    paddingVertical: SPACING.SM,
+    paddingHorizontal: SPACING.SM,
+    borderRadius: BORDER_RADIUS.SM,
     alignSelf: 'flex-end',
-    backgroundColor: COLORS.BG_GREY,
-    // elevation: 2,
-    // shadowColor: '#000',
-    // shadowOffset: { width: 0, height: 1 },
-    // shadowOpacity: 0.2,
-    shadowRadius: 2,
+    backgroundColor: COLORS.WHITE,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   buttonText: {
-    color: '#fff',
+    color: COLORS.WHITE,
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: FS.FS14,
   },
   shareIcon: {
     width: 20,
@@ -232,33 +226,35 @@ const styles = StyleSheet.create({
   readMoreContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 12,
+    marginTop: SPACING.MD,
   },
   loaderContainer: {
-    paddingVertical: 20,
+    paddingVertical: SPACING.XL,
     alignItems: 'center',
   },
   errorContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: SPACING.XL,
+    backgroundColor: COLORS.WHITE,
+    paddingHorizontal: SPACING.XL,
   },
   errorText: {
     fontSize: FS.FS16,
     fontFamily: FF[400],
     color: COLORS.GREY_TEXT,
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: SPACING.XL,
   },
   retryButton: {
-    backgroundColor: COLORS.BLACK_TEXT,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 8,
+    backgroundColor: COLORS.BLACK,
+    paddingHorizontal: SPACING.XL,
+    paddingVertical: SPACING.SM,
+    borderRadius: BORDER_RADIUS.SM,
   },
   retryButtonText: {
-    color: '#fff',
+    color: COLORS.WHITE,
     fontSize: FS.FS14,
     fontFamily: FF[400],
   },
@@ -266,7 +262,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: SPACING.XL,
   },
   emptyText: {
     fontSize: FS.FS16,

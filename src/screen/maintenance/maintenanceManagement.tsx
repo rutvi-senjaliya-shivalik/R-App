@@ -78,7 +78,7 @@ const MaintenanceManagement: React.FC<Props> = ({ navigation }) => {
         <Text style={maintenanceStyles.due}>Due: {new Date(item.dueDate).toLocaleDateString()}</Text>
         <View style={maintenanceStyles.rowSpace}>
           <View style={[maintenanceStyles.statusBadge, isPaid ? maintenanceStyles.paid : maintenanceStyles.pending]}>
-            <Text style={maintenanceStyles.statusText}>{isPaid ? 'PAID' : 'PENDING'}</Text>
+            <Text style={[maintenanceStyles.statusText, isPaid ? maintenanceStyles.statusTextPaid : maintenanceStyles.statusTextPending]}>{isPaid ? 'PAID' : 'PENDING'}</Text>
           </View>
           <View style={maintenanceStyles.actions}>
             <TouchableOpacity
@@ -110,7 +110,7 @@ const MaintenanceManagement: React.FC<Props> = ({ navigation }) => {
             onPress={() => navigation.goBack()}
           />
           <View style={maintenanceStyles.emptyContainer}>
-            <ActivityIndicator size="large" color={COLORS.DARK_BLUE} />
+            <ActivityIndicator size="large" color={COLORS.BLACK} />
             <Text style={maintenanceStyles.emptySubText}>Loading bills...</Text>
           </View>
         </View>
@@ -132,10 +132,10 @@ const MaintenanceManagement: React.FC<Props> = ({ navigation }) => {
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
             refreshControl={
-              <RefreshControl 
-                refreshing={refreshing} 
+              <RefreshControl
+                refreshing={refreshing}
                 onRefresh={onRefresh}
-                colors={[COLORS.DARK_BLUE]}
+                colors={[COLORS.BLACK]}
               />
             }
             showsVerticalScrollIndicator={false}

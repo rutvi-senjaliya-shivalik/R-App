@@ -28,13 +28,13 @@ const Setting: React.FC<SettingProps> = (props) => {
   // Extract member/unit data from userData (set during member registration)
   const member = userData?.member;
   const isVerified = member?.memberStatus === 'approved';
-  const unitInfo = member 
-    ? `${member.blockName}-${member.unitNumber}` 
+  const unitInfo = member
+    ? `${member.blockName}-${member.unitNumber}`
     : 'Not assigned';
   const residentType = member?.memberType || 'Resident';
-  
+
   // Format member since date
-  const memberSince = member?.createdAt 
+  const memberSince = member?.createdAt
     ? new Date(member.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
     : 'Recently joined';
 
@@ -50,12 +50,7 @@ const Setting: React.FC<SettingProps> = (props) => {
 
         <View style={SettingStyles.contentWrapper}>
           {/* Account Information Card */}
-          <LinearGradient
-            colors={['rgba(207, 216, 220, 0.10)', 'rgba(111, 116, 118, 0.10)']}
-            start={{ x: 0.7, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={SettingStyles.card}
-          >
+          <View style={SettingStyles.card}>
             <TouchableOpacity
               style={SettingStyles.profileCardTouch}
               onPress={() => {
@@ -89,7 +84,7 @@ const Setting: React.FC<SettingProps> = (props) => {
                 </View>
               </View>
             </TouchableOpacity>
-          </LinearGradient>
+          </View>
 
           <View style={SettingStyles.unitInfoCard}>
             <Text style={SettingStyles.unitLabel}>MY UNIT</Text>
@@ -110,24 +105,10 @@ const Setting: React.FC<SettingProps> = (props) => {
 
           <ScrollView showsVerticalScrollIndicator={false} style={SettingStyles.scrollView}>
 
-            <View style={SettingStyles.sectionMarginTop}>
-              <TouchableOpacity
-                style={SettingStyles.menuItem}
-                onPress={() => { 
-                  Alert.alert('Coming Soon', 'Family members management will be available soon.');
-                }}>
-                <View style={SettingStyles.menuItemLeft}>
-                  <Text style={SettingStyles.menuIcon}>👥</Text>
-                  <Text style={SettingStyles.menuText}>Family Members</Text>
-                </View>
-                <Image source={IMAGES.BACK} style={SettingStyles.chevron} />
-              </TouchableOpacity>
-            </View>
-
             <View style={SettingStyles.section}>
               <TouchableOpacity
                 style={SettingStyles.menuItem}
-                onPress={() => { 
+                onPress={() => {
                   Alert.alert('Coming Soon', 'Vehicle management will be available soon.');
                 }}>
                 <View style={SettingStyles.menuItemLeft}>
@@ -141,7 +122,7 @@ const Setting: React.FC<SettingProps> = (props) => {
             <View style={SettingStyles.section}>
               <TouchableOpacity
                 style={SettingStyles.menuItem}
-                onPress={() => { 
+                onPress={() => {
                   Alert.alert('Coming Soon', 'Document management will be available soon.');
                 }}>
                 <View style={SettingStyles.menuItemLeft}>

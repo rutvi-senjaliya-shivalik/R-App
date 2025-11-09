@@ -5,6 +5,7 @@ import Container from '../../components/common/container';
 import { RootState } from '../../store/reducers';
 import { fetchEvents } from '../../store/actions/events/eventsAction';
 import { selectUserDetailData } from '../../store/selectors/auth';
+import { COLORS, SPACING, BORDER_RADIUS, FF, FS, LH } from '../../constants';
 
 interface EventsListProps {
   navigation: {
@@ -128,7 +129,7 @@ const EventsList: React.FC<EventsListProps> = ({ navigation }) => {
           <Text style={styles.headerTitle}>Events</Text>
         </View>
         <View style={styles.centerContainer}>
-          <ActivityIndicator size="large" color="#5773FF" />
+          <ActivityIndicator size="large" color={COLORS.BLACK} />
           <Text style={styles.loadingText}>Loading events...</Text>
         </View>
       </Container>
@@ -187,7 +188,7 @@ const EventsList: React.FC<EventsListProps> = ({ navigation }) => {
           keyExtractor={(item) => item._id}
           contentContainerStyle={styles.listContainer}
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['#5773FF']} />
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={[COLORS.BLACK]} />
           }
         />
       )}
@@ -197,64 +198,60 @@ const EventsList: React.FC<EventsListProps> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   header: {
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    backgroundColor: '#fff',
+    paddingHorizontal: SPACING.XL,
+    paddingVertical: SPACING.XL,
+    backgroundColor: COLORS.WHITE,
     borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: COLORS.BORDER_GREY,
   },
   headerTitle: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#1A1A1A',
-    marginBottom: 4,
+    fontSize: FS.FS22,
+    fontFamily: FF[600],
+    color: COLORS.BLACK,
+    marginBottom: SPACING.XS,
+    lineHeight: LH.LH28,
   },
   headerSubtitle: {
-    fontSize: 14,
-    color: '#666',
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH20,
   },
   myRegistrationsButton: {
-    margin: 16,
-    backgroundColor: '#5773FF',
-    paddingVertical: 14,
-    paddingHorizontal: 20,
-    borderRadius: 12,
+    marginHorizontal: SPACING.LG,
+    marginVertical: SPACING.LG,
+    backgroundColor: COLORS.BLACK,
+    paddingVertical: SPACING.MD,
+    paddingHorizontal: SPACING.XL,
+    borderRadius: BORDER_RADIUS.MD,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
   },
   myRegistrationsText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    color: COLORS.WHITE,
+    fontSize: FS.FS16,
+    fontFamily: FF[600],
   },
   listContainer: {
-    padding: 16,
+    padding: SPACING.LG,
   },
   eventCard: {
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    padding: 16,
-    marginBottom: 16,
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.MD,
+    padding: SPACING.LG,
+    marginBottom: SPACING.LG,
     flexDirection: 'row',
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   eventIconContainer: {
     width: 60,
     height: 60,
-    borderRadius: 12,
-    backgroundColor: '#FFF3E0',
+    borderRadius: BORDER_RADIUS.MD,
+    backgroundColor: COLORS.LIGHT_GRAY,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 16,
+    marginRight: SPACING.LG,
   },
   eventIcon: {
     fontSize: 32,
@@ -263,101 +260,112 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   eventName: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#1A1A1A',
-    marginBottom: 4,
+    fontSize: FS.FS18,
+    fontFamily: FF[600],
+    color: COLORS.BLACK,
+    marginBottom: SPACING.XS,
+    lineHeight: LH.LH24,
   },
   eventType: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 8,
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    marginBottom: SPACING.SM,
+    lineHeight: LH.LH20,
   },
   eventMeta: {
-    marginBottom: 8,
+    marginBottom: SPACING.SM,
   },
   metaRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 4,
+    marginBottom: SPACING.XS,
   },
   metaIcon: {
-    fontSize: 14,
-    marginRight: 6,
+    fontSize: FS.FS14,
+    marginRight: SPACING.SM,
     width: 20,
   },
   metaText: {
-    fontSize: 13,
-    color: '#666',
+    fontSize: FS.FS12,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH16,
   },
   eventFooter: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: SPACING.SM,
   },
   spotsText: {
-    fontSize: 12,
-    color: '#4CAF50',
-    fontWeight: '600',
+    fontSize: FS.FS12,
+    fontFamily: FF[600],
+    color: COLORS.GREEN_TEXT,
   },
   pastBadge: {
-    backgroundColor: '#F5F5F5',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 8,
+    backgroundColor: COLORS.LIGHT_GRAY,
+    paddingHorizontal: SPACING.SM,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.SM,
   },
   pastText: {
-    fontSize: 10,
-    color: '#999',
-    fontWeight: '700',
+    fontSize: FS.FS10,
+    fontFamily: FF[600],
+    color: COLORS.GREY_TEXT,
+    textTransform: 'uppercase',
   },
   viewDetails: {
-    fontSize: 24,
-    color: '#5773FF',
-    fontWeight: '300',
+    fontSize: FS.FS22,
+    color: COLORS.BLACK,
+    fontFamily: FF[300],
   },
   centerContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: SPACING.XL,
   },
   loadingText: {
-    marginTop: 16,
-    fontSize: 16,
-    color: '#666',
+    marginTop: SPACING.LG,
+    fontSize: FS.FS16,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    lineHeight: LH.LH20,
   },
   errorText: {
-    fontSize: 16,
-    color: '#F44336',
+    fontSize: FS.FS16,
+    fontFamily: FF[400],
+    color: COLORS.ERROR_COLOR,
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: SPACING.XL,
+    lineHeight: LH.LH20,
   },
   retryButton: {
-    backgroundColor: '#5773FF',
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    borderRadius: 8,
+    backgroundColor: COLORS.BLACK,
+    paddingHorizontal: SPACING.XXL,
+    paddingVertical: SPACING.MD,
+    borderRadius: BORDER_RADIUS.SM,
   },
   retryButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    color: COLORS.WHITE,
+    fontSize: FS.FS16,
+    fontFamily: FF[600],
   },
   emptyIcon: {
     fontSize: 64,
-    marginBottom: 16,
+    marginBottom: SPACING.LG,
   },
   emptyText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#999',
-    marginBottom: 8,
+    fontSize: FS.FS18,
+    fontFamily: FF[600],
+    color: COLORS.GREY_TEXT,
+    marginBottom: SPACING.SM,
   },
   emptySubtext: {
-    fontSize: 14,
-    color: '#CCC',
+    fontSize: FS.FS14,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
   },
 });
 

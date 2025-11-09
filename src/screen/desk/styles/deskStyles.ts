@@ -1,92 +1,86 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FF, FS, LH } from "../../../constants";
+import { COLORS, FF, FS, LH, SPACING, BORDER_RADIUS } from "../../../constants";
 
 const DeskStyles = StyleSheet.create({
   container: {
     flex: 1,
     position: 'relative',
+    backgroundColor: COLORS.WHITE,
+    paddingHorizontal: SPACING.XL,
   },
   borderContainer: {
-    // padding: 16, // Border thickness
-    borderRadius: 16,
-    opacity:0.8,
-    overflow:'hidden'
-    // margin: 16,
+    borderRadius: BORDER_RADIUS.LG,
+    opacity: 0.8,
+    overflow: 'hidden',
   },
   innerContainer: {
-    borderRadius: 14,
+    borderRadius: BORDER_RADIUS.MD,
     padding: 2,
-    overflow:'hidden'
-    // margin :16
+    overflow: 'hidden',
   },
   projectTag: {
-    backgroundColor: '#E8FFF0',
-    color: '#34A853',
-    paddingHorizontal: 8,
+    backgroundColor: COLORS.LIGHT_GREEN,
+    color: COLORS.GREEN_TEXT,
+    paddingHorizontal: SPACING.SM,
     paddingVertical: 2,
-    borderRadius: 6,
-    fontSize: 12,
+    borderRadius: BORDER_RADIUS.SM,
+    fontSize: FS.FS12,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   date: {
-    fontSize: 12,
-    color: '#999',
+    fontSize: FS.FS12,
+    color: COLORS.GREY_TEXT,
   },
   name: {
-    marginTop: 12,
-    fontSize:FS.FS16,
-    fontFamily:FF[500],
-    color:COLORS.GREY_TEXT,
-    // lineHeight:LH.LH27
+    marginTop: SPACING.MD,
+    fontSize: FS.FS16,
+    fontFamily: FF[500],
+    color: COLORS.GREY_TEXT,
   },
   phone: {
-    fontSize:FS.FS18,
-    fontFamily:FF[400],
-    color:COLORS.GREY_TEXT,
-    marginTop:6
-    // color: '#333',
-    // marginBottom: 10,
+    fontSize: FS.FS18,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
+    marginTop: SPACING.SM,
   },
   icons: {
     flexDirection: 'row',
-    marginBottom: 10,
+    marginBottom: SPACING.SM,
   },
   item: {
-    fontSize:FS.FS12,
-    fontFamily:FF[400],
-    color:COLORS.GREY_TEXT,
-    // lineHeight:LH.LH22
+    fontSize: FS.FS12,
+    fontFamily: FF[400],
+    color: COLORS.GREY_TEXT,
   },
   // Project Lead Card Styles
   projectLeadCard: {
-    marginTop: 16,
-    padding: 16,
+    marginTop: SPACING.LG,
+    padding: SPACING.LG,
     borderWidth: 1,
-    borderRadius: 16,
+    borderRadius: BORDER_RADIUS.LG,
     borderColor: COLORS.BORDER_GREY,
     backgroundColor: COLORS.WHITE,
   },
   tagContainer: {
     flexDirection: 'row',
-    gap: 8,
+    gap: SPACING.SM,
     alignItems: 'center',
   },
   projectTagStyle: {
-    paddingHorizontal: 13,
-    paddingVertical: 5,
-    borderRadius: 16,
+    paddingHorizontal: SPACING.MD,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.LG,
     backgroundColor: COLORS.OCEAN_BLUE_BG,
     borderColor: COLORS.OCEAN_BLUE_BORDER,
     borderWidth: 1,
   },
   hotTagStyle: {
-    paddingHorizontal: 13,
-    paddingVertical: 5,
-    borderRadius: 16,
-    
+    paddingHorizontal: SPACING.MD,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.LG,
     borderWidth: 1,
   },
   projectTagText: {
@@ -100,15 +94,15 @@ const DeskStyles = StyleSheet.create({
     color: COLORS.GREY_TEXT,
   },
   divider: {
-    borderBottomWidth: 0.5,
+    borderBottomWidth: 1,
     borderColor: COLORS.BORDER_GREY,
-    paddingVertical: 5,
+    paddingVertical: SPACING.XS,
   },
   itemWithMargin: {
-    marginTop: 10,
+    marginTop: SPACING.SM,
   },
   nameWithMargin: {
-    marginTop: 6,
+    marginTop: SPACING.SM,
   },
   // Header Styles
   headerContainer: {
@@ -134,20 +128,20 @@ const DeskStyles = StyleSheet.create({
   },
   // Search and Button Styles
   searchContainer: {
-    marginTop: 10,
+    marginTop: SPACING.SM,
   },
   buttonContainer: {
-    marginTop: 20,
+    marginTop: SPACING.XL,
   },
   // Loading and Error States
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: SPACING.XXXL,
   },
   loadingText: {
-    marginTop: 10,
+    marginTop: SPACING.SM,
     fontSize: FS.FS16,
     fontFamily: FF[400],
   },
@@ -163,7 +157,7 @@ const DeskStyles = StyleSheet.create({
   },
   // FlatList Styles
   flatListContainer: {
-    paddingBottom: 20,
+    paddingBottom: SPACING.XL,
   },
   totalLeadContainer: {
     flexDirection: 'row',
@@ -188,43 +182,41 @@ const DeskStyles = StyleSheet.create({
 menuOptions: {
     width: 200,
     backgroundColor: COLORS.WHITE,
-    borderRadius: 8,
+    borderRadius: BORDER_RADIUS.SM,
     borderWidth: 1,
-    borderColor: COLORS.LIGHT_GRAY,
-    padding: 5,
+    borderColor: COLORS.BORDER_GREY,
+    padding: SPACING.XS,
     position: 'absolute',
     zIndex: 1000,
     elevation: 5,
-    shadowColor: '#000',
+    shadowColor: COLORS.BLACK,
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
     minHeight: 40,
   },
   btn: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 10,
-    // borderWidth:1
+    paddingVertical: SPACING.SM,
+    paddingHorizontal: SPACING.SM,
   },
   userDeleteTxt: {
     fontSize: FS.FS14,
     color: COLORS.ERROR_COLOR,
     fontFamily: FF[400],
-    paddingHorizontal: 15,
+    paddingHorizontal: SPACING.LG,
     paddingVertical: 2,
-    marginTop: 3
-    // marginTop:5
+    marginTop: SPACING.XS,
   },
   // Land Card Styles
   landTagStyle: {
-    paddingHorizontal: 13,
-    paddingVertical: 5,
-    borderRadius: 16,
+    paddingHorizontal: SPACING.MD,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.LG,
     backgroundColor: COLORS.LIGHT_BLUE,
     borderColor: COLORS.BLUE_TEXT,
     borderWidth: 1,
@@ -238,16 +230,16 @@ menuOptions: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 6,
+    marginTop: SPACING.SM,
   },
   contactIcons: {
     flexDirection: 'row',
-    gap: 8,
+    gap: SPACING.SM,
   },
   whatsappIcon: {
     width: 32,
     height: 32,
-    borderRadius: 16,
+    borderRadius: BORDER_RADIUS.LG,
     backgroundColor: COLORS.GREEN_TEXT,
     justifyContent: 'center',
     alignItems: 'center',
@@ -255,7 +247,7 @@ menuOptions: {
   callIcon: {
     width: 32,
     height: 32,
-    borderRadius: 16,
+    borderRadius: BORDER_RADIUS.LG,
     backgroundColor: COLORS.LIGHT_GREEN,
     justifyContent: 'center',
     alignItems: 'center',

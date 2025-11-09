@@ -1,44 +1,41 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FF, FS } from "../../../constants";
+import { COLORS, FF, FS, LH, SPACING, BORDER_RADIUS } from "../../../constants";
 
 const ProfileSettingStyles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.WHITE,
     paddingHorizontal: 0,
     paddingTop: 0,
   },
   contentWrapper: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: 24,
+    paddingTop: SPACING.XXL,
     paddingHorizontal: 0,
   },
   section: {
     width: '90%',
     alignSelf: 'center',
-    marginBottom: 16,
+    marginBottom: SPACING.LG,
   },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: "#FBFBFB",
-    borderRadius: 12,
-    paddingVertical: 18,
-    paddingHorizontal: 18,
-    marginBottom: 14,
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.MD,
+    paddingVertical: SPACING.LG,
+    paddingHorizontal: SPACING.LG,
+    marginBottom: SPACING.MD,
     borderWidth: 1,
     borderColor: COLORS.BORDER_GREY,
-    shadowColor: COLORS.BLACK,
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 1,
   },
   menuText: {
     fontFamily: FF[500],
     fontSize: FS.FS15,
-    color: COLORS.BLACK_TEXT,
+    color: COLORS.BLACK,
+    lineHeight: LH.LH20,
   },
   chevron: {
     width: 16,
@@ -50,7 +47,17 @@ const ProfileSettingStyles = StyleSheet.create({
   actionSection: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: 20,
+    marginTop: SPACING.XL,
+  },
+  scrollView: {
+    flex: 1,
+    width: '100%',
+  },
+  sectionWithMarginTop: {
+    width: '90%',
+    alignSelf: 'center',
+    marginBottom: SPACING.LG,
+    marginTop: SPACING.LG,
   },
 });
 

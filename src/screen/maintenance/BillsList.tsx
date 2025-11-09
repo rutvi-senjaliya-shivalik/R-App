@@ -64,13 +64,13 @@ const BillsList: React.FC<BillsListProps> = ({ navigation }) => {
   const getStatusColor = (status: string): string => {
     switch (status) {
       case 'paid':
-        return '#34C759';
+        return '#15803D'; // COLORS.GREEN_TEXT
       case 'pending':
-        return '#FF9500';
+        return '#FF5900'; // COLORS.ORANGE_TEXT
       case 'overdue':
-        return '#FF3B30';
+        return '#B3261E'; // COLORS.ERROR_COLOR
       default:
-        return '#999';
+        return '#757575'; // COLORS.GREY_TEXT
     }
   };
 
@@ -181,7 +181,7 @@ const BillsList: React.FC<BillsListProps> = ({ navigation }) => {
     return (
       <Container>
         <View style={styles.centerContainer}>
-          <ActivityIndicator size="large" color="#5773FF" />
+          <ActivityIndicator size="large" color="#000000" />
           <Text style={styles.loadingText}>Loading bills...</Text>
         </View>
       </Container>
@@ -228,7 +228,7 @@ const BillsList: React.FC<BillsListProps> = ({ navigation }) => {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={onRefresh}
-              colors={['#5773FF']}
+              colors={['#000000']}
             />
           }
           ListEmptyComponent={
@@ -251,39 +251,40 @@ const BillsList: React.FC<BillsListProps> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#FFFFFF',
   },
   filterSection: {
     flexDirection: 'row',
-    padding: 16,
+    padding: 20,
     gap: 8,
     backgroundColor: '#FFFFFF',
     borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: '#D9D9E3',
   },
   filterButton: {
     flex: 1,
-    paddingVertical: 8,
+    paddingVertical: 10,
     paddingHorizontal: 12,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor: '#D9D9E3',
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
   },
   filterButtonActive: {
-    backgroundColor: '#5773FF',
-    borderColor: '#5773FF',
+    backgroundColor: '#000000',
+    borderColor: '#000000',
   },
   filterButtonText: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#666',
+    color: '#757575',
   },
   filterButtonTextActive: {
     color: '#FFFFFF',
   },
   listContent: {
-    padding: 16,
+    padding: 20,
   },
   centerContainer: {
     flex: 1,
@@ -294,7 +295,7 @@ const styles = StyleSheet.create({
   loadingText: {
     marginTop: 12,
     fontSize: 16,
-    color: '#666',
+    color: '#757575',
   },
   errorIcon: {
     fontSize: 48,
@@ -302,12 +303,12 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 16,
-    color: '#FF3B30',
+    color: '#B3261E',
     textAlign: 'center',
     marginBottom: 20,
   },
   retryButton: {
-    backgroundColor: '#5773FF',
+    backgroundColor: '#000000',
     paddingHorizontal: 24,
     paddingVertical: 12,
     borderRadius: 8,
@@ -330,12 +331,12 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#1A1A1A',
+    color: '#000000',
     marginBottom: 8,
   },
   emptySubtext: {
     fontSize: 14,
-    color: '#999',
+    color: '#757575',
     textAlign: 'center',
   },
   billCard: {
@@ -343,11 +344,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    borderWidth: 1,
+    borderColor: '#D9D9E3',
   },
   billHeader: {
     flexDirection: 'row',
@@ -361,20 +359,21 @@ const styles = StyleSheet.create({
   billPeriod: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#1A1A1A',
+    color: '#000000',
     marginBottom: 4,
   },
   billDate: {
     fontSize: 13,
-    color: '#666',
+    color: '#757575',
   },
   statusBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 10,
     paddingVertical: 6,
-    borderRadius: 12,
+    borderRadius: 8,
     gap: 4,
+    borderWidth: 1,
   },
   statusIcon: {
     fontSize: 12,
@@ -382,12 +381,14 @@ const styles = StyleSheet.create({
   },
   statusText: {
     color: '#FFFFFF',
-    fontSize: 11,
-    fontWeight: '600',
+    fontSize: 10,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
   billDetails: {
     borderTopWidth: 1,
-    borderTopColor: '#E0E0E0',
+    borderTopColor: '#D9D9E3',
     paddingTop: 12,
   },
   amountSection: {
@@ -398,46 +399,50 @@ const styles = StyleSheet.create({
   },
   amountLabel: {
     fontSize: 14,
-    color: '#666',
+    color: '#757575',
   },
   amount: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#5773FF',
+    color: '#000000',
   },
   paidInfo: {
-    backgroundColor: '#E8F5E9',
+    backgroundColor: '#F0FDF4CC',
     padding: 8,
-    borderRadius: 6,
+    borderRadius: 8,
     marginTop: 4,
+    borderWidth: 1,
+    borderColor: '#BBF7D080',
   },
   paidText: {
     fontSize: 12,
-    color: '#2E7D32',
+    color: '#15803D',
     textAlign: 'center',
   },
   overdueWarning: {
-    backgroundColor: '#FFEBEE',
+    backgroundColor: '#FDECEA',
     padding: 8,
-    borderRadius: 6,
+    borderRadius: 8,
     marginTop: 4,
+    borderWidth: 1,
+    borderColor: '#F1AEA9',
   },
   overdueText: {
     fontSize: 12,
-    color: '#C62828',
+    color: '#B3261E',
     textAlign: 'center',
   },
   billFooter: {
     marginTop: 12,
     paddingTop: 12,
     borderTopWidth: 1,
-    borderTopColor: '#E0E0E0',
+    borderTopColor: '#D9D9E3',
   },
   viewDetailsText: {
     fontSize: 13,
-    color: '#5773FF',
+    color: '#000000',
     textAlign: 'center',
-    fontWeight: '500',
+    fontWeight: '600',
   },
 });
 
