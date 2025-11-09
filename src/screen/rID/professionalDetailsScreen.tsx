@@ -532,7 +532,7 @@ const ProfessionalDetailsScreen = (props: any) => {
         <View style={ProfileScreenStyles.personalDetailsContainer}>
           <View style={ProfileScreenStyles.inputWrapper}>
             <TouchableOpacity style={ProfileScreenStyles.dobButton} activeOpacity={0.8} onPress={() => { }}>
-              <View style={{ paddingHorizontal: 10 }}>
+              <View style={ProfileScreenStyles.inlinePaddingHorizontal}>
                 <Text style={ProfileScreenStyles.dobText}>Brand Logo</Text>
               </View>
               <View>
@@ -590,11 +590,11 @@ const ProfessionalDetailsScreen = (props: any) => {
           </View>
 
           <View style={ProfileScreenStyles.inputWrapper}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View style={{ borderBottomWidth: 1, borderBottomColor: COLORS.BORDER_GREY, paddingVertical: 14, paddingRight: 10 }}>
-                <Text style={ProfileScreenStyles.dobText}>+91</Text>
+            <View style={ProfileScreenStyles.companyPhoneContainer}>
+              <View style={ProfileScreenStyles.companyPhonePrefix}>
+                <Text style={ProfileScreenStyles.companyPhonePrefixText}>+91</Text>
               </View>
-              <View style={{ flex: 1, marginLeft: 10 }}>
+              <View style={ProfileScreenStyles.companyPhoneInputWrapper}>
                 <TextInputField
                   placeholder='Company Mobile No'
                   value={companyDetails.companyMobileNo}
@@ -615,7 +615,7 @@ const ProfessionalDetailsScreen = (props: any) => {
 
           <View style={ProfileScreenStyles.inputWrapper}>
             <TouchableOpacity style={ProfileScreenStyles.dobButton} activeOpacity={0.8} onPress={() => { }}>
-              <View style={{ paddingHorizontal: 10 }}>
+              <View style={ProfileScreenStyles.inlinePaddingHorizontal}>
                 <Text style={ProfileScreenStyles.dobText}>Visiting Card</Text>
               </View>
               <View>
@@ -638,8 +638,8 @@ const ProfessionalDetailsScreen = (props: any) => {
         {/* Employee Fields - Always show after Company Info */}
         <View style={ProfileScreenStyles.inputWrapper}>
           {departmentsListLoading && !departmentsListData?.data?.result?.departments ? (
-            <View style={{ padding: 15, alignItems: 'center' }}>
-              <Text style={{ color: COLORS.GREY_TEXT }}>Loading departments...</Text>
+            <View style={ProfileScreenStyles.dropdownLoadingContainer}>
+              <Text style={ProfileScreenStyles.dropdownLoadingText}>Loading departments...</Text>
             </View>
           ) : (
             <Dropdowns
@@ -654,8 +654,8 @@ const ProfessionalDetailsScreen = (props: any) => {
 
         <View style={ProfileScreenStyles.inputWrapper}>
           {branchesListLoading && !branchesListData?.data?.result?.branches ? (
-            <View style={{ padding: 15, alignItems: 'center' }}>
-              <Text style={{ color: COLORS.GREY_TEXT }}>Loading branches...</Text>
+            <View style={ProfileScreenStyles.dropdownLoadingContainer}>
+              <Text style={ProfileScreenStyles.dropdownLoadingText}>Loading branches...</Text>
             </View>
           ) : (
             <Dropdowns
@@ -674,8 +674,8 @@ const ProfessionalDetailsScreen = (props: any) => {
 
         <View style={ProfileScreenStyles.inputWrapper}>
           {shiftManagementsListLoading && !shiftManagementsListData?.data?.result?.shiftManagements ? (
-            <View style={{ padding: 15, alignItems: 'center' }}>
-              <Text style={{ color: COLORS.GREY_TEXT }}>Loading shifts...</Text>
+            <View style={ProfileScreenStyles.dropdownLoadingContainer}>
+              <Text style={ProfileScreenStyles.dropdownLoadingText}>Loading shifts...</Text>
             </View>
           ) : (
             <Dropdowns
@@ -694,8 +694,8 @@ const ProfessionalDetailsScreen = (props: any) => {
 
         <View style={ProfileScreenStyles.inputWrapper}>
           {designationsListLoading && !designationsListData?.data?.result?.designations ? (
-            <View style={{ padding: 15, alignItems: 'center' }}>
-              <Text style={{ color: COLORS.GREY_TEXT }}>Loading employee types...</Text>
+            <View style={ProfileScreenStyles.dropdownLoadingContainer}>
+              <Text style={ProfileScreenStyles.dropdownLoadingText}>Loading employee types...</Text>
             </View>
           ) : (
             <Dropdowns
@@ -713,7 +713,7 @@ const ProfessionalDetailsScreen = (props: any) => {
         </View>
         <View style={ProfileScreenStyles.dobContainer}>
           <TouchableOpacity style={ProfileScreenStyles.dobButton} activeOpacity={0.8} onPress={() => setOpenJoiningDatePicker(true)}>
-            <View style={{ paddingHorizontal: 10 }}>
+            <View style={ProfileScreenStyles.inlinePaddingHorizontal}>
               <Text style={ProfileScreenStyles.dobText}>{reflectedJoiningDate || 'Joining date'}</Text>
             </View>
             <View>

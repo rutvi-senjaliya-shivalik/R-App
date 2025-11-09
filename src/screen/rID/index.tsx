@@ -1334,7 +1334,7 @@ const ProfileScreen = (props: any) => {
       {/* dob */}
       <View style={ProfileScreenStyles.dobContainer}>
         <TouchableOpacity style={ProfileScreenStyles.dobButton} activeOpacity={0.8} onPress={() => setOpenPicker(true)}>
-          <View style={{ paddingHorizontal: 10 }}>
+          <View style={ProfileScreenStyles.inlinePaddingHorizontal}>
             <Text style={ProfileScreenStyles.dobText}>{reflectedDate || 'Date of Birth'}</Text>
           </View>
           <View>
@@ -1497,7 +1497,7 @@ const ProfileScreen = (props: any) => {
         <View style={ProfileScreenStyles.personalDetailsContainer}>
           <View style={ProfileScreenStyles.inputWrapper}>
             <TouchableOpacity style={ProfileScreenStyles.dobButton} activeOpacity={0.8} onPress={() => { }}>
-              <View style={{ paddingHorizontal: 10 }}>
+              <View style={ProfileScreenStyles.inlinePaddingHorizontal}>
                 <Text style={ProfileScreenStyles.dobText}>Brand Logo</Text>
               </View>
               <View>
@@ -1554,11 +1554,11 @@ const ProfileScreen = (props: any) => {
             />
           </View>
           <View style={ProfileScreenStyles.inputWrapper}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View style={{ borderBottomWidth: 1, borderBottomColor: COLORS.BORDER_GREY, paddingVertical: 14, paddingRight: 10 }}>
-                <Text style={ProfileScreenStyles.dobText}>+91</Text>
+            <View style={ProfileScreenStyles.companyPhoneContainer}>
+              <View style={ProfileScreenStyles.companyPhonePrefix}>
+                <Text style={ProfileScreenStyles.companyPhonePrefixText}>+91</Text>
               </View>
-              <View style={{ flex: 1, marginLeft: 10 }}>
+              <View style={ProfileScreenStyles.companyPhoneInputWrapper}>
                 <TextInputField
                   placeholder='Company Mobile No'
                   value={companyDetails.companyMobileNo}
@@ -1579,7 +1579,7 @@ const ProfileScreen = (props: any) => {
 
           <View style={ProfileScreenStyles.inputWrapper}>
             <TouchableOpacity style={ProfileScreenStyles.dobButton} activeOpacity={0.8} onPress={() => { }}>
-              <View style={{ paddingHorizontal: 10 }}>
+              <View style={ProfileScreenStyles.inlinePaddingHorizontal}>
                 <Text style={ProfileScreenStyles.dobText}>Visiting Card</Text>
               </View>
               <View>
@@ -1603,8 +1603,8 @@ const ProfileScreen = (props: any) => {
         {/* Employee Fields - Always show after Company Info */}
         <View style={ProfileScreenStyles.inputWrapper}>
           {departmentsListLoading && !departmentsListData?.data?.result?.departments ? (
-            <View style={{ padding: 15, alignItems: 'center' }}>
-              <Text style={{ color: COLORS.GREY_TEXT }}>Loading departments...</Text>
+            <View style={ProfileScreenStyles.dropdownLoadingContainer}>
+              <Text style={ProfileScreenStyles.dropdownLoadingText}>Loading departments...</Text>
             </View>
           ) : (
             <Dropdowns
@@ -1619,8 +1619,8 @@ const ProfileScreen = (props: any) => {
 
         <View style={ProfileScreenStyles.inputWrapper}>
           {branchesListLoading && !branchesListData?.data?.result?.branches ? (
-            <View style={{ padding: 15, alignItems: 'center' }}>
-              <Text style={{ color: COLORS.GREY_TEXT }}>Loading branches...</Text>
+            <View style={ProfileScreenStyles.dropdownLoadingContainer}>
+              <Text style={ProfileScreenStyles.dropdownLoadingText}>Loading branches...</Text>
             </View>
           ) : (
             <Dropdowns
@@ -1647,8 +1647,8 @@ const ProfileScreen = (props: any) => {
 
         <View style={ProfileScreenStyles.inputWrapper}>
           {shiftManagementsListLoading && !shiftManagementsListData?.data?.result?.shiftManagements ? (
-            <View style={{ padding: 15, alignItems: 'center' }}>
-              <Text style={{ color: COLORS.GREY_TEXT }}>Loading shifts...</Text>
+            <View style={ProfileScreenStyles.dropdownLoadingContainer}>
+              <Text style={ProfileScreenStyles.dropdownLoadingText}>Loading shifts...</Text>
             </View>
           ) : (
             <Dropdowns
@@ -1667,8 +1667,8 @@ const ProfileScreen = (props: any) => {
 
         <View style={ProfileScreenStyles.inputWrapper}>
           {designationsListLoading && !designationsListData?.data?.result?.designations ? (
-            <View style={{ padding: 15, alignItems: 'center' }}>
-              <Text style={{ color: COLORS.GREY_TEXT }}>Loading employee types...</Text>
+            <View style={ProfileScreenStyles.dropdownLoadingContainer}>
+              <Text style={ProfileScreenStyles.dropdownLoadingText}>Loading employee types...</Text>
             </View>
           ) : (
             <Dropdowns
@@ -1686,7 +1686,7 @@ const ProfileScreen = (props: any) => {
         </View>
         <View style={ProfileScreenStyles.dobContainer}>
           <TouchableOpacity style={ProfileScreenStyles.dobButton} activeOpacity={0.8} onPress={() => setOpenJoiningDatePicker(true)}>
-            <View style={{ paddingHorizontal: 10 }}>
+            <View style={ProfileScreenStyles.inlinePaddingHorizontal}>
               <Text style={ProfileScreenStyles.dobText}>{reflectedJoiningDate || 'Joining date'}</Text>
             </View>
             <View>
@@ -1715,21 +1715,15 @@ const ProfileScreen = (props: any) => {
   const PropertyDetails = () => (
     <View style={[ProfileScreenStyles.personalDetailsContainer,{zIndex:999999}]}>
       {propertyListLoading && (
-        <View style={{ padding: 20, alignItems: 'center' }}>
-          <Text style={{ color: COLORS.GREY_TEXT, fontSize: 16 }}>Loading property data...</Text>
+        <View style={ProfileScreenStyles.loadingContainer}>
+          <Text style={ProfileScreenStyles.loadingText}>Loading property data...</Text>
         </View>
       )}
       <View style={ProfileScreenStyles.inputWrapper}>
-        <View style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          borderBottomWidth: 1,
-          borderBottomColor: COLORS.BORDER_GREY,
-          paddingVertical: 14
-        }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' ,/* zIndex:999999 */}}>
-            <View style={{ flex: 1, position: 'relative',/* zIndex:999999 */ }}>
-              <View style={{ flexDirection: 'row', alignItems: 'center',/* zIndex:999999 */ }}>
+        <View style={ProfileScreenStyles.searchInputContainer}>
+          <View style={ProfileScreenStyles.searchInputWrapper}>
+            <View style={ProfileScreenStyles.searchInputInner}>
+              <View style={ProfileScreenStyles.searchInputRow}>
                 <TextInput
                   style={{
                     flex: 1,
@@ -1759,49 +1753,26 @@ const ProfileScreen = (props: any) => {
                       handlePropertyChange('long', '');
                       setSearchResults([]);
                     }}
-                    style={{
-                      padding: 5,
-                      marginLeft: 10,
-                    }}
+                    style={ProfileScreenStyles.searchClearButton}
                     activeOpacity={0.7}
                   >
-                    <Text style={{ fontSize: 18, color: '#999' }}>✕</Text>
+                    <Text style={ProfileScreenStyles.searchClearText}>✕</Text>
                   </TouchableOpacity>
                 )}
               </View>
               {searchResults.length > 0 && (
-                <View style={{
-                  // position: 'absolute',
-                  top: 10,
-                  left: 0,
-                  right: 0,
-                  bottom: -200, // Extend below to cover content
-                  backgroundColor: '#ffffff',
-                  borderRadius: 8,
-                  zIndex: -999999,
-                  shadowColor: '#000',
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 3.84,
-                  elevation: 5,
-                }}>
+                <View style={ProfileScreenStyles.searchResultsDropdown}>
                   <ScrollView
-                    style={{
-                      maxHeight: 200,
-                    }}
+                    style={ProfileScreenStyles.searchResultsScrollView}
                     keyboardShouldPersistTaps="always"
                   >
                   {searchResults.map((result, index) => (
                     <TouchableOpacity
                       key={index}
-                      style={{
-                        padding: 15,
-                        borderBottomWidth: index < searchResults.length - 1 ? 0.5 : 0,
-                        borderBottomColor: '#e0e0e0',
-                        // backgroundColor: '#4CAF50',
-                        zIndex: 999999,
-                        elevation: 999999
-                      }}
+                      style={[
+                        ProfileScreenStyles.searchResultItem,
+                        index < searchResults.length - 1 && ProfileScreenStyles.searchResultItemBordered
+                      ]}
                       onPress={(e) => {
                         e.stopPropagation();
                         console.log("TOUCH EVENT TRIGGERED", result);
@@ -1810,7 +1781,7 @@ const ProfileScreen = (props: any) => {
                       activeOpacity={0.5}
                       disabled={isSelecting}
                     >
-                      <Text style={{ color: '#000', fontSize: 16 }}>
+                      <Text style={ProfileScreenStyles.searchResultText}>
                         {result.description}
                       </Text>
                     </TouchableOpacity>

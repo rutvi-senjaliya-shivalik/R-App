@@ -1,19 +1,13 @@
-
-import { useSelector } from "react-redux";
-import { POST } from "../../../constants/api";
-import { MakeApiRequest } from "../../../services/apiService";
+import { apiProfileRegistration } from "../../../services/apiServiceWrapper";
 import * as types from "../../actionType";
-import { PROFILE } from "../../../services/httpService";
+import { UPDATE_PROFILE } from "../../../services/httpService"; // Changed from PROFILE to UPDATE_PROFILE
 
 export const profileAction = (payload:any) => {
     return async (dispatch: any) => {
       try {
         dispatch(profileRequest(payload));
-        const response = await MakeApiRequest({
-          apiUrl: PROFILE,
-          apiMethod: POST,
-          apiData: payload,
-        });
+        // Use enhanced API wrapper with mock support
+        const response = await apiProfileRegistration(UPDATE_PROFILE, payload);
         console.log("response.data",response.data);
         dispatch(profileSuccess(response.data));
         return response;

@@ -1,35 +1,32 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FS, FF } from "../../../constants";
+import { COLORS, FS, FF, SPACING, BORDER_RADIUS } from "../../../constants";
 
 const AddProjectLeadStyles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLORS.WHITE,
-        paddingHorizontal: 20,
-        paddingTop: 24,
+        paddingHorizontal: SPACING.XL,
+        paddingTop: SPACING.XXL,
     },
 
     // Tab Styles
     tabContainer: {
         flexDirection: 'row',
-        marginBottom: 32,
-        backgroundColor: COLORS.BG_GREY,
-        borderRadius: 8,
-        padding: 4,
+        marginBottom: SPACING.XXXL,
+        backgroundColor: COLORS.WHITE,
+        borderRadius: BORDER_RADIUS.SM,
+        padding: SPACING.XS,
+        borderWidth: 1,
+        borderColor: COLORS.BORDER_GREY,
     },
     tab: {
         flex: 1,
-        paddingVertical: 12,
+        paddingVertical: SPACING.MD,
         alignItems: 'center',
-        borderRadius: 6,
+        borderRadius: BORDER_RADIUS.SM,
     },
     activeTab: {
-        backgroundColor: COLORS.WHITE,
-        shadowColor: COLORS.BLACK,
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
-        elevation: 2,
+        backgroundColor: COLORS.BLACK,
     },
     tabText: {
         fontSize: FS.FS14,
@@ -37,24 +34,24 @@ const AddProjectLeadStyles = StyleSheet.create({
         color: COLORS.GREY_TEXT,
     },
     activeTabText: {
-        color: COLORS.BLACK_TEXT,
+        color: COLORS.WHITE,
         fontFamily: FF[600],
     },
 
     // Form Styles
     inputContainer: {
-        marginBottom: 24,
+        marginBottom: SPACING.XXL,
     },
 
     // Radio Button Styles
     radioContainer: {
-        marginBottom: 24,
+        marginBottom: SPACING.XXL,
     },
     radioLabel: {
         fontSize: FS.FS16,
         fontFamily: FF[400],
         color: COLORS.GREY_TEXT,
-        marginBottom: 16,
+        marginBottom: SPACING.LG,
     },
     radioGroup: {
         flexDirection: 'row',
@@ -63,22 +60,22 @@ const AddProjectLeadStyles = StyleSheet.create({
     radioOption: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginRight: 32,
+        marginRight: SPACING.XXXL,
     },
     radioButton: {
         width: 20,
         height: 20,
-        borderRadius: 10,
+        borderRadius: BORDER_RADIUS.ROUND,
         borderWidth: 2,
         borderColor: COLORS.BORDER_GREY,
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight: 8,
+        marginRight: SPACING.SM,
     },
     radioButtonInner: {
         width: 10,
         height: 10,
-        borderRadius: 5,
+        borderRadius: BORDER_RADIUS.ROUND,
         backgroundColor: COLORS.BLACK_TEXT,
     },
     radioText: {
@@ -89,33 +86,27 @@ const AddProjectLeadStyles = StyleSheet.create({
 
     // Button Styles
     buttonContainer: {
-        // paddingVertical: 20,
-        // paddingHorizontal: 20,
-        // marginHorizontal: -20,
-        // backgroundColor: COLORS.WHITE,
-        // borderTopWidth: 1,
-        // borderTopColor: COLORS.BORDER_GREY,
         position: 'absolute',
         bottom: 0,
         left: 0,
         right: 0,
-        paddingHorizontal: 20,
-        paddingBottom: 20,
+        paddingHorizontal: SPACING.XL,
+        paddingBottom: SPACING.XL,
         backgroundColor: COLORS.WHITE,
         alignItems: 'center',
     },
     step2ButtonContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 16,
+        marginBottom: SPACING.LG,
     },
     backButton: {
-        paddingVertical: 12,
-        paddingHorizontal: 24,
+        paddingVertical: SPACING.MD,
+        paddingHorizontal: SPACING.XXL,
         borderWidth: 1,
         borderColor: COLORS.BORDER_GREY,
-        borderRadius: 8,
-        marginRight: 12,
+        borderRadius: BORDER_RADIUS.SM,
+        marginRight: SPACING.MD,
     },
     backButtonText: {
         fontSize: FS.FS16,
@@ -130,8 +121,8 @@ const AddProjectLeadStyles = StyleSheet.create({
         fontFamily: FF[400],
         color: COLORS.GREY_TEXT,
         textAlign: 'center',
-        lineHeight: 16,
-        marginTop: 16,
+        lineHeight: SPACING.LG,
+        marginTop: SPACING.LG,
     },
 
     // Error Text Styles
@@ -139,8 +130,8 @@ const AddProjectLeadStyles = StyleSheet.create({
         fontSize: FS.FS12,
         fontFamily: FF[400],
         color: COLORS.ERROR_COLOR,
-        marginTop: 4,
-        marginLeft: 4,
+        marginTop: SPACING.XS,
+        marginLeft: SPACING.XS,
     },
 });
 

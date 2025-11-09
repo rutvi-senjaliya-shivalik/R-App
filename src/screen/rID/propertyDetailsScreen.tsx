@@ -261,21 +261,15 @@ const PropertyDetailsScreen = (props: any) => {
   const PropertyDetails = () => (
     <View style={[ProfileScreenStyles.personalDetailsContainer,{zIndex:999999}]}>
       {propertyListLoading && (
-        <View style={{ padding: 20, alignItems: 'center' }}>
-          <Text style={{ color: COLORS.GREY_TEXT, fontSize: 16 }}>Loading property data...</Text>
+        <View style={ProfileScreenStyles.loadingContainer}>
+          <Text style={ProfileScreenStyles.loadingText}>Loading property data...</Text>
         </View>
       )}
       <View style={ProfileScreenStyles.inputWrapper}>
-        <View style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          borderBottomWidth: 1,
-          borderBottomColor: COLORS.BORDER_GREY,
-          paddingVertical: 14
-        }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <View style={{ flex: 1, position: 'relative' }}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View style={ProfileScreenStyles.searchInputContainer}>
+          <View style={ProfileScreenStyles.searchInputWrapper}>
+            <View style={ProfileScreenStyles.searchInputInner}>
+              <View style={ProfileScreenStyles.searchInputRow}>
                 <TextInput
                   ref={searchInputRef}
                   style={{
@@ -313,47 +307,29 @@ const PropertyDetailsScreen = (props: any) => {
                       handlePropertyChange('long', '');
                       setSearchResults([]);
                     }}
-                    style={{
-                      padding: 5,
-                      marginLeft: 10,
-                    }}
+                    style={ProfileScreenStyles.searchClearButton}
                     activeOpacity={0.7}
                   >
-                    <Text style={{ fontSize: 18, color: '#999' }}>✕</Text>
+                    <Text style={ProfileScreenStyles.searchClearText}>✕</Text>
                   </TouchableOpacity>
                 )}
               </View>
               {searchResults.length > 0 && (
                 <View
-                  style={{
-                    marginTop: 10,
-                    backgroundColor: '#ffffff',
-                    borderRadius: 8,
-                    zIndex: 1000,
-                    shadowColor: '#000',
-                    shadowOffset: { width: 0, height: 2 },
-                    shadowOpacity: 0.25,
-                    shadowRadius: 3.84,
-                    elevation: 8,
-                  }}
+                  style={ProfileScreenStyles.searchResultsDropdown}
                   onStartShouldSetResponder={() => true}
                 >
                   <ScrollView
-                    style={{
-                      maxHeight: 200,
-                    }}
+                    style={ProfileScreenStyles.searchResultsScrollView}
                     keyboardShouldPersistTaps="always"
                   >
                   {searchResults.map((result, index) => (
                     <TouchableOpacity
                       key={index}
-                      style={{
-                        padding: 15,
-                        borderBottomWidth: index < searchResults.length - 1 ? 0.5 : 0,
-                        borderBottomColor: '#e0e0e0',
-                        zIndex: 999999,
-                        elevation: 999999
-                      }}
+                      style={[
+                        ProfileScreenStyles.searchResultItem,
+                        index < searchResults.length - 1 && ProfileScreenStyles.searchResultItemBordered
+                      ]}
                       onPress={() => {
                         console.log("TOUCH EVENT TRIGGERED", result);
                         handlePlaceSelect(result);
@@ -361,7 +337,7 @@ const PropertyDetailsScreen = (props: any) => {
                       activeOpacity={0.5}
                       disabled={isSelecting}
                     >
-                      <Text style={{ color: '#000', fontSize: 16 }}>
+                      <Text style={ProfileScreenStyles.searchResultText}>
                         {result.description}
                       </Text>
                     </TouchableOpacity>

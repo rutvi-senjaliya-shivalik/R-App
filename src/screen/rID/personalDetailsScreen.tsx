@@ -655,7 +655,7 @@ const PersonalDetailsScreen = (props: any) => {
       {/* dob */}
       <View style={ProfileScreenStyles.dobContainer}>
         <TouchableOpacity style={ProfileScreenStyles.dobButton} activeOpacity={0.8} onPress={() => setOpenPicker(true)}>
-          <View style={{ paddingHorizontal: 10 }}>
+          <View style={ProfileScreenStyles.inlinePaddingHorizontal}>
             <Text style={ProfileScreenStyles.dobText}>{reflectedDate || 'Date of Birth'}</Text>
           </View>
           <View>

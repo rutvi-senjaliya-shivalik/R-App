@@ -1,93 +1,202 @@
-import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Dimensions, RefreshControl, ActivityIndicator, Image, Alert } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { Container } from '../../components/common';
-import { COLORS, FF, FS, IMAGES } from '../../constants';
+import { COLORS, FF, FS, SPACING, BORDER_RADIUS } from '../../constants';
+import { RootState } from '../../store/reducers';
+import { fetchNotices } from '../../store/actions/notices/noticesAction';
+import { selectUserDetailData } from '../../store/selectors/auth';
 
-const Community = (props: any) => {
+interface CommunityProps {
+  navigation: {
+    navigate: (screen: string, params?: any) => void;
+  };
+}
 
-  const fallbackData = [
-    {
-      id: '1',
-      title: 'Wire',
-      subtitle: 'Women in Real Estate',
-      description: "WIRE is not just an event, it's a thriving community where women empower women in real estate.",
-      hasReadMore: false,
-    },
-    {
-      id: '2',
-      title: 'CP',
-      subtitle: 'Channel Partner',
-      description: "Join Shivalik as a Channel Partner and grow with one of Gujarat's most trusted real estate brands.",
-      hasReadMore: false,
-    },
-    {
-      id: '3',
-      title: 'Shine',
-      subtitle: 'Shivalik hub of innovation networking and empowerment',
-      description: "SHINE is Shivalik's community space for young minds to connect, create, and grow.",
-      hasReadMore: false,
-    },
-    {
-      id: '4',
-      title: 'Staff',
-      subtitle: 'Team Directory',
-      description: 'Connect with our dedicated team members and find the right person to help with your needs.',
-      hasReadMore: false,
-    },
-  ];
+const Community: React.FC<CommunityProps> = ({ navigation }) => {
+  const dispatch = useDispatch();
 
-  const handleItemPress = (item: any) => {
-    switch (item.title) {
-      case 'Wire':
-      case 'CP':
-      case 'Shine':
-      case 'Staff':
-        Alert.alert('Coming Soon', 'This feature is under development. We will introduce it soon.');
-        break;
-      default:
-        console.log('Community item pressed:', item.title);
+  // Get user data from Redux
+  const { userData } = useSelector((state: any) => state.otp);
+  const userDetailData = useSelector(selectUserDetailData);
+  const user = userDetailData?.data?.result;
+  
+  // Get unitId and buildingId
+  const unitId = userData?.member?.unitId ||
+                 user?.unitId ||
+                 user?.unit?._id;
+  
+  const buildingId = userData?.member?.buildingId ||
+                     user?.buildingId ||
+                     user?.building?._id;
+
+  // Get notices from Redux store
+  const { loading, notices, error } = useSelector((state: RootState) => state.notices);
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  useEffect(() => {
+    if (unitId) {
+      console.log('📢 Fetching notices for unitId:', unitId);
+      dispatch(fetchNotices(unitId) as never);
+    } else if (buildingId) {
+      console.log('📢 Fetching notices for buildingId:', buildingId);
+      dispatch(fetchNotices(undefined, buildingId) as never);
+    } else {
+      console.warn('⚠️ No unitId or buildingId found - cannot fetch notices');
+    }
+  }, [dispatch, unitId, buildingId]);
+
+  const onRefresh = () => {
+    if (unitId) {
+      setRefreshing(true);
+      dispatch(fetchNotices(unitId) as never);
+      setTimeout(() => setRefreshing(false), 1000);
+    } else if (buildingId) {
+      setRefreshing(true);
+      dispatch(fetchNotices(undefined, buildingId) as never);
+      setTimeout(() => setRefreshing(false), 1000);
     }
   };
 
-  const renderCommunityItem = ({ item }: any) => {
+  const getPriorityColor = (priority: string) => {
+    switch (priority?.toLowerCase()) {
+      case 'urgent':
+      case 'high':
+        return '#F44336';
+      case 'important':
+      case 'medium':
+        return '#FF9800';
+      case 'normal':
+      case 'low':
+      default:
+        return '#4CAF50';
+    }
+  };
+
+  const getPriorityIcon = (priority: string) => {
+    switch (priority?.toLowerCase()) {
+      case 'urgent':
+      case 'high':
+        return '🔴';
+      case 'important':
+      case 'medium':
+        return '🟡';
+      case 'normal':
+      case 'low':
+      default:
+        return '🟢';
+    }
+  };
+
+  const handleItemPress = (item: any) => {
+    navigation.navigate('NoticeDetails', { noticeId: item._id });
+  };
+
+  const renderNoticeItem = ({ item }: { item: any }) => {
+    const formattedDate = item.publishDate 
+      ? new Date(item.publishDate).toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric'
+        })
+      : 'N/A';
+
+    const expiryDate = item.expiryDate
+      ? new Date(item.expiryDate).toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric'
+        })
+      : 'No expiry';
+
     return (
       <TouchableOpacity
         style={styles.communityCard}
         onPress={() => handleItemPress(item)}
       >
         <View style={styles.cardContent}>
-          <Text style={styles.cardTitle}>{item.title}</Text>
-          <Text style={styles.cardSubtitle}>{item.subtitle}</Text>
-          <Text style={styles.cardDescription}>
+          <View style={styles.titleRow}>
+            <Text style={styles.priorityIcon}>{getPriorityIcon(item.priority)}</Text>
+            <Text style={[styles.cardTitle, styles.titleFlex]}>{item.title}</Text>
+          </View>
+          <View style={[styles.categoryBadge, { backgroundColor: getPriorityColor(item.priority) }]}>
+            <Text style={styles.categoryText}>
+              {item.category?.toUpperCase() || 'GENERAL'}
+            </Text>
+          </View>
+          <Text style={styles.cardDescription} numberOfLines={3}>
             {item.description}
-            {item.hasReadMore && (
-              <Text style={styles.readMoreText}> Read More</Text>
-            )}
           </Text>
-          <TouchableOpacity 
-            style={{alignSelf:'flex-end',backgroundColor:COLORS.WHITE,padding:10,borderRadius:25}} 
-            onPress={() => handleItemPress(item)}
-          >
-            <Image source={IMAGES.ARROW} style={{height:20,width:20}} />
-          </TouchableOpacity>
+          <View style={styles.dateRow}>
+            <Text style={styles.dateText}>
+              📅 {expiryDate !== 'No expiry' ? `Valid until: ${expiryDate}` : `Published: ${formattedDate}`}
+            </Text>
+          </View>
         </View>
       </TouchableOpacity>
     );
   };
 
+  // Loading state
+  if (loading && !refreshing) {
+    return (
+      <Container style={styles.container}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerTitle}>Notices & Announcements</Text>
+        </View>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color={COLORS.BLUE_TEXT} />
+          <Text style={styles.loadingText}>Loading notices...</Text>
+        </View>
+      </Container>
+    );
+  }
+
+  // Error state
+  if (error && !loading) {
+    return (
+      <Container style={styles.container}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerTitle}>Notices & Announcements</Text>
+        </View>
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>{error}</Text>
+          <TouchableOpacity style={styles.retryButton} onPress={onRefresh}>
+            <Text style={styles.retryButtonText}>Retry</Text>
+          </TouchableOpacity>
+        </View>
+      </Container>
+    );
+  }
+
+  // Empty state
+  if (!loading && (!notices || notices.length === 0)) {
+    return (
+      <Container style={styles.container}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerTitle}>Notices & Announcements</Text>
+        </View>
+        <View style={styles.errorContainer}>
+          <Text style={styles.loadingText}>No notices available</Text>
+        </View>
+      </Container>
+    );
+  }
+
   return (
     <Container style={styles.container}>
-
-    <View style={styles.headerContainer}>
-        <Text style={styles.headerTitle}>Community</Text>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerTitle}>Notices & Announcements</Text>
       </View>
 
       <FlatList
-        data={fallbackData}
-        renderItem={renderCommunityItem}
-        keyExtractor={(item) => item.id}
+        data={notices}
+        renderItem={renderNoticeItem}
+        keyExtractor={(item) => item._id}
         contentContainerStyle={styles.listContainer}
         showsVerticalScrollIndicator={false}
+        refreshing={refreshing}
+        onRefresh={onRefresh}
       />
     </Container>
   );
@@ -99,32 +208,25 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.WHITE,
   },
   headerContainer: {
-    paddingHorizontal: 20,
-    paddingVertical: 16,
+    paddingHorizontal: SPACING.XL,
+    paddingVertical: SPACING.LG,
   },
   headerTitle: {
     fontSize: FS.FS24,
     fontFamily: FF[600],
     color: COLORS.BLACK,
-    fontWeight: 'bold',
   },
   listContainer: {
-    paddingHorizontal: 20,
-    paddingBottom: 20,
+    paddingHorizontal: SPACING.XL,
+    paddingBottom: SPACING.XL,
   },
   communityCard: {
-    backgroundColor: COLORS.LIGHT_GRAY,
-    borderRadius: 8,
-    marginVertical: 8,
-    padding: 16,
-    elevation: 1,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.MD,
+    marginVertical: SPACING.SM,
+    padding: SPACING.LG,
+    borderWidth: 1,
+    borderColor: COLORS.BORDER_GREY,
   },
   cardContent: {
     flex: 1,
@@ -133,14 +235,13 @@ const styles = StyleSheet.create({
     fontSize: FS.FS18,
     fontFamily: FF[600],
     color: COLORS.BLACK,
-    marginBottom: 4,
-    fontWeight: 'bold',
+    marginBottom: SPACING.XS,
   },
   cardSubtitle: {
     fontSize: FS.FS14,
     fontFamily: FF[400],
     color: COLORS.GREY_TEXT,
-    marginBottom: 8,
+    marginBottom: SPACING.SM,
   },
   cardDescription: {
     fontSize: FS.FS14,
@@ -150,21 +251,54 @@ const styles = StyleSheet.create({
   },
   readMoreText: {
     color: COLORS.BLACK,
-    fontWeight: 'bold',
+    fontFamily: FF[600],
+  },
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: SPACING.XS,
+  },
+  priorityIcon: {
+    fontSize: 16,
+    marginRight: 6,
+  },
+  titleFlex: {
+    flex: 1,
+  },
+  categoryBadge: {
+    paddingHorizontal: SPACING.SM,
+    paddingVertical: SPACING.XS,
+    borderRadius: BORDER_RADIUS.SM,
+    alignSelf: 'flex-start',
+    marginBottom: SPACING.SM,
+  },
+  categoryText: {
+    color: COLORS.WHITE,
+    fontSize: 11,
+    fontFamily: FF[600],
+  },
+  dateRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: SPACING.MD,
+  },
+  dateText: {
+    fontSize: 12,
+    color: COLORS.GREY_TEXT,
   },
   loadingContainer: {
-    padding: 20,
+    padding: SPACING.XL,
     alignItems: 'center',
     justifyContent: 'center',
   },
   loadingText: {
-    marginTop: 10,
+    marginTop: SPACING.MD,
     fontSize: FS.FS14,
     fontFamily: FF[400],
     color: COLORS.GREY_TEXT,
   },
   errorContainer: {
-    padding: 20,
+    padding: SPACING.XL,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -173,13 +307,13 @@ const styles = StyleSheet.create({
     fontFamily: FF[400],
     color: COLORS.ERROR_COLOR,
     textAlign: 'center',
-    marginBottom: 16,
+    marginBottom: SPACING.LG,
   },
   retryButton: {
-    backgroundColor: COLORS.BLUE_TEXT,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
+    backgroundColor: COLORS.BLACK,
+    paddingVertical: SPACING.MD,
+    paddingHorizontal: SPACING.XL,
+    borderRadius: BORDER_RADIUS.SM,
   },
   retryButtonText: {
     color: COLORS.WHITE,

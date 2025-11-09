@@ -4,7 +4,7 @@ import { DeskStyles } from './styles';
 import { Container, HeaderComponent, SearchInput } from '../../components/common';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { COLORS, IMAGES } from '../../constants';
+import { COLORS, IMAGES, FF, FS, SPACING, BORDER_RADIUS } from '../../constants';
 import { Menu, MenuOption, MenuOptions, MenuTrigger } from 'react-native-popup-menu';
 import AddLeadModal from '../../components/individual/addLeadModal';
 let user = null;
@@ -632,7 +632,7 @@ const Desk = (props: any) => {
               loadModuleData(1, false, searchTerm, selectedLeadType, selectedModule);
             }}
           >
-            <Text style={{ color: COLORS.WHITE, fontSize: 14 }}>Try Again</Text>
+            <Text style={{ color: COLORS.WHITE, fontSize: FS.FS14, fontFamily: FF[500] }}>Try Again</Text>
           </TouchableOpacity>
         </View>
       );

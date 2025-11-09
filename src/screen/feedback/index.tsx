@@ -20,6 +20,7 @@ import Dropdowns from '../../components/common/dropDown';
 import ImagePicker from 'react-native-image-crop-picker';
 import { getImageNameFromUri } from '../../utils/helper';
 import { height, width } from '../../utils/responsiveStyle';
+import { COLORS, SPACING } from '../../constants';
 
 const Feedback = (props: any) => {
   const [message, setMessage] = useState('');
@@ -279,19 +280,19 @@ const Feedback = (props: any) => {
                 placeholderTextColor="#999"
                 textAlignVertical="top"
               /> */}
-              <View style={{marginTop:16}}>
+              <View style={{ marginTop: SPACING.LG }}>
                 <Dropdowns
                   data={feedbackModuleList}
                   value={title}
                   placeholder="Title *"
                   onChange={(value: string) => setTitle(value)}
-                  dropdownStyle={{borderWidth:1}}
+                  dropdownStyle={{ borderWidth: 1 }}
                   flatListProps={{
                     onEndReached: loadMoreModules,
                     onEndReachedThreshold: 0.5,
                     ListFooterComponent: isLoadingMore ? (
-                      <View style={{ padding: 10, alignItems: 'center' }}>
-                        <ActivityIndicator size="small" color="#999" />
+                      <View style={{ padding: SPACING.SM, alignItems: 'center' }}>
+                        <ActivityIndicator size="small" color={COLORS.BLACK} />
                       </View>
                     ) : null,
                   }}
@@ -309,7 +310,7 @@ const Feedback = (props: any) => {
               />
 
               {/* Upload Image Section */}
-              <View style={{ marginTop: 16 }}>
+              <View style={{ marginTop: SPACING.LG }}>
                 <Text style={feedbackStyle.inputLabel}>Upload Image (Optional)</Text>
 
                 {!selectedImage ? (

@@ -16,7 +16,7 @@ import { inviteContactListAction } from '../../store/actions/contacts/inviteCont
 import { myContactListAction } from '../../store/actions/contacts/myContactListAction';
 import { Initials } from '../../utils/method';
 import { addContactAction } from '../../store/actions/contacts/addContactAction';
-import { COLORS, FF, FS, LH } from '../../constants';
+import { COLORS, FF, FS, LH, SPACING, BORDER_RADIUS } from '../../constants';
 
 let permissionGranted: any;
 
@@ -257,23 +257,23 @@ const Contact = (props: any) => {
           <SearchInput value={search} onChangeText={setSearch} placeholder="Search" />
         </View>
         {/* userCard */}
-        <View style={{ paddingVertical: 12,flexDirection:'row',alignItems:'center',borderBottomWidth:0.3,borderBottomColor:COLORS.BORDER_GREY,paddingBottom:20 }}>
-          <View style={{ width: 70, height: 70, borderWidth: 0.3, borderRadius: 100, justifyContent: 'center', alignItems: 'center', borderColor: COLORS.BORDER_GREY }}>
+        <View style={{ paddingVertical: SPACING.MD, flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: COLORS.BORDER_GREY, paddingBottom: SPACING.XL }}>
+          <View style={{ width: 70, height: 70, borderWidth: 1, borderRadius: BORDER_RADIUS.ROUND, justifyContent: 'center', alignItems: 'center', borderColor: COLORS.BORDER_GREY }}>
             <Text style={{ fontSize: FS.FS24, color: COLORS.BLACK_TEXT, fontFamily: FF[600] }}>{Initials(staticFirstName + " " + staticLastName)}</Text>
           </View>
-          <View style={{ marginLeft: 12,flex:1 }}>
+          <View style={{ marginLeft: SPACING.MD, flex: 1 }}>
             <Text style={{ fontSize: FS.FS18, color: COLORS.BLACK_TEXT, fontFamily: FF[600] }}>{staticDisplayName}</Text>
-            <Text style={{ fontSize: FS.FS14, color: COLORS.BLACK, fontFamily: FF[400] ,marginTop:8}}>{staticCountryCode + " " + staticPhoneNumber}</Text>
+            <Text style={{ fontSize: FS.FS14, color: COLORS.BLACK, fontFamily: FF[400], marginTop: SPACING.SM }}>{staticCountryCode + " " + staticPhoneNumber}</Text>
           </View>
         </View>
 
-       <View style={{flex: 1}}>
+       <View style={{ flex: 1 }}>
 
-       {loading?<View style={{flex:1,justifyContent:'center',alignItems:'center',marginTop:100}}><ActivityIndicator size="small" color={COLORS.BLUE_TEXT} /></View> : <FlatList
+       {loading ? <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 100 }}><ActivityIndicator size="small" color={COLORS.BLACK} /></View> : <FlatList
           data={myContactList}
           keyExtractor={(item: any, index: number) => item._id || index.toString()}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{paddingBottom: 200}}
+          contentContainerStyle={{ paddingBottom: 200 }}
           nestedScrollEnabled={true}
           onEndReached={() => {
             if (hasMore && !isLoadingMore && !loading) {
@@ -283,14 +283,14 @@ const Contact = (props: any) => {
           onEndReachedThreshold={0.5}
           ListFooterComponent={() => (
             isLoadingMore ? (
-              <View style={{paddingVertical: 20, alignItems: 'center'}}>
-                <ActivityIndicator size="small" color={COLORS.BLUE_TEXT} />
+              <View style={{ paddingVertical: SPACING.XL, alignItems: 'center' }}>
+                <ActivityIndicator size="small" color={COLORS.BLACK} />
               </View>
             ) : null
           )}
           ListEmptyComponent={() => (
             !loading ? (
-              <View style={{marginTop:24, alignItems: 'center', padding: 20}}>
+              <View style={{ marginTop: SPACING.XXL, alignItems: 'center', padding: SPACING.XL }}>
                 <Text style={{ fontSize: FS.FS16, color: COLORS.GREY_TEXT, fontFamily: FF[400], textAlign: 'center' }}>
                   No contacts found. Pull down to refresh or check your connection.
                 </Text>
@@ -298,14 +298,14 @@ const Contact = (props: any) => {
             ) : null
           )}
           renderItem={({ item }: any) => (
-            <View style={{flexDirection:'row',alignItems:'center'}}>
-              <View style={{height:42,width:42,borderWidth:0.3,borderRadius:100,justifyContent:'center',alignItems:'center',borderColor:COLORS.BORDER_GREY}}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ height: 42, width: 42, borderWidth: 1, borderRadius: BORDER_RADIUS.ROUND, justifyContent: 'center', alignItems: 'center', borderColor: COLORS.BORDER_GREY }}>
                 <Text style={{ fontSize: FS.FS16, color: COLORS.BLACK_TEXT, fontFamily: FF[600] }}>
                   {Initials(item?.firstName + " " + item?.lastName)}
                 </Text>
               </View>
-              <View style={{flex:1,marginLeft:12,borderBottomWidth:0.3,borderBottomColor:COLORS.BORDER_GREY,flexDirection:'row',alignItems:'center',justifyContent:'space-between',paddingVertical:16}}>
-                <Text style={{ fontSize: FS.FS16, color: COLORS.BLACK_TEXT, fontFamily: FF[500]}}>
+              <View style={{ flex: 1, marginLeft: SPACING.MD, borderBottomWidth: 1, borderBottomColor: COLORS.BORDER_GREY, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: SPACING.LG }}>
+                <Text style={{ fontSize: FS.FS16, color: COLORS.BLACK_TEXT, fontFamily: FF[500] }}>
                   {item?.firstName + " " + item?.lastName}
                 </Text>
               </View>
