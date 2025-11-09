@@ -1995,41 +1995,6 @@
     "@sentry-internal/replay-canvas" "8.55.0"
     "@sentry/core" "8.55.0"
 
-"@sentry/cli-darwin@2.53.0":
-  version "2.53.0"
-  resolved "https://registry.npmjs.org/@sentry/cli-darwin/-/cli-darwin-2.53.0.tgz"
-  integrity sha512-NNPfpILMwKgpHiyJubHHuauMKltkrgLQ5tvMdxNpxY60jBNdo5VJtpESp4XmXlnidzV4j1z61V4ozU6ttDgt5Q==
-
-"@sentry/cli-linux-arm@2.53.0":
-  version "2.53.0"
-  resolved "https://registry.npmjs.org/@sentry/cli-linux-arm/-/cli-linux-arm-2.53.0.tgz"
-  integrity sha512-NdRzQ15Ht83qG0/Lyu11ciy/Hu/oXbbtJUgwzACc7bWvHQA8xEwTsehWexqn1529Kfc5EjuZ0Wmj3MHmp+jOWw==
-
-"@sentry/cli-linux-arm64@2.53.0":
-  version "2.53.0"
-  resolved "https://registry.npmjs.org/@sentry/cli-linux-arm64/-/cli-linux-arm64-2.53.0.tgz"
-  integrity sha512-xY/CZ1dVazsSCvTXzKpAgXaRqfljVfdrFaYZRUaRPf1ZJRGa3dcrivoOhSIeG/p5NdYtMvslMPY9Gm2MT0M83A==
-
-"@sentry/cli-linux-i686@2.53.0":
-  version "2.53.0"
-  resolved "https://registry.npmjs.org/@sentry/cli-linux-i686/-/cli-linux-i686-2.53.0.tgz"
-  integrity sha512-0REmBibGAB4jtqt9S6JEsFF4QybzcXHPcHtJjgMi5T0ueh952uG9wLzjSxQErCsxTKF+fL8oG0Oz5yKBuCwCCQ==
-
-"@sentry/cli-linux-x64@2.53.0":
-  version "2.53.0"
-  resolved "https://registry.npmjs.org/@sentry/cli-linux-x64/-/cli-linux-x64-2.53.0.tgz"
-  integrity sha512-9UGJL+Vy5N/YL1EWPZ/dyXLkShlNaDNrzxx4G7mTS9ywjg+BIuemo6rnN7w43K1NOjObTVO6zY0FwumJ1pCyLg==
-
-"@sentry/cli-win32-arm64@2.53.0":
-  version "2.53.0"
-  resolved "https://registry.npmjs.org/@sentry/cli-win32-arm64/-/cli-win32-arm64-2.53.0.tgz"
-  integrity sha512-G1kjOjrjMBY20rQcJV2GA8KQE74ufmROCDb2GXYRfjvb1fKAsm4Oh8N5+Tqi7xEHdjQoLPkE4CNW0aH68JSUDQ==
-
-"@sentry/cli-win32-i686@2.53.0":
-  version "2.53.0"
-  resolved "https://registry.npmjs.org/@sentry/cli-win32-i686/-/cli-win32-i686-2.53.0.tgz"
-  integrity sha512-qbGTZUzesuUaPtY9rPXdNfwLqOZKXrJRC1zUFn52hdo6B+Dmv0m/AHwRVFHZP53Tg1NCa8bDei2K/uzRN0dUZw==
-
 "@sentry/cli-win32-x64@2.53.0":
   version "2.53.0"
   resolved "https://registry.npmjs.org/@sentry/cli-win32-x64/-/cli-win32-x64-2.53.0.tgz"
@@ -4115,11 +4080,6 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
-
-fsevents@^2.3.2:
-  version "2.3.3"
-  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
-  integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
 
 function-bind@^1.1.2:
   version "1.1.2"
@@ -6384,6 +6344,13 @@ react-native-device-info@^10.14.0:
   resolved "https://registry.npmjs.org/react-native-device-info/-/react-native-device-info-10.14.0.tgz"
   integrity sha512-9NnTGfhEU4UgQtz4p6COk2Gbqly0dpSWrJtp+dw5rNAi96KtYbaNnO5yoOHDlJ1SVIzh8+hFu3WxVbnWkFU9gA==
 
+react-native-document-picker@^9.3.1:
+  version "9.3.1"
+  resolved "https://registry.npmjs.org/react-native-document-picker/-/react-native-document-picker-9.3.1.tgz"
+  integrity sha512-Vcofv9wfB0j67zawFjfq9WQPMMzXxOZL9kBmvWDpjVuEcVK73ndRmlXHlkeFl5ZHVsv4Zb6oZYhqm9u5omJOPA==
+  dependencies:
+    invariant "^2.2.4"
+
 react-native-element-dropdown@^2.12.4:
   version "2.12.4"
   resolved "https://registry.npmjs.org/react-native-element-dropdown/-/react-native-element-dropdown-2.12.4.tgz"
@@ -6444,6 +6411,11 @@ react-native-image-crop-picker@^0.50.1:
   version "0.50.1"
   resolved "https://registry.npmjs.org/react-native-image-crop-picker/-/react-native-image-crop-picker-0.50.1.tgz"
   integrity sha512-2xtyKLU08AFqjRb1hUsSanO2OK9aCtfjggKzVhq/GDSfOI+WRGhoElcMuKeQEi3ey6mivz7UNFOOvNCqGjzKBA==
+
+react-native-image-picker@^8.2.1:
+  version "8.2.1"
+  resolved "https://registry.npmjs.org/react-native-image-picker/-/react-native-image-picker-8.2.1.tgz"
+  integrity sha512-FBeGYJGFDjMdGCcyubDJgBAPCQ4L1D3hwLXyUU91jY9ahOZMTbluceVvRmrEKqnDPFJ0gF1NVhJ0nr1nROFLdg==
 
 react-native-iphone-x-helper@^1.0.3:
   version "1.3.1"

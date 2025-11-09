@@ -21,23 +21,42 @@ const Loginstyles = StyleSheet.create({
     },
     header:{
         alignItems:'center',
-        marginTop: 44,
-        marginBottom: 24,
+        marginTop: 60,
+        marginBottom: 40,
     },
     logo:{
         width: 50,
         height: 50
     },
+    logoLarge: {
+        width: 200,
+        height: 80,
+    },
+    footer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 'auto',
+        marginBottom: 40,
+    },
     titleContainer:{
-        marginBottom: 24,
+        marginTop: 80,
+        marginBottom: 32,
     },
     // Title styles
     title: {
-        fontSize: FS.FS22,
-        fontFamily: FF[500],
+        fontSize: FS.FS24,
+        fontFamily: FF[600],
         color: COLORS.BLACK,
         textAlign: 'center',
-        lineHeight: LH.LH28,
+        lineHeight: LH.LH32,
+        marginBottom: 8,
+    },
+    subtitle: {
+        fontSize: FS.FS14,
+        fontFamily: FF[400],
+        color: '#9CA3AF',
+        textAlign: 'center',
+        lineHeight: LH.LH20,
     },
     // Input section styles
     inputSection: {
@@ -51,12 +70,22 @@ const Loginstyles = StyleSheet.create({
         marginBottom: 20,
         lineHeight: LH.LH16,
     },
+    input: {
+        backgroundColor: '#F3F4F6',
+        borderRadius: 12,
+        paddingHorizontal: 16,
+        paddingVertical: 14,
+        fontSize: FS.FS16,
+        fontFamily: FF[400],
+        color: COLORS.BLACK,
+        borderWidth: 1,
+        borderColor: 'transparent',
+    },
     // Button container styles
     buttonContainer: {
-        alignItems:'center',
-        marginTop: 'auto',
+        width: '100%',
+        marginTop: 24,
         marginBottom: 20,
-        alignSelf:'center'
     },
 
     termsContainer: {
@@ -78,17 +107,30 @@ const Loginstyles = StyleSheet.create({
         fontWeight: 'bold',
     },
     inputContainer:{
-      marginBottom: 16,
+      marginBottom: 20,
     },
     errorContainer: {
         marginBottom: 16,
-        // paddingHorizontal: 20,
     },
     errorText: {
         fontSize: FS.FS12,
         fontFamily: FF[400],
         color: COLORS.ERROR_COLOR,
-        // textAlign: 'left',
+        marginTop: 6,
+        marginLeft: 4,
+    },
+    apiErrorContainer: {
+        backgroundColor: '#FEE2E2',
+        borderRadius: 8,
+        padding: 12,
+        marginTop: 16,
+        marginHorizontal: 4,
+    },
+    apiErrorText: {
+        fontSize: FS.FS14,
+        fontFamily: FF[500],
+        color: '#EF4444',
+        textAlign: 'center',
     }
 });
 

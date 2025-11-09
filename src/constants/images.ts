@@ -28,6 +28,7 @@ const Images = {
   PLUS: require('../assets/images/plus.png'),
   PUNCH_SYSTEM: require('../assets/images/employee.png'),
   CALL: require('../assets/images/call.png'),
+  AVATAR: require('../assets/images/avatar.png'),
   WHATSAPP: require('../assets/images/wp.png'),
   ARROW: require('../assets/images/arrow.png'),
   PROJECTS: require('../assets/images/projects.png'),
@@ -55,6 +56,10 @@ const Images = {
   RED_ARROW: require('../assets/images/redarrow.png'),
   WATCHCAL: require('../assets/images/watchCal.png'),
   TERRITORY: require('../assets/images/territory.png'),
+  SHIVALIK: require('../assets/images/shivalik.png'),
+  SHIVALIK_VILLA: require('../assets/images/shivalik-villa.png'),
+  SHIVALIK_GOLFS: require('../assets/images/shivalik-golfs.png'),
+  SHIVALIK_HEIGHTS: require('../assets/images/shivalik-heights.jpg'),
 };
 
 export default Images;

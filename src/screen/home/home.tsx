@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert, Linking, StatusBar, Platform, PermissionsAndroid } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Alert, Platform, PermissionsAndroid, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { HomeStyles } from './styles';
 import Container from '../../components/common/container';
+import { AppHeader, MetricsCard, QuickActions, TierProgressCard, ConversionRatios, ScheduledVisits, RecentActivity } from '../../components/common';
 import Images from '../../constants/images';
 import { Image } from 'react-native';
 import { COLORS, FF, FS } from '../../constants';
@@ -104,52 +105,7 @@ const Home = (props: any) => {
     }
   };
 
-  const homeMenuItems = [
-    {
-      label: 'Desk',
-      image: Images.FOLLOW_UP,
-    },
-    {
-      label: 'Project',
-      image: Images.PROJECT,
-    },
-    {
-      label: 'Pulses',
-      image: Images.PLUSES,
-    },
-    {
-      label: 'Feedback',
-      image: Images.FEEDBACK,
-    },
-    {
-      label: 'Network',
-      image: Images.CONTACT,
-    },
-    // {
-    //   label: 'Terrotory',
-    //   image: Images.TERROTORY,
-    // },
-    // {
-    //   label: 'R - ID',
-    //   image: Images.RIDES,
-    // },
-    // {
-    //   label: 'Setting',
-    //   image: Images.SETTINGS,
-    // },
-    // {
-    //   label: 'Punch System',
-    //   image: Images.PUNCH_SYSTEM,
-    // },
-    // {
-    //   label: 'Land',
-    //   image: Images.LAND,
-    // },
-    {
-      label: 'Territory',
-      image: Images.TERRITORY,
-    },
-  ];
+  const homeMenuItems: any[] = [];
 
   const renderItem = ({ item }: any) => {
     return (
@@ -157,29 +113,9 @@ const Home = (props: any) => {
         activeOpacity={0.8}
         style={[HomeStyles.menuItem]}
         onPress={() => {
-          if (item.label === 'Setting') {
-            props.navigation.navigate('Setting');
-          } else if (item.label === 'Network') {
-            props.navigation.navigate('Contact');
-          }
-          else if (item.label === 'Pulses') {
-            props.navigation.navigate('Pluses');
-          } else if (item.label === 'Feedback') {
-            props.navigation.navigate('Feedback');
-          } else if (item.label === 'Project') {
+          if (item.label === 'Project') {
             props.navigation.navigate('Project');
-          }
-          else if (item.label === 'R - ID') {
-            props.navigation.navigate('Profile');
-          }
-          else if (item.label === 'Punch System') {
-            props.navigation.navigate('PunchSystem');
-          }
-          else if (item.label === 'Desk') {
-            props.navigation.navigate('Desk');
-          }
-
-          else {
+          } else {
             Alert.alert(
               'Coming Soon',
               'We’ll be introducing this feature soon.',
@@ -196,34 +132,109 @@ const Home = (props: any) => {
 
 
 
-  return (
-    <Container>
+  const handleBellPress = () => {
+    Alert.alert('Notifications', 'No new notifications');
+  };
 
-      <View>
-        <Text style={{ fontSize: FS.FS22, color: COLORS.BLACK, fontFamily: FF[500],marginTop:40 }}>Hello, {userName}</Text>
-        <Text style={{ fontSize: FS.FS16, color: COLORS.GREY_TEXT, fontFamily: FF[400],marginTop:16,letterSpacing:0.1 }}>Welcome to R</Text>
-      </View>
-      <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          flex: 1,
-          marginTop: 40,
-        }}
+  const handleProfilePress = () => {
+    props.navigation.navigate('Profile');
+  };
+
+  const handleAddLead = () => {
+    props.navigation.navigate('AddLead');
+  };
+
+  const handleCreateInvoice = () => {
+    Alert.alert('Create Invoice', 'Navigate to Create Invoice screen');
+    // props.navigation.navigate('CreateInvoice');
+  };
+
+  const handleViewAllVisits = () => {
+    Alert.alert('View All', 'Navigate to all scheduled visits');
+    // props.navigation.navigate('ScheduledVisits');
+  };
+
+  const handleCallPress = (phone: string) => {
+    Alert.alert('Call', `Calling ${phone}`);
+    // Linking.openURL(`tel:${phone}`);
+  };
+
+  const handleVisitPress = (leadId: string) => {
+    props.navigation.navigate('LeadDetails', { leadId });
+  };
+
+  const handleViewAllActivity = () => {
+    Alert.alert('View All', 'Navigate to all recent activities');
+    // props.navigation.navigate('RecentActivity');
+  };
+
+  const handleActivityPress = (activity: any) => {
+    Alert.alert('Activity', `Viewing: ${activity.title}`);
+    // Navigate to activity details
+  };
+
+  return (
+    <View style={{ flex: 1, backgroundColor: COLORS.WHITE }}>
+      <AppHeader 
+        onBellPress={handleBellPress}
+        onProfilePress={handleProfilePress}
+      />
+      
+      <ScrollView 
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 20 }}
       >
-        <FlatList
-          data={homeMenuItems}
-          renderItem={renderItem}
-          numColumns={3}
-          contentContainerStyle={HomeStyles.menuGrid}
-          columnWrapperStyle={{}}
-          showsVerticalScrollIndicator={false}
+        {/* Metrics Card */}
+        <MetricsCard 
+          userName={userName || 'Rajesh Kumar'}
+          activeLeads={24}
+          bookings={8}
         />
 
+        {/* Quick Actions */}
+        <QuickActions 
+          onAddLead={handleAddLead}
+          onCreateInvoice={handleCreateInvoice}
+        />
 
+        {/* Tier Progress Card */}
+        <TierProgressCard 
+          currentTier="Gold"
+          commissionRate="2.5%"
+          progress={68}
+          progressLabel="Monthly Target Progress"
+        />
 
-      </View>
-    </Container>
+        {/* Conversion Ratios */}
+        <ConversionRatios />
+
+        {/* Scheduled Visits */}
+        <ScheduledVisits 
+          onViewAll={handleViewAllVisits}
+          onCallPress={handleCallPress}
+          onVisitPress={handleVisitPress}
+        />
+
+        {/* Recent Activity */}
+        <RecentActivity 
+          onViewAll={handleViewAllActivity}
+          onActivityPress={handleActivityPress}
+        />
+        
+        {/* Menu Grid */}
+        <View style={{ paddingHorizontal: 16, marginTop: 20 }}>
+          <FlatList
+            data={homeMenuItems}
+            renderItem={renderItem}
+            numColumns={3}
+            contentContainerStyle={HomeStyles.menuGrid}
+            columnWrapperStyle={{}}
+            scrollEnabled={false}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 

@@ -6,139 +6,113 @@ import {
   Alert,
   TouchableWithoutFeedback,
   Keyboard,
+  TextInput,
 } from 'react-native';
 import { Loginstyles } from './styles';
 import {
   Container,
-  CountryInputField,
   CustomButton,
   KeyboardAvoidingView,
 } from '../../components/common';
-import { COLORS, IMAGES } from '../../constants';
+import { COLORS } from '../../constants';
+import Images from '../../constants/images';
 import { useDispatch } from 'react-redux';
-import { loginAction } from '../../store/actions/auth/loginAction';
-import { getMaxPhoneLength, openLink } from '../../utils/helper';
 import PrefManager from '../../utils/prefManager';
 import STRING from '../../constants/strings';
-import { validateIndianPhoneNumber } from '../../utils/validationHelper';
+import { useAuth } from '../../hooks/useAuth';
 
 const Login = ({ navigation }: any) => {
   const dispatch = useDispatch() as any;
-  const [mobileNumber, setMobileNumber] = useState('');
-  const [countryCode, setCountryCode] = useState('+91');
-  const [phoneError, setPhoneError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const { login, loading: authLoading, error: authError } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleCountryCodeChange = (code: string) => {
-    setCountryCode(code);
-    setPhoneError(''); // Clear error when country code changes
+  const handleEmailChange = (text: string) => {
+    setEmail(text);
+    setEmailError(''); // Clear error when email changes
   };
 
-  const handlePhoneNumberChange = (text: string) => {
-    setMobileNumber(text);
-    setPhoneError(''); // Clear error when phone number changes
+  const handlePasswordChange = (text: string) => {
+    setPassword(text);
+    setPasswordError(''); // Clear error when password changes
   };
 
-  // Auto-clear error after 2 seconds
+  // Auto-clear errors after 3 seconds
   useEffect(() => {
-    if (phoneError) {
+    if (emailError || passwordError) {
       const timer = setTimeout(() => {
-        setPhoneError('');
-      }, 2000);
+        setEmailError('');
+        setPasswordError('');
+      }, 3000);
 
       return () => clearTimeout(timer);
     }
-  }, [phoneError]);
+  }, [emailError, passwordError]);
+
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   const handleLoginValidation = () => {
-    const maxLength = getMaxPhoneLength(countryCode);
+    let isValid = true;
 
-    // Check if mobile number is blank
-    if (mobileNumber.trim() === '') {
-      setPhoneError('Please enter your mobile number');
-      return;
+    // Email validation
+    if (!email.trim()) {
+      setEmailError('Email is required');
+      isValid = false;
+    } else if (!validateEmail(email)) {
+      setEmailError('Please enter a valid email');
+      isValid = false;
     }
 
-    // Check if mobile number length is less than required
-    if (mobileNumber.length < maxLength) {
-      setPhoneError(
-        `Please enter a valid phone number with ${maxLength} digits.`,
-      );
-      return;
+    // Password validation
+    if (!password.trim()) {
+      setPasswordError('Password is required');
+      isValid = false;
+    } else if (password.length < 6) {
+      setPasswordError('Password must be at least 6 characters');
+      isValid = false;
     }
 
-    // Special validation for Indian phone numbers (+91)
-    if (countryCode === '+91') {
-      const validationResult = validateIndianPhoneNumber(
-        mobileNumber,
-        countryCode,
-      );
-      if (!validationResult.isValid) {
-        setPhoneError(
-          validationResult.fieldErrors.phoneNumber || 'Invalid phone number',
-        );
-        return;
-      }
+    if (isValid) {
+      handleLogin();
     }
-
-    // If validation passes, clear error and proceed with login
-    setPhoneError('');
-    handleLogin();
   };
 
   const handleLogin = async () => {
-    setIsLoading(true);
     try {
-      // Clear any existing token
-      PrefManager.removeValue(STRING.TOKEN);
+      console.log('Attempting login with:', { email: email.trim() });
+      
+      const response = await login({
+        email: email.trim(),
+        password: password,
+      });
 
-      // Static credentials bypass - check if mobile number matches static number
-      const STATIC_MOBILE_NUMBER = '9988776655';
+      console.log('Login response:', response);
 
-      if (mobileNumber === STATIC_MOBILE_NUMBER) {
-        console.log('Static login detected - bypassing API');
-        // Navigate directly to OTP screen with phone number
-        navigation.navigate('OtpScreen', {
-          phoneNumber: mobileNumber,
-          countryCode: countryCode,
-        });
-        setIsLoading(false);
-        return;
-      }
+      // Store token and user data in PrefManager for backward compatibility
+      await PrefManager.setValue(STRING.TOKEN, response.token);
+      await PrefManager.setValue('userData', JSON.stringify(response.user));
 
-      // Original API flow for other numbers
-      const payload = {
-        countryCode: countryCode,
-        phoneNumber: mobileNumber,
-      };
+      // Trigger auth state update to navigate to app
+      dispatch({ 
+        type: 'SET_AUTH_TOKEN', 
+        payload: { accessToken: response.token } 
+      });
 
-      const response = await dispatch(loginAction(payload));
-
-      if (response.status === 200) {
-        console.log('Login Success', response.data);
-        // Navigate to OTP screen with phone number
-        navigation.navigate('OtpScreen', {
-          phoneNumber: mobileNumber,
-          countryCode: countryCode,
-        });
-      } else {
-        console.log('Login Failed', response);
-        Alert.alert('Login Failed', 'Please try again');
-      }
+      Alert.alert('Success', `Welcome ${response.user.name}!`);
     } catch (error: any) {
-      console.log('Login error:', error);
-      Alert.alert('Login Failed', error.message || 'Please try again');
-    } finally {
-      setIsLoading(false);
+      console.log('Login error details:', {
+        message: error.message,
+        response: error.response,
+        request: error.request,
+      });
+      Alert.alert('Login Failed', error.message || 'Invalid credentials. Please try again.');
     }
-  };
-
-  const handleTermsPress = () => {
-    openLink('https://realestateos.io/terms-and-conditions');
-  };
-
-  const handlePrivacyPress = () => {
-    openLink('https://realestateos.io/privacy-policy');
   };
 
   const dismissKeyboard = () => {
@@ -150,63 +124,65 @@ const Login = ({ navigation }: any) => {
       <KeyboardAvoidingView style={{ flex: 1, backgroundColor: COLORS.WHITE }}>
         <TouchableWithoutFeedback onPress={dismissKeyboard}>
           <View style={Loginstyles.container}>
-            {/* App Logo */}
-            <View style={Loginstyles.header}>
-              <Image source={IMAGES.APP_LOGO} style={Loginstyles.logo} />
-            </View>
-
             {/* Login Title */}
             <View style={Loginstyles.titleContainer}>
-              <Text style={Loginstyles.title}>Login</Text>
+              <Text style={Loginstyles.title}>Welcome Channel Partner</Text>
+              <Text style={Loginstyles.subtitle}>Sign in to your account to continue</Text>
             </View>
 
-            {/* Mobile Number Input Section */}
-            <View style={Loginstyles.inputSection}>
-              <Text style={Loginstyles.inputLabel}>
-                Enter your mobile number to receive a verification code.
-              </Text>
-            </View>
+            {/* Email Input */}
             <View style={Loginstyles.inputContainer}>
-              <CountryInputField
-                placeholder="Mobile No"
-                value={mobileNumber}
-                onChangeText={handlePhoneNumberChange}
-                onCountryCodeChange={handleCountryCodeChange}
-                maxLength={getMaxPhoneLength(countryCode)}
+              <TextInput
+                style={Loginstyles.input}
+                placeholder="Enter Email"
+                placeholderTextColor="#9CA3AF"
+                value={email}
+                onChangeText={handleEmailChange}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
               />
+              {emailError ? (
+                <Text style={Loginstyles.errorText}>{emailError}</Text>
+              ) : null}
             </View>
 
-            {/* Error Message */}
-            {phoneError ? (
-              <View
-                style={[Loginstyles.errorContainer, { alignSelf: 'flex-end' }]}
-              >
-                <Text style={Loginstyles.errorText}>{phoneError}</Text>
-              </View>
-            ) : null}
+            {/* Password Input */}
+            <View style={Loginstyles.inputContainer}>
+              <TextInput
+                style={Loginstyles.input}
+                placeholder="Enter Password"
+                placeholderTextColor="#9CA3AF"
+                value={password}
+                onChangeText={handlePasswordChange}
+                secureTextEntry={!showPassword}
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+              {passwordError ? (
+                <Text style={Loginstyles.errorText}>{passwordError}</Text>
+              ) : null}
+            </View>
 
-            {/* Continue Button */}
+            {/* Login Button */}
             <View style={Loginstyles.buttonContainer}>
               <CustomButton
-                title="Continue"
+                title="Login"
                 onPress={handleLoginValidation}
-                loading={isLoading}
+                loading={authLoading}
               />
-              <View style={Loginstyles.termsContainer}>
-                <Text style={Loginstyles.termsText}>
-                  By continuing you agree to the{' '}
-                  <Text style={Loginstyles.linkText} onPress={handleTermsPress}>
-                    Terms of Service
-                  </Text>{' '}
-                  and{' '}
-                  <Text
-                    style={Loginstyles.linkText}
-                    onPress={handlePrivacyPress}
-                  >
-                    Privacy Policy
-                  </Text>
-                </Text>
+            </View>
+
+            {/* API Error Display */}
+            {authError && (
+              <View style={Loginstyles.apiErrorContainer}>
+                <Text style={Loginstyles.apiErrorText}>{authError}</Text>
               </View>
+            )}
+
+            {/* App Logo at Bottom */}
+            <View style={Loginstyles.footer}>
+              <Image source={Images.SHIVALIK} style={Loginstyles.logoLarge} resizeMode="contain" />
             </View>
           </View>
         </TouchableWithoutFeedback>

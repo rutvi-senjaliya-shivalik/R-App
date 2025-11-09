@@ -51,13 +51,9 @@ const RootNavigation = () => {
   return (
     <NavigationContainer key={isAuthenticated ? 'authenticated' : 'unauthenticated'}>
       {isAuthenticated ? (
-        <>
-          <AppStack />
-        </>
+        <AppStack />
       ) : (
-        <>
-          <AuthStack />
-        </>
+        <AuthStack />
       )}
     </NavigationContainer>
   );
